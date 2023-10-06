@@ -14,8 +14,6 @@ async function main() {
         console.log('Borrando tablas');
 
         await connection.query('DROP TABLE IF EXISTS recomendaciones');
-        await connection.query('DROP TABLE IF EXISTS direccion');
-        await connection.query('DROP TABLE IF EXISTS datos_usuarios');
         await connection.query('DROP TABLE IF EXISTS usuarios');
 
         console.log('Creando tablas');
@@ -40,7 +38,8 @@ async function main() {
                 descripcion varchar(280),
                 id_usuarios int unsigned not null,
                 foreign key(id_usuarios) references usuarios(id),
-                created_at datetime default current_timestamp
+                created_at datetime default current_timestamp,
+                modified_at datetime on update current_timestamp
             );
         `);
 

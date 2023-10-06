@@ -1,7 +1,9 @@
 const insertUserController = require('./insertUserController');
 const loginUsersController = require('./loginUsersController');
+const getAllUserController = require('./getAllUserController');
 
-module.exports= {
+module.exports = {
     insertUserController,
-    loginUsersController
-}
+    loginUsersController,
+    getAllUserController,
+};
