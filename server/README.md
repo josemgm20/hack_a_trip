@@ -20,7 +20,7 @@ PORT=8080
 Reemplaza your_database_host, your_database_user, your_database_password y your_database_name con los valores de tu propia base de datos.
 
 Instalación de dependencias
-Ejecuta el siguiente comando para instalar las dependencias del proyecto:
+Ejecuta el siguiente comando para instalar las dependencias del proyecto: 
 
 bash
 Copy code
