@@ -29,6 +29,13 @@ module.exports = {
             message: 'Error al guardar el archivo en disco',
         };
     },
+    deleteFileError() {
+        throw {
+            httpStatus: 501,
+            code: 'FILE_DELETE_FAILED',
+            message: 'Error al eliminar el archivo en disco',
+        };
+    },
     unauthorizedUserError() {
         throw {
             httpStatus: 403,
@@ -36,11 +43,32 @@ module.exports = {
             message: 'El usuario no está autorizado para hacer esta operación',
         };
     },
-    recomendacionNotFoundError() {
+    notFoundError() {
         throw {
             httpStatus: 404,
-            code: 'RECOMENDATION_NOT_FOUND',
-            message: 'No se ha encontrado la recomendacion',
+            code: 'NOT_FOUND_ERROR',
+            message: 'No se ha encontrado',
+        };
+    },
+    notAutheticatedError() {
+        throw {
+            httpStatus: 405,
+            code: 'NOT_AUTHENTICATED_USER',
+            message: 'El usuario no está autentificado',
+        };
+    },
+    invalidTokenError() {
+        throw {
+            httpStatus: 406,
+            code: 'INVALID_TOKEN_ERROR',
+            message: 'El token es invalido',
+        };
+    },
+    likeAlreadyExistError() {
+        throw {
+            httpStatus: 406,
+            code: 'LIKE_ALREADY_EXIST_ERROR',
+            message: 'El like ya existe',
         };
     },
 };
