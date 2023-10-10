@@ -1,4 +1,4 @@
-const mariadb = require("mariadb/promise")
+const mariadb = require("mariadb/promise");
 
 const {mariadb_HOST, mariadb_USER, mariadb_PASSWORD, mariadb_DATABASE } = process.env;
 
