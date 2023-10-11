@@ -1,8 +1,6 @@
 //Aquí importamos la función insertUserModel para poder trabajar con ella en el controlador
 const insertUserModel = require('../../models/users/insertUserModel');
 
-// Importamos el esquema de Joi
-const insertUserSchema = require('../../schemas/users/insertUserSchema');
 //Importamos los errores.
 const { missingFieldsError } = require('../../services/errorService');
 
