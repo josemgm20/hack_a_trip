@@ -26,4 +26,4 @@ const crearRecomendacionModel = async (
         if (connection) connection.release();
     }
 };
-module.exports = crearRecomendacionModel();
+module.exports = crearRecomendacionModel;

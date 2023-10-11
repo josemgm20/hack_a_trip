@@ -13,15 +13,8 @@ const routes = require('./src/routes');
 const app = express();
 
 app.use(morgan('dev'));
-app.use(express.json()); //raw
 
-//Middleware de 404
-app.use((req, res) => {
-    res.status(404).send({
-        status: 'error,',
-        message: '404 not found',
-    });
-});
+app.use(express.json()); //raw
 
 //Midelware para evitar problemas con cors
 app.use(cors());
@@ -29,7 +22,15 @@ app.use(cors());
 //Middleware donde se encuentran las rutas
 app.use(routes);
 
-//Middleware de gestion de errores
+// Middleware de ruta no encontrada.
+app.use((req, res) => {
+    res.status(404).send({
+        status: 'error,',
+        message: 'Ruta no encontrada',
+    });
+});
+
+// Middleware de gestion de errores.
 app.use((error, req, res, next) => {
     console.error(error);
 

@@ -14,7 +14,6 @@ const {
 } = require('../controllers/recomendaciones');
 
 //Insertar una recomendacion
-
 router.post(
     '/recomendaciones',
     authUserController,
