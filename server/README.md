@@ -10,12 +10,13 @@ Configuración
 Variables de entorno
 La aplicación utiliza variables de entorno para configurar la conexión a la base de datos y el puerto del servidor. Crea un archivo .env en la raíz del proyecto y configura las siguientes variables:
 
+
 dotenv
 Copy code
-DB_HOST=your_database_host
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-DB_DATABASE=your_database_name
+mariadb_HOST=your_database_host
+mariadb_USER=your_database_user
+mariadb_PASSWORD=your_database_password
+mariadb_DATABASE=your_database_name
 PORT=8080
 Reemplaza your_database_host, your_database_user, your_database_password y your_database_name con los valores de tu propia base de datos.
 
