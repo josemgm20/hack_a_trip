@@ -1,4 +1,4 @@
-import './Principal.css';
+import './PostSearch.css';
 
 const Principal = () => {
     return (
