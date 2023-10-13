@@ -13,6 +13,7 @@ async function main() {
 
         console.log('Borrando tablas');
 
+        await connection.query('DROP TABLE IF EXISTS likes');
         await connection.query('DROP TABLE IF EXISTS recomendaciones');
         await connection.query('DROP TABLE IF EXISTS usuarios');
 
@@ -20,10 +21,10 @@ async function main() {
 
         await connection.query(`
             CREATE TABLE usuarios(
-                id int unsigned primary key auto_increment,
-                username varchar(50) unique not null,
-                email varchar(50) unique not null,
-                password varchar(100) not null,
+                id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+                username varchar(50) UNIQUE NOT NULL,
+                email varchar(50) UNIQUE NOT NULL,
+                password varchar(100) NOT NULL,
                 created_at datetime default current_timestamp,
                 modified_at datetime on update current_timestamp
             );
@@ -31,13 +32,25 @@ async function main() {
 
         await connection.query(`
             CREATE TABLE recomendaciones(
-                id int unsigned primary key auto_increment,
-                titulo varchar(50) not null,
+                id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+                titulo varchar(50) NOT NULL,
                 tipo enum('gastronómico', 'museos') NOT NULL,
                 foto varchar(100),
                 descripcion varchar(280),
-                id_usuarios int unsigned not null,
-                foreign key(id_usuarios) references usuarios(id),
+                usuarioId INT UNSIGNED NOT NULL,
+                foreign key(usuarioId) references usuarios(id),
+                created_at datetime default current_timestamp,
+                modified_at datetime on update current_timestamp
+            );
+        `);
+        await connection.query(`
+            CREATE TABLE likes(
+                id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+                puntuacion INT UNSIGNED,
+                usuarioId INT UNSIGNED NOT NULL,
+                recomendacionId INT UNSIGNED NOT NULL,
+                foreign key(usuarioId) references usuarios(id),
+                foreign key(recomendacionId) references recomendaciones(id),
                 created_at datetime default current_timestamp,
                 modified_at datetime on update current_timestamp
             );

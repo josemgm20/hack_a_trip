@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 //Importamos los errores.
-const selectUserByEmail = require('../../models/users/selectUserByEmail');
-
 const {
     missingFieldsError,
     invalidCredentialsError,
@@ -10,6 +8,9 @@ const {
 
 // Importamos encriptacion
 const bcrypt = require('bcrypt');
+
+// Importamos modelos
+const { selectUserByEmailModel } = require('../../models/users');
 
 const loginUsersController = async (req, res, next) => {
     try {
@@ -20,7 +21,7 @@ const loginUsersController = async (req, res, next) => {
         }
 
         //Obtenemos datos del usuario
-        const usuario = await selectUserByEmail(email);
+        const usuario = await selectUserByEmailModel(email);
 
         //Comprobamos la contraseña
         const validPass = await bcrypt.compare(password, usuario.password);

@@ -1,5 +1,9 @@
-const insertUserController = require('./insertUserController')
+const insertUserModel = require('./insertUserModel');
+const selectUserByIdModel = require('./selectUserByIdModel');
+const selectUserByEmailModel = require('./selectUserByEmailModel');
 
 module.exports = {
-    insertUserController
+    insertUserModel,
+    selectUserByIdModel,
+    selectUserByEmailModel,
 };

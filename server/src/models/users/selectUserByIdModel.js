@@ -1,22 +1,22 @@
-// Importacion de base de datos
 const { getConnection } = require('../../db/getConnection');
 
-const { invalidCredentialsError } = require('../../services/errorService.js');
+const { notFoundError } = require('../../services/errorService.js');
 
-const selectUserByEmail = async (email) => {
+const selectUserByIdModel = async (id) => {
     let connection;
 
     try {
         const connection = await getConnection();
 
+        // Localizamos por id
         const usuarios = await connection.query(
-            `SELECT id, password FROM usuarios WHERE email = ?`,
-            [email]
+            `SELECT id FROM usuarios WHERE id = ?`,
+            [id]
         );
 
         // Si no hay usuario lanzamos error
         if (usuarios.length < 1) {
-            invalidCredentialsError();
+            notFoundError('usuario');
         }
 
         // No existe mas de un usuario con el mismo email.
@@ -25,5 +25,4 @@ const selectUserByEmail = async (email) => {
         if (connection) connection.release();
     }
 };
-
-module.exports = selectUserByEmail;
+module.exports = selectUserByIdModel;

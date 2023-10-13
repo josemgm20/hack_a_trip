@@ -1,12 +1,13 @@
-const mariadb = require("mariadb/promise");
+const mariadb = require('mariadb/promise');
 
-const {mariadb_HOST, mariadb_USER, mariadb_PASSWORD, mariadb_DATABASE } = process.env;
+const { mariadb_HOST, mariadb_USER, mariadb_PASSWORD, mariadb_DATABASE } =
+    process.env;
 
 let pool;
 
 //Requerimiento de base de datos si no existe el pool
 const getConnection = async () => {
-    if(!pool){
+    if (!pool) {
         pool = mariadb.createPool({
             connectionLimit: 10,
             host: mariadb_HOST,
@@ -18,7 +19,7 @@ const getConnection = async () => {
     }
 
     return await pool.getConnection();
-}
+};
 
 module.exports = {
     getConnection,

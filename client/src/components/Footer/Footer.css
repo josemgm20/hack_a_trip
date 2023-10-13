@@ -1,0 +1,7 @@
+div.app > footer{
+    text-align: center;
+    letter-spacing: 1px;
+    padding: 2rem;
+    background-color: aqua;
+    color: white;
+}
