@@ -15,7 +15,7 @@ const {
 
 //Insertar una recomendacion
 router.post(
-    '/recomendaciones',
+    '/recomendaciones/:usuarioId/crearpost',
     authUserController,
     crearRecomendacionController
 );
@@ -37,7 +37,7 @@ router.delete(
 );
 
 // Seleccionar todas las recomendaciones
-router.get('/tweets', listRecomendacionController);
+router.get('/recomendaciones', listRecomendacionController);
 
 // Eliminar una recomendacion
 router.delete(
