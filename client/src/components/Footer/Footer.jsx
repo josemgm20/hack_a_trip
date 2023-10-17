@@ -28,7 +28,7 @@ function Footer() {
                     <div className="col-md-4">
                         <h5>Contact Us</h5>
                         <p>
-                            Email: info@travelview.com
+                            Email: travels@hackatrip.net
                         </p>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-# Hack a Trip!
+# Nombre de Tu Proyecto
 
 ¡Bienvenido a tu proyecto React Vite! Este README proporciona una descripción general básica de cómo comenzar con tu proyecto.
 
