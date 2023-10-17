@@ -15,7 +15,7 @@ function Dashboard() {
             fetch(`${config.serverUrl}:${config.serverPort}/users`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `${token}`,
                 },
             })
                 .then((response) => {

@@ -1,7 +1,7 @@
 // App.jsx
 import React, { useState } from 'react'; // Importar React y useState desde React
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // Importar componentes de enrutamiento desde react-router-dom
-import Welcome from './components/Welcome/Welcome'; // Importar el componente Welcome
+import Welcome from './components/Index/Home/Home'; // Importar el componente Welcome
 import SignIn from './components/User/SignIn'; // Importar el componente SignIn
 import Register from './components/User/Register'; // Importar el componente Register
 import Dashboard from './components/User/Dashboard'; // Importar el componente Dashboard
