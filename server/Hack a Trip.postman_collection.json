@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "8937d2de-2524-419d-a0b6-f62b2d533055",
+		"name": "Hack a Trip",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30101102"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"josemgm20\",   \r\n    \"email\": \"jose.garcia.unamuno@gmail.com\",\r\n    \"password\": \"12345567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"josemgm20\",   \r\n    \"email\": \"jose.garcia.unamuno@gmail.com\",\r\n    \"password\": \"12345567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk3NDQ0ODI5LCJleHAiOjE2OTgwNDk2Mjl9.dacfhuw5VCo2oHspucaP3W93O4gVUxHd1E0eKHCm0Gs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recomendaciones",
+			"item": [
+				{
+					"name": "Crear Recomendacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Escapada Nocturna\",\r\n    \"tipo\": \"museos\",\r\n    \"descripcion\": \"Gracias a la noche en blanco celebrada este proximo sabado en Sevilla, podremos visitar todos los museos y las iglesias de nuestra localidad\",\r\n    \"usuarioId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/recomendaciones/:1/crearpost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"recomendaciones",
+								":1",
+								"crearpost"
+							],
+							"variable": [
+								{
+									"key": "1",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recomendacion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Escapada Nocturna\",\r\n    \"tipo\": \"museos\",\r\n    \"descripcion\": \"Gracias a la noche en blanco celebrada este proximo sabado en Sevilla, podremos visitar todos los museos y las iglesias de nuestra localidad\",\r\n    \"usuarioId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/recomendaciones/:recomendacionId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"recomendaciones",
+								":recomendacionId"
+							],
+							"variable": [
+								{
+									"key": "recomendacionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dar Like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/recomendaciones/:recomendacionId/likes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"recomendaciones",
+								":recomendacionId",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "recomendacionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Like",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/recomendaciones/:recomendacionId/likes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"recomendaciones",
+								":recomendacionId",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "recomendacionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listado Recomendaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/recomendaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"recomendaciones"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
