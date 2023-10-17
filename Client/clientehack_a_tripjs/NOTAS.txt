@@ -1,3 +1,0 @@
-Añadir commit de la carpeta public
-
-añadir commit del index 
