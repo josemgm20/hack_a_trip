@@ -5,7 +5,7 @@ import Welcome from './components/Index/Home/Home'; // Importar el componente We
 import SignIn from './components/User/SignIn'; // Importar el componente SignIn
 import Register from './components/User/Register'; // Importar el componente Register
 import Dashboard from './components/User/Dashboard'; // Importar el componente Dashboard
-import NotFound from './components/Utls/NotFound'; // Importar el componente NotFound
+import NotFound from './components/NotFound'; // Importar el componente NotFound
 
 function App() {
   return (

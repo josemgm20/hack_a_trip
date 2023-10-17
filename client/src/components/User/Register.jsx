@@ -1,34 +1,17 @@
-import React, { useState } from 'react';
-import config from '../../config';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { useUser } from '../../Hooks/useUser';
 
-function Register() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-
-    const handleRegister = () => {
-        // Create an object with user data
-        const userData = { username, password, email };
-
-        // Make a POST request to your Node server to register the user
-        fetch(`${config.serverUrl}:${config.serverPort}/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // Handle the response from your server (e.g., display success or error message)
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error('Registration error:', error);
-            });
-    };
+const Register = () => {
+    const {
+        username,
+        setUsername,
+        password,
+        setPassword,
+        email,
+        setEmail,
+        handleRegister, // Importamos de handleRegister 
+    } = useUser();
 
     return (
         <div>
@@ -63,7 +46,7 @@ function Register() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <button type="button" className="btn btn-primary" onClick={handleRegister}>
+                    <button type="button" className="btn btn-primary" onClick={() => handleRegister(username, password, email)}>
                         Register
                     </button>
                 </form>

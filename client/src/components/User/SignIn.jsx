@@ -1,41 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import config from '../../config';
-import { useNavigate } from 'react-router-dom'; // Corrected import
+import { useUser } from '../../Hooks/useUser';
 
-function SignIn() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+const SignIn = () => {
+    const { email, setEmail, password, setPassword, error, handleSignIn } = useUser();
 
-    const navigate = useNavigate(); // Corrected variable name
-
-    const handleSignIn = () => {
-        const userData = {
-            email,
-            password,
-        };
-
-        fetch(`${config.serverUrl}:${config.serverPort}/users/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    // Successful sign-in; redirect to the Dashboard
-                    navigate('/dashboard'); // Corrected usage of the navigate function
-                } else {
-                    throw new Error('Sign-in failed');
-                }
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
-    };
 
     return (
         <div>
