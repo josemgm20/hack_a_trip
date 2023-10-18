@@ -1,20 +1,17 @@
 // Importamos modelos
-
 const selectAllRecomendacionModel = require('../../models/recomendaciones/selectAllRecomendacionesModel');
 
-// Importamos errores
-
-//Funcion controladora que elimina un like
+// Funcion controladora que lista recomendaciones
 const listRecomendacionController = async (req, res, next) => {
     try {
-        // obtenemos el query
-        const recomendacion = await selectAllRecomendacionModel(req.user?.id);
+        // Obtenemos las recomendaciones utilizando el modelo
+        const recomendaciones = await selectAllRecomendacionModel();
 
-        res.sent({
+        res.status(200).json({
             status: 'ok',
             data: {
-                recomendacion,
-            },
+                recomendacion: recomendaciones
+            }
         });
     } catch (err) {
         next(err);

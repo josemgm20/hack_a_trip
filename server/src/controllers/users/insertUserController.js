@@ -1,21 +1,21 @@
-//Aquí importamos la función insertUserModel para poder trabajar con ella en el controlador
+// Importar la función insertUserModel para trabajar con ella en el controlador
 const insertUserModel = require('../../models/users/insertUserModel');
 
-//Importamos los errores.
+// Importar funciones de manejo de errores
 const { missingFieldsError } = require('../../services/errorService');
 
-// Creamos la función controlador que se encarga de gestionar el núcleo de la función
+// Crear la función del controlador para manejar la lógica principal
 const insertUserController = async (req, res, next) => {
-    // Almacenamos en tres variables haciendo desestructuring los campos que nos vienen del body en el postman o desde una web
+    // Desestructurar los campos del cuerpo de la solicitud
     try {
         const { username, email, password } = req.body;
 
-        // Validamos los datos con Joi
+        // Validar los datos utilizando Joi u otro método de validación
         if (!username || !email || !password) {
             missingFieldsError();
         }
 
-        //insertamos el usuario
+        // Insertar al usuario
         await insertUserModel(username, email, password);
 
         res.send({

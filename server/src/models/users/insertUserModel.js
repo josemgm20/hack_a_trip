@@ -1,54 +1,55 @@
-//Importamos la conexion con base de datos
+// Importa el módulo de conexión a la base de datos
 const { getConnection } = require('../../db/getConnection');
 
-// Importamos encriptacion
+// Importa la biblioteca bcrypt para el hash de contraseñas
 const bcrypt = require('bcrypt');
 
-//Funcion que conectara a la base de datos y creara el usuario
+// Función para conectar con la base de datos y crear un nuevo usuario
 const insertUserModel = async (username, email, password) => {
-    // Creamos una variable que va almacenar la conexión libre
+    // Crea una variable para almacenar la conexión a la base de datos
     let connection;
 
     try {
-        // Aquí establecemos la conexión con la base de datos
+        // Establece una conexión con la base de datos
         connection = await getConnection();
 
-        // Comprobamos si existe en la base de datos algún usuario con el nombre que recibimos.
-        let usuarios = await connection.query(
+        // Comprueba si ya existe un usuario con el mismo nombre de usuario en la base de datos
+        let usuariosConMismoUsuario = await connection.query(
             `SELECT id FROM usuarios WHERE username = ?`,
             [username]
         );
 
-        // Si existe algún usuario con ese nombre lanzamos un error.
-        if (usuarios.length > 0) {
-            const err = new Error('Ya existe un usuario con ese nombre');
-            err.httpStatus = 409;
+        // Si ya existe un usuario con el mismo nombre de usuario, lanza un error
+        if (usuariosConMismoUsuario.length > 0) {
+            const err = new Error('Un usuario con este nombre de usuario ya existe');
+            err.httpStatus = 409; // Conflicto
             throw err;
         }
 
-        // Comprobamos si existe en la base de datos algún usuario con el email que recibimos.
-        usuarios = await connection.query(
+        // Comprueba si ya existe un usuario con el mismo correo electrónico en la base de datos
+        let usuariosConMismoEmail = await connection.query(
             `SELECT id FROM usuarios WHERE email = ?`,
             [email]
         );
 
-        // Si existe algún usuario con ese email lanzamos un error.
-        if (usuarios.length > 0) {
-            const err = new Error('Ya existe un usuario con ese email');
-            err.httpStatus = 409;
+        // Si ya existe un usuario con el mismo correo electrónico, lanza un error
+        if (usuariosConMismoEmail.length > 0) {
+            const err = new Error('Un usuario con este correo electrónico ya existe');
+            err.httpStatus = 409; // Conflicto
             throw err;
         }
 
-        // Encriptacion de contraseña
-        const hashedPass = await bcrypt.hash(password, 10);
+        // Realiza el hash de la contraseña usando bcrypt
+        const contraseñaHasheada = await bcrypt.hash(password, 10);
 
-        // Creamos el usuario en Base de datos
+        // Crea el usuario en la base de datos
         await connection.query(
             `INSERT INTO usuarios(username, email, password) VALUES(?, ?, ?)`,
-            [username, email, hashedPass]
+            [username, email, contraseñaHasheada]
         );
     } finally {
         if (connection) connection.release();
     }
 };
+
 module.exports = insertUserModel;

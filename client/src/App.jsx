@@ -1,24 +1,35 @@
-// App.jsx
-import React, { useState } from 'react'; // Importar React y useState desde React
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // Importar componentes de enrutamiento desde react-router-dom
-import Welcome from './components/Index/Home/Home'; // Importar el componente Welcome
-import SignIn from './components/User/SignIn'; // Importar el componente SignIn
-import Register from './components/User/Register'; // Importar el componente Register
-import Dashboard from './components/User/Dashboard'; // Importar el componente Dashboard
-import NotFound from './components/NotFound'; // Importar el componente NotFound
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Welcome from './components/Index/Home/Home';
+import SignIn from './components/User/SignIn';
+import Register from './components/User/Register';
+import Dashboard from './components/User/Dashboard';
+import RegistrationSuccess from './components/User/RegistrationSuccess';
+import MainRecomendation from './components/Recomendacion/MainRecomendation';
+import NotFound from './components/NotFound';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
     <>
-      <Routes> {/* Definir las rutas para la aplicación */}
-        <Route path="/" element={<Welcome />} /> {/* Ruta para la página de bienvenida (Welcome) */}
-        <Route path="/account" element={<SignIn />} /> {/* Ruta para la página de inicio de sesión (SignIn) */}
-        <Route path="/register" element={<Register />} /> {/* Ruta para la página de registro (Register) */}
-        <Route path="/dashboard" element={<Dashboard />} /> {/* Ruta para la página del panel de control (Dashboard) */}
-        <Route path="*" element={<NotFound />} /> {/* Ruta para mostrar una página "No encontrada" (NotFound) en caso de rutas no coincidentes */}
+      {/* Encabezado de la aplicación */}
+      <Header />
+      <Routes>
+        {/* Rutas de la aplicación */}
+        <Route path="/" element={<Welcome />} />
+        <Route path="/account" element={<SignIn />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/registration-success" element={<RegistrationSuccess />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/explore" element={<MainRecomendation />} />
+        {/* Ruta para manejar cualquier otro caso (página no encontrada) */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      {/* Pie de página de la aplicación */}
+      <Footer />
     </>
   );
 }
 
-export default App; // Exportar el componente App como exportación predeterminada
+export default App;

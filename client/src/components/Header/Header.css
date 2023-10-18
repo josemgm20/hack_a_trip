@@ -1,0 +1,14 @@
+/* Header.css */
+
+/* Navbar brand styles */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+/* Icon styles */
+.icon {
+    height: 7vw; /* Adjust the height to your preferred size */
+    width: auto; /* Adjust the width to your preferred size */
+    margin-top: 0.5vw; /* Optional margin to separate the icon from the text */
+}

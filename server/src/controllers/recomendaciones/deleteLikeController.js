@@ -10,7 +10,8 @@ const deleteLikeController = async (req, res, next) => {
         // obtenemos el ide de la recomendacion.
         const { recomendacion } = req.params;
 
-        await deleteLikeModel(recomendacionId, req.user.id);
+        await deleteLikeModel(recomendacion, req.user.id);
+
 
         res.sent({
             status: 'ok',

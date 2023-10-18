@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Header.css'; // Import the CSS file
+
+const headerStyles = {
+    // Your existing styles
+};
 
 function Header() {
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container">
-                    <Link to="/" className="navbar-brand">
-                        Hack a Trip!
+                    <Link to="/" className="navbar-brand" style={headerStyles.navbarBrand}>
+                        <img src="/hackatrip.ico" alt="Hack a Trip" className="icon" />
                     </Link>
                     <button
                         className="navbar-toggler"

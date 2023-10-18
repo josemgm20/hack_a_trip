@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Register, SignIn, fetchUser } from '../Services/userService';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para la navegación
+import { Register, SignIn, fetchUser } from '../Services/useService';
+import { useNavigate } from 'react-router-dom';
 
 export const useUser = () => {
     const [username, setUsername] = useState('');
@@ -8,12 +8,10 @@ export const useUser = () => {
     const [email, setEmail] = useState('');
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate(); // Inicializa la función navigate para la navegación
+    const navigate = useNavigate();
 
-    // Efecto para cargar los datos del usuario al cargar la página
     useEffect(() => {
         const token = localStorage.getItem('userToken');
-        console.log('Token almacenado:', token);
 
         if (token) {
             (async () => {
@@ -30,21 +28,27 @@ export const useUser = () => {
         }
     }, []);
 
-    // Función para manejar el registro del usuario
+    // Función para manejar el registro de usuario
     const handleRegister = async () => {
         try {
-            await Register(username, password, email);
+            // Register debería devolver un éxito o datos de usuario, asumiendo que el éxito devuelve un objeto de usuario
+            const registeredUser = await Register(username, password, email);
+
+            if (registeredUser) {
+                navigate('/registration-success'); // Corregido el error tipográfico, debe ser navigate
+            }
         } catch (err) {
             console.error('Error de registro:', err);
         }
     };
 
-    // Función para manejar el inicio de sesión del usuario
+    // Función para manejar el inicio de sesión de usuario
     const handleSignIn = async () => {
         try {
             const success = await SignIn(email, password);
+
             if (success) {
-                navigate('/Dashboard'); // Utiliza la función navigate para ir a /Dashboard
+                navigate('/Dashboard'); // Corregido el error tipográfico, debe ser navigate
             }
         } catch (err) {
             console.error('Error de inicio de sesión:', err);

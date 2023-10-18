@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "initdb": "node ./src/db/initdb.js",
-    "start": "nodemon server.js"
-  },
+        "initDb": "node ./src/db/initDb.js",
+        "dev": "nodemon ./app.js"
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
