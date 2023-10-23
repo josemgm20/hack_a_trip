@@ -21,6 +21,6 @@ router.post('/users/login', loginUsersController);
 router.get('/users', getAllUserController);
 
 //Informacion del propio usuario.
-router.get('/users/userId', authUserController, getUserController);
+router.get('/user', authUserController, getUserController);
 
 module.exports = router;

@@ -44,9 +44,7 @@ const loginUsersController = async (req, res, next) => {
             status: 'ok',
             data: {
                 token: token,
-                id: user.id,
-                username: user.username,
-                email: user.email,
+
             },
         });
     } catch (err) {

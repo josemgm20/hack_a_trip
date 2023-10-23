@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
         "initDb": "node ./src/db/initDb.js",
-        "dev": "nodemon ./app.js"
+        "dev": "nodemon ./server.js",
+        "start" :"node --watch server.js"
     },
   "keywords": [],
   "author": "",

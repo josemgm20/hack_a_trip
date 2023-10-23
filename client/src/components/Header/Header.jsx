@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css'; // Import the CSS file
+import './Header.css'; // Importar el archivo CSS
 
 const headerStyles = {
-    // Your existing styles
+    // Tus estilos existentes
 };
 
 function Header() {
@@ -21,7 +21,7 @@ function Header() {
                         data-target="#navbarNav"
                         aria-controls="navbarNav"
                         aria-expanded="false"
-                        aria-label="Toggle navigation"
+                        aria-label="Alternar navegación"
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -29,17 +29,17 @@ function Header() {
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <Link to="/explore" className="nav-link">
-                                    Explore
+                                    Explorar
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/destinations" className="nav-link">
-                                    Destinations
+                                    Destinos
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/account" className="nav-link">
-                                    My Account
+                                <Link to="/login" className="nav-link">
+                                    Mi Cuenta
                                 </Link>
                             </li>
                         </ul>

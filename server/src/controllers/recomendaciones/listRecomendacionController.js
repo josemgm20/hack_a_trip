@@ -10,7 +10,7 @@ const listRecomendacionController = async (req, res, next) => {
         res.status(200).json({
             status: 'ok',
             data: {
-                recomendacion: recomendaciones
+                recomendaciones
             }
         });
     } catch (err) {

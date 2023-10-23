@@ -39,7 +39,7 @@ router.delete(
 );
 
 // Seleccionar todas las recomendaciones
-router.get('/recomendaciones-vista', listRecomendacionController);
+router.get('/recomendaciones?', listRecomendacionController);
 
 // Eliminar una recomendacion
 router.delete(

@@ -1,14 +1,14 @@
 /* Header.css */
 
-/* Navbar brand styles */
+/* Estilos del logotipo de la barra de navegación */
 .navbar-brand {
     display: flex;
     align-items: center;
 }
 
-/* Icon styles */
+/* Estilos del ícono */
 .icon {
-    height: 7vw; /* Adjust the height to your preferred size */
-    width: auto; /* Adjust the width to your preferred size */
-    margin-top: 0.5vw; /* Optional margin to separate the icon from the text */
+    height: 7vw; /* Ajusta la altura a tu tamaño preferido */
+    width: auto; /* Ajusta el ancho a tu tamaño preferido */
+    margin-top: 0.5vw; /* Margen opcional para separar el ícono del texto */
 }

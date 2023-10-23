@@ -8,9 +8,9 @@ const getUserController = async (req, res, next) => {
 
         res.send({
             status: 'ok',
-            data: {
-                user: user
-            }
+            data: user
+
+
         });
     } catch (err) {
         next(err);

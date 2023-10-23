@@ -6,27 +6,27 @@ function Footer() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-4">
-                        <h5>About Us</h5>
+                        <h5>Acerca de Nosotros</h5>
                         <p>
-                            We help travelers find the best destinations and plan their trips.
+                            Ayudamos a los viajeros a encontrar los mejores destinos y planificar sus viajes.
                         </p>
                     </div>
                     <div className="col-md-4">
-                        <h5>Quick Links</h5>
+                        <h5>Enlaces Rápidos</h5>
                         <ul className="list-unstyled">
                             <li>
-                                <a href="/">Home</a>
+                                <a href="/">Inicio</a>
                             </li>
                             <li>
-                                <a href="/explore">Explore</a>
+                                <a href="/explore">Explorar</a>
                             </li>
                             <li>
-                                <a href="/destinations">Destinations</a>
+                                <a href="/destinations">Destinos</a>
                             </li>
                         </ul>
                     </div>
                     <div className="col-md-4">
-                        <h5>Contact Us</h5>
+                        <h5>Contacto</h5>
                         <p>
                             Email: travels@hackatrip.net
                         </p>
