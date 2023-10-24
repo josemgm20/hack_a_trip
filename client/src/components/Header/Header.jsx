@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css'; // Importar el archivo CSS
+import './Header.css'; // Import the CSS file
+import { useAuth } from '../../Hooks/useAuth'; // Import the useAuth hook
 
 const headerStyles = {
-    // Tus estilos existentes
+    // Your existing styles
 };
 
-function Header() {
+const Header = () => {
+    const { authUser, authLogout } = useAuth(); // Use the useAuth hook
+
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,10 +24,11 @@ function Header() {
                         data-target="#navbarNav"
                         aria-controls="navbarNav"
                         aria-expanded="false"
-                        aria-label="Alternar navegación"
+                        aria-label="Toggle navigation"
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
@@ -37,11 +41,18 @@ function Header() {
                                     Destinos
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            <li>
                                 <Link to="/login" className="nav-link">
                                     Mi Cuenta
                                 </Link>
                             </li>
+                            {authUser && (
+                                <li>
+                                    <Link to="/" onClick={authLogout} className="nav-link">
+                                        Cerrar Sesion
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>

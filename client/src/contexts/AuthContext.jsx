@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
                     throw new Error(body.message);
                 }
 
-                setAuthUser(body.data.user);
+                setAuthUser(body.data);
             } catch (err) {
                 setErrMsg(err.message);
             } finally {
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             // Una vez registrados redirigimos a la página de login.
-            navigate('/login');
+            navigate('/registration-success');
         } catch (err) {
             setErrMsg(err.message);
         } finally {
@@ -119,7 +119,9 @@ export const AuthProvider = ({ children }) => {
 
         // Eliminamos los datos del usuario y establecemos isAuthenticated a false.
         setAuthUser(null);
+
         setIsAuthenticated(false);
+
     };
 
     return (

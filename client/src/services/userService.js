@@ -45,7 +45,7 @@ export const signInService = async (email, password) => {
 export const getPrivateProfileService = async () => {
     const token = getToken();
 
-    const res = await fetch(`${baseURL}/users`, {
+    const res = await fetch(`${baseURL}/user`, {
         headers: {
             Authorization: token,
         },

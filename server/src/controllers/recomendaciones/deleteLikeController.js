@@ -13,7 +13,7 @@ const deleteLikeController = async (req, res, next) => {
         await deleteLikeModel(recomendacion, req.user.id);
 
 
-        res.sent({
+        res.send({
             status: 'ok',
             message: 'Like eliminado',
         });
