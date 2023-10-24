@@ -13,7 +13,7 @@ import { getPrivateProfileService } from '../services/userService';
 import { getToken } from '../utils/getToken';
 
 // Creamos el contexto de autentificacion.
-export conts AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 //Creamos el componente provider del contexto.
 export const AuthProvider = ({children}) =>{
