@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     const { setErrMsg } = useError();
 
     const [authUser, setAuthUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [authToken, setAuthToken] = useState(localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY));
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -52,12 +52,10 @@ export const AuthProvider = ({ children }) => {
             }
         };
 
-        // Obtenemos el token.
-        const token = getToken();
 
         // Si existe token solicitamos los datos del usuario.
-        if (token) fetchUser();
-    }, [isAuthenticated, setErrMsg]);
+        if (authToken) fetchUser();
+    }, [authToken, setErrMsg]);
 
     // Función que registra a un usuario en la base de datos.
     const authRegister = async (
@@ -103,8 +101,10 @@ export const AuthProvider = ({ children }) => {
             // necesario aplicar el JSON.stringify.
             localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, body.data.token);
 
-            // Indicamos que el usuario se ha logeado.
-            setIsAuthenticated(true);
+            // Almacenamos el token en el State
+            setAuthToken(body.data.token);
+
+            
         } catch (err) {
             setErrMsg(err.message);
         } finally {
@@ -117,9 +117,9 @@ export const AuthProvider = ({ children }) => {
         // Eliminamos el token del localStorage.
         localStorage.removeItem(TOKEN_LOCAL_STORAGE_KEY);
 
-        // Eliminamos los datos del usuario y establecemos isAuthenticated a false.
+        // Eliminamos los datos del usuario y del token en el State.
         setAuthUser(null);
-        setIsAuthenticated(false);
+        setAuthToken(null);
     };
 
     return (
