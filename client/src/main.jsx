@@ -13,17 +13,17 @@ const root = createRoot(document.getElementById('root'));
 
 // Se renderiza la aplicación React en el nodo raíz del DOM
 root.render(
-  <React.StrictMode>
-    {/* Proporciona el contexto para manejar errores en la aplicación */}
-    <ErrorProvider>
-      {/* Proporciona el enrutamiento de la aplicación */}
-      <BrowserRouter>
-        {/* Proporciona el contexto para la autenticación de usuarios */}
-        <AuthProvider>
-          {/* Componente principal de la aplicación */}
-          <App />
-        </AuthProvider>
-      </BrowserRouter>
-    </ErrorProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        {/* Proporciona el contexto para manejar errores en la aplicación */}
+        <ErrorProvider>
+            {/* Proporciona el enrutamiento de la aplicación */}
+            <BrowserRouter>
+                {/* Proporciona el contexto para la autenticación de usuarios */}
+                <AuthProvider>
+                    {/* Componente principal de la aplicación */}
+                    <App />
+                </AuthProvider>
+            </BrowserRouter>
+        </ErrorProvider>
+    </React.StrictMode>
 );
