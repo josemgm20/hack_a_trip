@@ -3,6 +3,7 @@ const insertLikeController = require('./insertLikeController');
 const deleteLikeController = require('./deleteLikeController');
 const listRecomendacionController = require('./listRecomendacionController');
 const deleteRecomendacionController = require('./deleteRecomendacionController');
+const selectRecomendacionByIdController = require('./selectRecomendacionByIdController')
 
 module.exports = {
     crearRecomendacionController,
@@ -10,4 +11,5 @@ module.exports = {
     deleteLikeController,
     listRecomendacionController,
     deleteRecomendacionController,
+    selectRecomendacionByIdController,
 };

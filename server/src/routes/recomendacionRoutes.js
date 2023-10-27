@@ -12,6 +12,7 @@ const {
     deleteLikeController,
     listRecomendacionController,
     deleteRecomendacionController,
+    //selectRecomendacionByIdController,
 
 } = require('../controllers/recomendaciones');
 
@@ -39,7 +40,8 @@ router.delete(
 );
 
 // Seleccionar todas las recomendaciones
-router.get('/recomendaciones?', listRecomendacionController);
+router.get('/recomendaciones', listRecomendacionController);
+//router.get('/recomendaciones/:recomendacionId', selectRecomendacionByIdController);
 
 // Eliminar una recomendacion
 router.delete(

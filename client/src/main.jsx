@@ -5,6 +5,7 @@ import App from './App'; // Importar el componente principal de la aplicación
 import { BrowserRouter } from 'react-router-dom'; // Proporciona la navegación de la aplicación
 import { AuthProvider } from './contexts/AuthContext'; // Proporciona el contexto de autenticación
 import { ErrorProvider } from './contexts/ErrorContext'; // Proporciona el contexto de manejo de errores (actualiza la ruta de importación)
+
 import './index.css'
 
 

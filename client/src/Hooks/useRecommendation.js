@@ -1,26 +1,31 @@
-// useRecommendation.js
-
-// Import necessary hooks and services.
-import { useEffect, useState } from 'react'; // Importa los hooks necesarios.
-import { useSearchParams } from 'react-router-dom'; // Importa useSearchParams para obtener parámetros de búsqueda de la URL.
-import { fetchRecommendationService } from '../services/recommendatonService'; // Importa el servicio para obtener recomendaciones.
+import { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom'; // Import useSearchParams and useNavigate
+import { fetchRecommendationService } from '../services/recommendatonService';
 
 export const useRecommendation = () => {
-    const [recommendations, setRecommendations] = useState([]); // Estado para almacenar las recomendaciones.
-    const [searchParams, setSearchParams] = useSearchParams(); // Estado para manejar los parámetros de búsqueda.
-    const [loading, setLoading] = useState(false); // Estado para indicar si se está cargando.
-    const [error, setError] = useState(null); // Estado para manejar errores.
+    const [recommendations, setRecommendations] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams(); // Use useSearchParams to get search parameters
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const navigate = useNavigate(); // Use useNavigate for navigation
 
     useEffect(() => {
         const fetchRecommendationsData = async () => {
             try {
                 setLoading(true);
 
-                const body = await fetchRecommendationService(searchParams);
+                // Fetch data based on searchParams
+                const body = await fetchRecommendationService(searchParams); // Use searchParams directly
+                console.log('API Response:', body);
 
-                setRecommendations(body.data.recomendaciones); // Actualiza las recomendaciones obtenidas.
+                if (body.data && Array.isArray(body.data.recomendaciones)) {
+                    setRecommendations(body.data.recomendaciones);
+                } else {
+                    setError(new Error('Invalid data format'));
+                }
             } catch (err) {
-                setError(err); // Maneja errores.
+                setError(err);
             } finally {
                 setLoading(false);
             }
@@ -57,12 +62,14 @@ export const useRecommendation = () => {
         setRecommendations(newRecommendations);
     };
 
+
+
     return {
-        recommendations, // Lista de recomendaciones.
-        loading, // Estado de carga.
-        setSearchParams, // Función para establecer parámetros de búsqueda.
-        upvoteRecommendation, // Función para gestionar votos positivos.
-        deleteRecommendationsById, // Función para eliminar recomendaciones.
-        error, // Error, si lo hay.
+        recommendations,
+        loading,
+        setSearchParams,
+        upvoteRecommendation,
+        deleteRecommendationsById,
+        error,
     };
 };

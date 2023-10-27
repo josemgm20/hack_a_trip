@@ -5,14 +5,16 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Welcome from './components/Home/Home';
 
+
 // import para usuarios
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import SignOnPage from './pages/SignOnPage/SignOnPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import RegistrationSuccess from './pages/RegisterPage/RegistrationSuccess';
 // import para recomendaciones
-import RecommendationListItem from './components/RecommendationListItem/RecommendationListItem';
-import RecommendationCard from './components/RecommendationListItem/RecommendationCard/RecommendationCard'; // Import the new component
+import RecommendationListItemPage from './pages/RecommendationListItemPage/RecommendationListItemPage';
+
+
 
 import NotFound from './pages/NotFoundPage/NotFound';
 
@@ -33,10 +35,9 @@ function App() {
         {/* Ruta para la página de éxito de registro */}
         <Route path="/dashboard" element={<DashboardPage />} />
         {/* Ruta para la página del panel de control */}
-        <Route path="/explore" element={<RecommendationListItem />} />
+        <Route path="/explore" element={<RecommendationListItemPage />} />
         {/* Ruta para explorar contenido recomendado */}
-        <Route path="/recommendation/:id" element={<RecommendationCard />} />
-        {/* Ruta para manejar cualquier otro caso (página no encontrada) */}
+
         <Route path="*" element={<NotFound />} />
       </Routes>
       {/* Pie de página de la aplicación */}

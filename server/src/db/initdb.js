@@ -38,9 +38,10 @@ async function main() {
                 foto varchar(100),
                 descripcion varchar(280),
                 usuarioId INT UNSIGNED NOT NULL,
-                foreign key(usuarioId) references usuarios(id),
                 created_at datetime default current_timestamp,
                 modified_at datetime on update current_timestamp
+                FOREIGN KEY(usuarioId) REFERENCES usuarios(id)
+                
             );
         `);
         await connection.query(`
@@ -49,10 +50,10 @@ async function main() {
                 puntuacion INT UNSIGNED,
                 usuarioId INT UNSIGNED NOT NULL,
                 recomendacionId INT UNSIGNED NOT NULL,
-                foreign key(usuarioId) references usuarios(id),
-                foreign key(recomendacionId) references recomendaciones(id),
                 created_at datetime default current_timestamp,
                 modified_at datetime on update current_timestamp
+                FOREIGN KEY(usuarioId) REFERENCES usuarios(id),
+                FOREIGN KEY(recomendacionId) REFERENCES recomendaciones(id),
             );
         `);
 
