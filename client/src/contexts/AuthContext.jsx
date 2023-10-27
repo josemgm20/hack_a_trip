@@ -121,6 +121,7 @@ export const AuthProvider = ({ children }) => {
         setAuthUser(null);
         setAuthToken(null);
     };
+    
 
     return (
         <AuthContext.Provider

@@ -12,12 +12,11 @@ const {
     deleteLikeController,
     listRecomendacionController,
     deleteRecomendacionController,
-
 } = require('../controllers/recomendaciones');
 
 //Insertar una recomendacion
 router.post(
-    '/recomendaciones',
+    '/:usuarioId/recomendaciones',
     authUserController,
     crearRecomendacionController
 );

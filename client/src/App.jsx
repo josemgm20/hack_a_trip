@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import SignOnPage from './pages/SignOnPage/SignOnPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import RegistrationSuccess from './pages/RegisterPage/RegistrationSuccess';
+import RecomendacionCreatePage from './pages/RecomendacionCreatePage/RecomendacionCreatePage';
 // import para recomendaciones
 import RecommendationListItem from './components/RecommendationListItem/RecommendationListItem';
 import RecommendationCard from './components/RecommendationListItem/RecommendationCard/RecommendationCard'; // Import the new component
@@ -38,6 +39,8 @@ function App() {
         <Route path="/recommendation/:id" element={<RecommendationCard />} />
         {/* Ruta para manejar cualquier otro caso (página no encontrada) */}
         <Route path="*" element={<NotFound />} />
+        {/**Ruta para crear una recomendacion */}
+        <Route path='/recommendation/create' element= {<RecomendacionCreatePage/>}/>
       </Routes>
       {/* Pie de página de la aplicación */}
       <Footer />
