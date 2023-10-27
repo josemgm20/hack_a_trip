@@ -1,31 +1,32 @@
 /* index.css */
 /* Estilo global del cuerpo de la página */
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  /* Establece margen y relleno en 0 y hace que el cuerpo ocupe toda la altura vertical disponible.
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Establece margen y relleno en 0 y hace que el cuerpo ocupe toda la altura vertical disponible.
      Además, configura la dirección de flexión a columna. */
 }
 
 /* Clase .app para contenedor principal de la aplicación */
 .app {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  /* El contenedor principal de la aplicación se expande para ocupar el espacio disponible
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* El contenedor principal de la aplicación se expande para ocupar el espacio disponible
      y utiliza la dirección de flexión de columna. */
 }
 
 /* Estilo de la página de bienvenida para cubrir toda la altura */
 .Welcome {
-  flex: 1;
-  background-color: #f0f0f0; /* Establece el color de fondo deseado */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* La página de bienvenida ocupa toda la altura disponible, establece un color de fondo
+    flex: 1;
+    background-color: #f0f0f0; /* Establece el color de fondo deseado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* La página de bienvenida ocupa toda la altura disponible, establece un color de fondo
      y centra su contenido tanto horizontal como verticalmente. */
 }
