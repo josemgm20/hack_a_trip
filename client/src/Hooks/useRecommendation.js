@@ -30,31 +30,39 @@ export const useRecommendation = () => {
     }, [searchParams]);
 
     const upvoteRecommendation = (recommendationId) => {
-        const newRecommendations = recommendations.map((currentRecommendation) => {
-            if (currentRecommendation.id === recommendationId) {
-                const likedByMe = !currentRecommendation.likedByMe;
-                const likes = likedByMe
-                    ? currentRecommendation.likes + 1
-                    : currentRecommendation.likes - 1;
+        const newRecommendations = recommendations.map(
+            (currentRecommendation) => {
+                if (currentRecommendation.id === recommendationId) {
+                    const likedByMe = !currentRecommendation.likedByMe;
+                    const likes = likedByMe
+                        ? currentRecommendation.likes + 1
+                        : currentRecommendation.likes - 1;
 
-                return {
-                    ...currentRecommendation,
-                    likedByMe,
-                    likes,
-                };
+                    return {
+                        ...currentRecommendation,
+                        likedByMe,
+                        likes,
+                    };
+                }
+                return currentRecommendation;
             }
-            return currentRecommendation;
-        });
+        );
 
         setRecommendations(newRecommendations);
     };
 
     const deleteRecommendationsById = (recommendationId) => {
         const newRecommendations = recommendations.filter(
-            (currentRecommendation) => currentRecommendation.id !== recommendationId
+            (currentRecommendation) =>
+                currentRecommendation.id !== recommendationId
         );
 
         setRecommendations(newRecommendations);
+    };
+
+    // Funcion de creacion de una recomendacion
+    const addRecommendation = (newRecommendations) => {
+        setRecommendations([newRecommendations, ...recommendations]);
     };
 
     return {
@@ -64,5 +72,6 @@ export const useRecommendation = () => {
         upvoteRecommendation, // Función para gestionar votos positivos.
         deleteRecommendationsById, // Función para eliminar recomendaciones.
         error, // Error, si lo hay.
+        addRecommendation, // Funcion qu agrega una recomendacion
     };
 };
