@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { useRecommendation } from '../../Hooks/useRecommendation';
 
-
-
 function SearchBarForm() {
-    const {
-        searchParams,
-        setSearchParams,
-        fetchRecommendations, // A function to fetch recommendations
-    } = useRecommendation();
+    const { setSearchParams, loading } = useRecommendation();
 
+    const [keyword, setKeyword] = useState('');
+
+    const handleSearchOrKeyPress = (e) => {
+        if (e.key === 'Enter' || e.type === 'click') {
+            if (keyword) {
+                setSearchParams({ keyword });
+            } else {
+                setSearchParams({});
+            }
+        }
+    };
 
 
     return (
@@ -17,10 +22,11 @@ function SearchBarForm() {
             <input
                 type="text"
                 placeholder="Buscar recomendación"
-                onChange={(e) => setSearchParams(e.target.value)}
-                value={searchParams}
+                onChange={(e) => setKeyword(e.target.value)}
+                onKeyPress={handleSearchOrKeyPress} // Trigger search on ENTER key press
+                value={keyword}
             />
-            <button onClick={fetchRecommendations}>Buscar</button>
+            <button onClick={handleSearchOrKeyPress}>Buscar</button>
         </div>
     );
 }

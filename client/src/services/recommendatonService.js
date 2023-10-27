@@ -27,10 +27,10 @@ export const createRecommendationService = async (formData) => {
 
 // Function to fetch recommendations
 // Función para obtener recomendaciones
-export const fetchRecommendationService = async () => {
+export const fetchRecommendationService = async (searchParams) => {
     const token = getToken();
 
-    const res = await fetch(`${baseURL}/recomendaciones`, {
+    const res = await fetch(`${baseURL}/recomendaciones?${searchParams}`, {
         headers: token ? { Authorization: token } : {},
     });
 
