@@ -11,11 +11,13 @@ const {
     insertLikeController,
     deleteLikeController,
     listRecomendacionController,
+    deleteRecomendacionController,
+
 } = require('../controllers/recomendaciones');
 
 //Insertar una recomendacion
 router.post(
-    '/recomendaciones/:usuarioId/crearpost',
+    '/recomendaciones',
     authUserController,
     crearRecomendacionController
 );
@@ -37,14 +39,14 @@ router.delete(
 );
 
 // Seleccionar todas las recomendaciones
-router.get('/recomendaciones', listRecomendacionController);
+router.get('/recomendaciones?', listRecomendacionController);
 
 // Eliminar una recomendacion
 router.delete(
     '/recomendaciones/:recomendacionId',
     authUserController,
     recomendacionExistController,
-    deleteLikeController
+    deleteRecomendacionController
 );
 
 module.exports = router;

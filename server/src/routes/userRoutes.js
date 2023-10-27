@@ -8,6 +8,7 @@ const authUserController = require('../middlewares/authUserController');
 const {
     insertUserController,
     loginUsersController,
+    getAllUserController,
     getUserController,
 } = require('../controllers/users');
 
@@ -17,7 +18,9 @@ router.post('/users/register', insertUserController);
 //Login de usuario
 router.post('/users/login', loginUsersController);
 
+router.get('/users', getAllUserController);
+
 //Informacion del propio usuario.
-router.get('/users', authUserController, getUserController);
+router.get('/user', authUserController, getUserController);
 
 module.exports = router;

@@ -1,7 +1,6 @@
-div.app > header {
-    text-align: center;
-    letter-spacing: 1px;
-    padding: 2rem;
-    background-color: var(--blue-color);
-    color: rgb(253, 253, 253);
+/* Header.css */
+
+.large-icon {
+    width: 15vw; /* Set the width to 12vw */
+    height: auto; /* Maintain aspect ratio */
 }

@@ -1,20 +1,3 @@
-/* Desde aqui aplicamos el color al footer y al header, además desde aquí modificamos los márgenes de la página */
-:root {
-    --blue-color: #0041B2
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-div.app {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex-grow: 1;
+body {
+    align-content: center;
 }
