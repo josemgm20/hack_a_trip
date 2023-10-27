@@ -10,10 +10,14 @@ const {
     loginUsersController,
     getAllUserController,
     getUserController,
+    editAvatarController,
 } = require('../controllers/users');
 
 // Registro de usuario
 router.post('/users/register', insertUserController);
+
+// Editar avatar
+router.patch('/user/avatar', authUserController, editAvatarController)
 
 //Login de usuario
 router.post('/users/login', loginUsersController);
@@ -22,5 +26,6 @@ router.get('/users', getAllUserController);
 
 //Informacion del propio usuario.
 router.get('/user', authUserController, getUserController);
+
 
 module.exports = router;

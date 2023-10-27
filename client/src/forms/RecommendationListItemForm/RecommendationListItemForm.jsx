@@ -3,6 +3,8 @@ import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../utls/customPropTypes';
 
+import "./RecommendationListItemForm.css"
+
 
 function RecommendationListItemForm({
     recommendation,
@@ -21,10 +23,14 @@ function RecommendationListItemForm({
     } = recommendation;
 
     return (
-        <Card className="recommendation-card">
-            <Card.Img variant="top" src={foto} className="recommendation-image" />
-            <Card.Body>
-                <Card.Title className="recommendation-title">{titulo}</Card.Title>
+        <Card className="recommendation-card card-custom mx-auto" style={{ maxWidth: "40vw" }}>
+            <Card.Img
+                variant="top"
+                src={foto || '/view.jpg'} // Use 'foto' if available, otherwise use the default image path
+                className="recommendation-image"
+            />
+            <Card.Body className="recommendation-card-body card-custom-body">
+                <Card.Title className="recommendation-title ">{titulo}</Card.Title>
                 <Card.Text className="recommendation-description">{descripcion}</Card.Text>
                 <p className="recommendation-id">Recommendation ID: {id}</p>
                 <p className="recommendation-type">Type: {tipo}</p>

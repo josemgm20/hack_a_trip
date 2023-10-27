@@ -11,6 +11,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import SignOnPage from './pages/SignOnPage/SignOnPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import RegistrationSuccess from './pages/RegisterPage/RegistrationSuccess';
+import CreateRecommendationPage from './pages/CreateRecommendationPage/CreateRecommendationPage'
 // import para recomendaciones
 import RecommendationListItemPage from './pages/RecommendationListItemPage/RecommendationListItemPage';
 
@@ -37,6 +38,7 @@ function App() {
         {/* Ruta para la página del panel de control */}
         <Route path="/explore" element={<RecommendationListItemPage />} />
         {/* Ruta para explorar contenido recomendado */}
+        <Route path="/new-recommendation" element={<CreateRecommendationPage />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

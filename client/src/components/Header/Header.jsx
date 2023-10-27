@@ -65,7 +65,7 @@ const Header = () => {
                                             <Dropdown.Item as={Link} to="/dashboard">
                                                 Tu Perfil
                                             </Dropdown.Item>
-                                            <Dropdown.Item as={Link} to="/" onClick={authLogout}>
+                                            <Dropdown.Item as={Link} to="/new-recommendation">
                                                 Crear una Recomendación
                                             </Dropdown.Item>
                                             <Dropdown.Item as={Link} to="/" onClick={authLogout}>

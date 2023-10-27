@@ -40,6 +40,7 @@ const SignOnForm = ({ authLogin, loading }) => {
                         Iniciar Sesión
                     </button>
                     {error && <p className="text-danger mt-2">{error}</p>}
+
                     <p className="mt-3">¿No tienes una cuenta? <a href="/register">Regístrate aquí</a></p>
                 </form>
             </div>
