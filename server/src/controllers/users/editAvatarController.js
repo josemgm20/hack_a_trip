@@ -6,7 +6,7 @@ const updateAvatarModel = require('../../models/users/updateAvatarModel');
 // del disco.
 const validateSchema = require('../../utils/validateSchema');
 const savePhotoUtil = require('../../utils/savePhotoUtil');
-const deletePhotoUtil = require('../../utils/deletePhotoUtil');
+const deletePhotoUtil = require('../../utils/deletePhotoUtil.js');
 
 // Importamos el esquema de Joi.
 const editAvatarSchema = require('../../schemas/users/editAvatarSchema');
@@ -22,12 +22,12 @@ const editAvatarController = async (req, res, next) => {
 
         // Si el usuario tiene un avatar asignado lo eliminamos de la carpeta "uploads".
         if (user.avatar) {
-            await deletePhoto(user.avatar);
+            await deletePhotoUtil(user.avatar);
         }
 
         // Variable donde almacenamos el nombre con el que vamos a guardar el avatar en la
         // carpeta "uploads".
-        const avatarName = await savePhoto(req.files.avatar, 150);
+        const avatarName = await savePhotoUtil(req.files.avatar, 150);
 
         // Actualizamos el avatar del usuario en la base de datos.
         await updateAvatarModel(avatarName, req.user.id);

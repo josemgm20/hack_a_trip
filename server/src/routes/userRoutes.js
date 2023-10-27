@@ -17,7 +17,7 @@ const {
 router.post('/users/register', insertUserController);
 
 // Editar avatar
-router.patch('/user/avatar', authUserController, editAvatarController)
+router.put('/user/avatar', authUserController, editAvatarController)
 
 //Login de usuario
 router.post('/users/login', loginUsersController);

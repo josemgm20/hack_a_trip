@@ -2,7 +2,7 @@
 const { getConnection } = require('../../db/getConnection');
 
 // Función que se conectará a la base de datos y actualizará el avatar de un usuario.
-const updateAvatarModel = async (avatarName, Id) => {
+const updateAvatarModel = async (avatarName, id) => {
     let connection;
 
     try {
@@ -10,7 +10,7 @@ const updateAvatarModel = async (avatarName, Id) => {
 
         await connection.query(`UPDATE usuarios SET avatar = ? WHERE id = ?`, [
             avatarName,
-            Id,
+            id,
         ]);
     } finally {
         if (connection) connection.release();
