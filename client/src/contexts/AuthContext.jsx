@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     const { setErrMsg } = useError();
 
     const [authUser, setAuthUser] = useState(null);
-    const [authToken, setAuthToken] = useState(localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY));
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
                     throw new Error(body.message);
                 }
 
-                setAuthUser(body.data.user);
+                setAuthUser(body.data);
             } catch (err) {
                 setErrMsg(err.message);
             } finally {
@@ -52,10 +52,12 @@ export const AuthProvider = ({ children }) => {
             }
         };
 
+        // Obtenemos el token.
+        const token = getToken();
 
         // Si existe token solicitamos los datos del usuario.
-        if (authToken) fetchUser();
-    }, [authToken, setErrMsg]);
+        if (token) fetchUser();
+    }, [isAuthenticated, setErrMsg]);
 
     // Función que registra a un usuario en la base de datos.
     const authRegister = async (
@@ -78,7 +80,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             // Una vez registrados redirigimos a la página de login.
-            navigate('/login');
+            navigate('/registration-success');
         } catch (err) {
             setErrMsg(err.message);
         } finally {
@@ -87,6 +89,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     // Función que logea a un usuario retornando un token.
+    // Modify the authLogin function to handle errors and set the error state.
     const authLogin = async (email, password) => {
         try {
             setLoading(true);
@@ -101,27 +104,28 @@ export const AuthProvider = ({ children }) => {
             // necesario aplicar el JSON.stringify.
             localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, body.data.token);
 
-            // Almacenamos el token en el State
-            setAuthToken(body.data.token);
-
-            
+            // Indicamos que el usuario se ha logeado.
+            setIsAuthenticated(true);
         } catch (err) {
-            setErrMsg(err.message);
+            // Set the error state to the error message.
+            setError(err.message);
         } finally {
             setLoading(false);
         }
     };
+
 
     // Función de logout.
     const authLogout = () => {
         // Eliminamos el token del localStorage.
         localStorage.removeItem(TOKEN_LOCAL_STORAGE_KEY);
 
-        // Eliminamos los datos del usuario y del token en el State.
+        // Eliminamos los datos del usuario y establecemos isAuthenticated a false.
         setAuthUser(null);
-        setAuthToken(null);
+
+        setIsAuthenticated(false);
+
     };
-    
 
     return (
         <AuthContext.Provider

@@ -1,6 +1,6 @@
 // Importamos modelos
 
-const insertLikeModel = require('../../models/recomendaciones/insertLikeModel');
+const { insertLikeModel } = require('../../models/recomendaciones/index');
 
 // Importamos errores
 
@@ -8,12 +8,12 @@ const insertLikeModel = require('../../models/recomendaciones/insertLikeModel');
 const insertLikeController = async (req, res, next) => {
     try {
         // obtenemos el ide de la recomendacion.
-        const { recomendacion } = req.params;
+        const { recomendacionId } = req.params;
 
-        await insertLikeModel(recomendacion, req.user.id);
+        await insertLikeModel(recomendacionId, req.user.id);
 
 
-        res.sent({
+        res.send({
             status: 'ok',
             message: 'Like agregado',
         });

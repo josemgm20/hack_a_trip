@@ -25,35 +25,36 @@ async function main() {
                 username varchar(50) UNIQUE NOT NULL,
                 email varchar(50) UNIQUE NOT NULL,
                 password varchar(100) NOT NULL,
+                avatar varchar(255),
                 created_at datetime default current_timestamp,
                 modified_at datetime on update current_timestamp
             );
         `);
 
         await connection.query(`
-            CREATE TABLE recomendaciones(
-                id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-                titulo varchar(50) NOT NULL,
-                tipo enum('gastronómico', 'museos') NOT NULL,
-                foto varchar(100),
-                descripcion varchar(280),
-                usuarioId INT UNSIGNED NOT NULL,
-                foreign key(usuarioId) references usuarios(id),
-                created_at datetime default current_timestamp,
-                modified_at datetime on update current_timestamp
-            );
+            CREATE TABLE recomendaciones (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    titulo varchar(50) NOT NULL,
+    tipo enum('gastronómico', 'museos') NOT NULL,
+    foto varchar(100),
+    descripcion varchar(255),
+    usuarioId INT UNSIGNED NOT NULL,
+    created_at datetime default current_timestamp,
+    modified_at datetime on update current_timestamp,
+    FOREIGN KEY (usuarioId) REFERENCES usuarios(id)
+);
         `);
         await connection.query(`
-            CREATE TABLE likes(
-                id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-                puntuacion INT UNSIGNED,
-                usuarioId INT UNSIGNED NOT NULL,
-                recomendacionId INT UNSIGNED NOT NULL,
-                foreign key(usuarioId) references usuarios(id),
-                foreign key(recomendacionId) references recomendaciones(id),
-                created_at datetime default current_timestamp,
-                modified_at datetime on update current_timestamp
-            );
+            CREATE TABLE likes (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    puntuacion INT UNSIGNED,
+    usuarioId INT UNSIGNED NOT NULL,
+    recomendacionId INT UNSIGNED NOT NULL,
+    created_at datetime default current_timestamp,
+    modified_at datetime on update current_timestamp,
+    FOREIGN KEY (usuarioId) REFERENCES usuarios(id),
+    FOREIGN KEY (recomendacionId) REFERENCES recomendaciones(id)
+);
         `);
 
         console.log('Tablas creadeas');

@@ -1,21 +1,21 @@
-// Importamos modelos
-const selectAllRecomendacionModel = require('../../models/recomendaciones/selectAllRecomendacionesModel');
+// Importamos los modelos.
+const { selectAllRecomendacionModel } = require('../../models/recomendaciones/index');
 
-// Funcion controladora que lista recomendaciones
-const listRecomendacionController = async (req, res, next) => {
+// Función controladora final que selecciona todos los recomendaciones.
+const listRecomendaionesController = async (req, res, next) => {
     try {
-        // Obtenemos las recomendaciones utilizando el modelo
-        const recomendaciones = await selectAllRecomendacionModel();
+        const { keyword, searchBy, id, likes } = req.query;
 
-        res.status(200).json({
+        const recomendaciones = await selectAllRecomendacionModel(keyword, req.user?.id, searchBy, id || likes);
+
+        res.send({
             status: 'ok',
             data: {
-                recomendaciones
-            }
+                recomendaciones,
+            },
         });
     } catch (err) {
         next(err);
     }
 };
-
-module.exports = listRecomendacionController;
+module.exports = listRecomendaionesController;

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 // Importamos errores.
 const {
     invalidTokenError,
-    notAuthenticatedError, // Corrected the function name
+    notAuthenticatedError,
 } = require('../services/errorService');
 
 // Funcion controladora intermedia, comprueba si el usuario está autenticado
@@ -14,7 +14,7 @@ const authUserController = async (req, res, next) => {
         // Obtenemos el token de la cabecera de la petición.
         const { authorization } = req.headers;
         if (!authorization) {
-            notAuthenticatedError; // Corrected the function call
+            notAuthenticatedError; // 
         }
 
         // Variable que almacenará la información del token desencriptado.
@@ -29,7 +29,7 @@ const authUserController = async (req, res, next) => {
             next();
         } catch (err) {
             console.error(err);
-            invalidTokenError(); // Corrected the function call
+            invalidTokenError(); // 
         }
     } catch (err) {
         next(err);
