@@ -16,14 +16,13 @@ function SearchBarForm() {
         }
     };
 
-
     return (
         <div className="search-bar">
             <input
                 type="text"
                 placeholder="Buscar recomendación"
                 onChange={(e) => setKeyword(e.target.value)}
-                onKeyPress={handleSearchOrKeyPress} // Trigger search on ENTER key press
+                onKeyPress={handleSearchOrKeyPress} // Activa la búsqueda al presionar la tecla ENTER
                 value={keyword}
             />
             <button onClick={handleSearchOrKeyPress}>Buscar</button>

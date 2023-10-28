@@ -1,34 +1,34 @@
 // selectRecomendacionByIdController
-// Import your model function
+// Importa tu función de modelo
 const { selectAllRecomendacionModel } = require('../../models/recomendaciones/index');
 
-// Define the controller function to get a single recommendation by ID
+// Define la función controladora para obtener una única recomendación por su ID
 const selectRecomendacionByIdController = async (req, res, next) => {
     try {
-        // Extract the recommendation ID from the request query parameters
+        // Extrae el ID de la recomendación de los parámetros de consulta de la solicitud
         const { id } = req.query;
 
-        // Validate if the ID is provided and is a valid number
+        // Valida si el ID se proporciona y es un número válido
         if (!id || isNaN(Number(id))) {
-            return res.status(400).json({ status: 'error', message: 'Invalid recommendation ID' });
+            return res.status(400).json({ status: 'error', message: 'ID de recomendación no válido' });
         }
 
-        // Call the model function to retrieve the recommendation by its ID
+        // Llama a la función del modelo para recuperar la recomendación por su ID
         const recomendaciones = await selectAllRecomendacionModel('', req.recomendacion?.id);
 
-        // Find the recommendation with the provided ID
+        // Encuentra la recomendación con el ID proporcionado
         const singleRecomendacion = recomendaciones.find((recomendacion) => recomendacion.id === Number(id));
 
-        // Check if a recommendation with the specified ID was found
+        // Comprueba si se encontró una recomendación con el ID especificado
         if (singleRecomendacion) {
             res.json({ status: 'ok', data: singleRecomendacion });
         } else {
-            res.status(404).json({ status: 'error', message: 'Recomendacion not found' });
+            res.status(404).json({ status: 'error', message: 'Recomendación no encontrada' });
         }
     } catch (err) {
         next(err);
     }
 };
 
-// Export the controller function
+// Exporta la función controladora
 module.exports = selectRecomendacionByIdController;

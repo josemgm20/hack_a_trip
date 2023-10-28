@@ -11,7 +11,7 @@ const DashboardForm = ({ userData, loading }) => {
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setAvatarFile(file); // Store the actual file, not a URL
+            setAvatarFile(file); // Almacena el archivo real, no una URL
         }
     };
 
@@ -19,8 +19,7 @@ const DashboardForm = ({ userData, loading }) => {
         const token = getToken();
         if (avatarFile) {
             const formData = new FormData();
-            formData.append('avatar', avatarFile, avatarFile.name); // Append the file and its name
-
+            formData.append('avatar', avatarFile, avatarFile.name); // Agrega el archivo y su nombre
             fetch(`${baseURL}/user`, {
                 method: 'PUT',
                 headers: {
@@ -30,13 +29,13 @@ const DashboardForm = ({ userData, loading }) => {
             })
                 .then((response) => {
                     if (response.ok) {
-                        console.log('Avatar updated successfully');
+                        console.log('Avatar actualizado exitosamente');
                     } else {
-                        console.error('Failed to update avatar');
+                        console.error('Fallo al actualizar el avatar');
                     }
                 })
                 .catch((error) => {
-                    console.error('Network error:', error);
+                    console.error('Error de red:', error);
                 });
         }
     };
@@ -60,11 +59,11 @@ const DashboardForm = ({ userData, loading }) => {
                                 accept="image/*"
                                 onChange={handleAvatarChange}
                             />
-                            <button onClick={handleUpdateAvatar}>Update Avatar</button>
+                            <button onClick={handleUpdateAvatar}>Actualizar Avatar</button>
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className="card-title">User Information</h5>
+                                <h5 className="card-title">Información del Usuario</h5>
                                 <p className="card-text">
                                     <strong>ID:</strong> {userData.id || 'N/A'}
                                 </p>

@@ -1,16 +1,16 @@
-// Import your model function
+// Importa tu función de modelo
 const { selectAllRecomendacionModel } = require('../../models/recomendaciones/index');
 
-// Define the controller function
+// Define la función controladora
 const listRecomendacionController = async (req, res, next) => {
     try {
-        // Get the query parameter
+        // Obtén el parámetro de consulta
         const { keyword } = req.query;
 
-        // Fetch recomendaciones using the model function
+        // Obtiene recomendaciones utilizando la función del modelo
         const recomendaciones = await selectAllRecomendacionModel(keyword, req.recomendacion?.id);
 
-        // Convert any BigInt values to strings within each object
+        // Convierte los valores BigInt a cadenas dentro de cada objeto
         const convertedRecomendaciones = recomendaciones.map((recomendacion) => {
             for (const key in recomendacion) {
                 if (typeof recomendacion[key] === 'bigint') {
@@ -31,5 +31,5 @@ const listRecomendacionController = async (req, res, next) => {
     }
 };
 
-// Export the controller function
+// Exporta la función controladora
 module.exports = listRecomendacionController;

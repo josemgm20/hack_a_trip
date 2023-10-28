@@ -4,15 +4,17 @@ import { useRecommendation } from '../../Hooks/useRecommendation';
 import RecommendationListItemForm from '../../forms/RecommendationListItemForm/RecommendationListItemForm';
 
 function RecommendationListItemPage() {
+    // Importaciones y declaraciones de estado
+
     const {
-        recommendations,
-        loading,
-        error,
-        handleOrderByChange,
-        sortRecommendations,
-        orderBy,
-        ascOrder,
-    } = useRecommendation();
+        recommendations, // Lista de recomendaciones
+        loading, // Estado de carga
+        error, // Posible error
+        handleOrderByChange, // Función para cambiar el orden
+        sortRecommendations, // Función para ordenar las recomendaciones
+        orderBy, // Campo por el cual se ordena
+        ascOrder, // Orden ascendente o descendente
+    } = useRecommendation(); // Utiliza el hook 'useRecommendation'
 
     return (
         <div className="container-recommendation">
@@ -21,14 +23,14 @@ function RecommendationListItemPage() {
                 <label htmlFor="orderBySelect" className="me-2">Ordenar por:</label>
                 <select
                     id="orderBySelect"
-                    className="form-select form-select-sm" // Added 'form-select-sm' class
+                    className="form-select form-select-sm" // Clase 'form-select-sm' añadida
                     value={orderBy}
                     onChange={handleOrderByChange}
                 >
                     <option value="likes">Likes</option>
                     <option value="created_at">Fecha</option>
                 </select>
-                <button onClick={handleOrderByChange} className="btn btn-sm ml-1 "> {/* Added 'btn btn-sm' class */}
+                <button onClick={handleOrderByChange} className="btn btn-sm ml-1 "> {/* Clase 'btn btn-sm' añadida */}
                     {ascOrder ? 'desde el primero' : 'desde el ultimo'}
                 </button>
             </div>
@@ -50,7 +52,7 @@ function RecommendationListItemPage() {
                     ))}
                 </div>
             ) : (
-                <p className="text-center">No recommendations found.</p>
+                <p className="text-center">No se encontraron recomendaciones.</p>
             )}
         </div>
     );

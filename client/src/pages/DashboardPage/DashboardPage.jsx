@@ -2,17 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import DashboardForm from '../../forms/DashboardForm/DashboardForm';
 
-// Import the necessary hooks and functions
+// Importa los hooks y funciones necesarios
 import { useAuth } from '../../Hooks/useAuth';
 
-
-
-
-
 const DashboardPage = () => {
-    const { authUser, loading } = useAuth();
+    const { authUser, loading } = useAuth(); // Utiliza el hook 'useAuth' para obtener el usuario autenticado y el estado de carga
 
-    // Ensure userData is an object or an empty object
+    // Asegura que 'userData' sea un objeto o un objeto vacío
     const userData = authUser || {};
 
     return (

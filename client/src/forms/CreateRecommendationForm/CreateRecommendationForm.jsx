@@ -1,64 +1,37 @@
-import React, { useState, useRef } from 'react'; // Import useRef
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useError } from '../../Hooks/useError'; // Check your import path, should it be '../../hooks/useError'?
-import { createRecommendationService } from '../../services/recommendatonService'; // Correct the import path
-
-import { handleAddFilePreview } from '../../utls/handleAddFilePreview'; // Check your import path
-import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview'; // Check your import path
+import { useError } from '../../Hooks/useError';
+import { useRecommendation } from '../../Hooks/useRecommendation'; // Import the useRecommendation hook
+import { handleAddFilePreview } from '../../utls/handleAddFilePreview';
+import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview';
 
 const RecommendationCreateForm = () => {
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
     const { setErrMsg } = useError();
 
+    // Importa la función handleRecommendationCreate del gancho useRecommendation
+    const { handleRecommendationCreate } = useRecommendation();
+
     const [titulo, setTitulo] = useState('');
-    const [tipo, setTipo] = useState('1'); // Default to gastronomico
+    const [tipo, setTipo] = useState('1'); // Por defecto, gastronómico
     const [descripcion, setDescripcion] = useState('');
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleRecommendationCreate = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            setLoading(true);
-            const formData = new FormData();
-
-            if (titulo.trim() === '' || tipo.trim() === '') {
-                throw new Error('Título and Tipo are required fields.');
-            }
-
-            formData.append('titulo', titulo);
-            formData.append('tipo', tipo);
-
-            if (descripcion.trim() !== '') {
-                // Only append descripcion if it's not empty
-                formData.append('descripcion', descripcion);
-            }
-
-            if (file) formData.append('foto', file);
-
-            const body = await createRecommendationService(formData);
-
-            if (body.status === 'error') {
-                throw new Error(body.message);
-            }
-
-            navigate('/explore');
+            await handleRecommendationCreate(titulo, tipo, descripcion, file);
         } catch (err) {
             setErrMsg(err.message);
-        } finally {
-            setLoading(false);
         }
     };
 
     return (
-        <form
-            className="Recommendation-create-form"
-            onSubmit={(e) => {
-                e.preventDefault();
-                handleRecommendationCreate();
-            }}
-        >
+        <form className="Recommendation-create-form"
+            onSubmit={handleSubmit}>
             <input
                 type="text"
                 placeholder="Título"
@@ -116,3 +89,4 @@ const RecommendationCreateForm = () => {
 };
 
 export default RecommendationCreateForm;
+

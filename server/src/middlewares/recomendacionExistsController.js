@@ -8,17 +8,19 @@ const recomendacionExistsController = async (req, res, next) => {
         connection = await getConnection();
 
         const { recomendacionId } = req.params;
+
         const [recomendaciones] = await connection.query(
-            `select id from recomendaciones where id = ?`,
+            `SELECT id FROM recomendaciones where id = ?`,
             [recomendacionId]
         );
 
-        if (recomendaciones.length < 1) {
+        if (!recomendaciones || recomendaciones.length < 1) {
             notFoundError('recomendacion');
         }
 
-        //Pasamos el control al siguiente middleware
         next();
+    } catch (err) {
+        next(err);
     } finally {
         if (connection) connection.release();
     }

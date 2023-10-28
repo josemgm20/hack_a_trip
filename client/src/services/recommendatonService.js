@@ -7,7 +7,7 @@ const baseURL = import.meta.env.VITE_API_URL;
 import { getToken } from '../utls/getToken'; // Fixed the import path
 // Importa la función para obtener el token desde 'getToken' (Ruta fija)
 
-// Register a recommendation
+
 // Registra una recomendación
 export const createRecommendationService = async (formData) => {
     const token = getToken();
@@ -25,7 +25,7 @@ export const createRecommendationService = async (formData) => {
     return body;
 };
 
-// Function to fetch recommendations
+
 // Función para obtener recomendaciones
 export const fetchRecommendationService = async (searchParams) => {
     const token = getToken();
@@ -38,7 +38,7 @@ export const fetchRecommendationService = async (searchParams) => {
 
     return body;
 };
-// Function to handle an upvote
+
 // Función para manejar un voto positivo (upvote)
 export const handleUpvoteService = async (recommendationId, method) => {
     const token = getToken();
@@ -55,7 +55,7 @@ export const handleUpvoteService = async (recommendationId, method) => {
     return body;
 };
 
-// Function to handle a downvote
+
 // Función para manejar un voto negativo (downvote)
 export const handleDownvoteService = async (recommendationId) => {
     const token = getToken();
@@ -72,7 +72,7 @@ export const handleDownvoteService = async (recommendationId) => {
     return body;
 };
 
-// Delete a recommendation.
+
 // Elimina una recomendación.
 export const deleteRecommendationService = async (recommendationId) => {
     const token = getToken();

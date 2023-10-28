@@ -4,7 +4,7 @@ import CreateRecommendationForm from '../../forms/CreateRecommendationForm/Creat
 function CreateRecommendationPage() {
     return (
         <div className="container">
-            <h2 className="text-center">Create Recommendation</h2>
+            <h2 className="text-center">Crear Recomendación</h2>
             <CreateRecommendationForm />
         </div>
     );

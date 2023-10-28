@@ -3,25 +3,25 @@ import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../utls/customPropTypes';
 const baseURL = import.meta.env.VITE_API_URL;
+import { useRecommendation } from '../../Hooks/useRecommendation';
 
-import "./RecommendationListItemForm.css"
+import "./RecommendationListItemForm.css";
 
-
-function RecommendationListItemForm({
-    recommendation,
-    upvoteRecommendation,
-    deleteRecommendationsById,
-}) {
+function RecommendationListItemForm({ recommendation }) {
+    // Tienes acceso a las propiedades de la recomendación aquí
     const {
-        id,
-        foto,
-        titulo,
-        tipo,
-        descripcion,
-        username,
-        likes,
-        created_at,
+        id, // Ejemplo: Accede a la propiedad 'id'
+        foto, // Accede a la propiedad 'foto'
+        titulo, // Accede a la propiedad 'titulo'
+        tipo, // Accede a la propiedad 'tipo'
+        descripcion, // Accede a la propiedad 'descripcion'
+        username, // Accede a la propiedad 'username'
+        likes, // Accede a la propiedad 'likes'
+        created_at, // Accede a la propiedad 'created_at'
+
+
     } = recommendation;
+    const { deleteRecommendationsById, upvoteRecommendation } = useRecommendation();
 
     return (
         <Card className="recommendation-card card-custom mx-auto" style={{ maxWidth: "40vw" }}>
@@ -30,7 +30,6 @@ function RecommendationListItemForm({
                 src={recommendation.foto ? `${baseURL}/${recommendation.foto}` : 'view.jpg'}
                 className="recommendation-image"
                 alt="View"
-
             />
             <Card.Body className="recommendation-card-body card-custom-body">
                 <Card.Title className="recommendation-title ">{titulo}</Card.Title>
@@ -44,14 +43,14 @@ function RecommendationListItemForm({
             <Card.Body className="recommendation-buttons">
                 <Button
                     variant="success"
-                    onClick={() => upvoteRecommendation(id)}
+                    onClick={() => upvoteRecommendation(recommendation.id)} // Pasa el ID de la recomendación
                     className="upvote-button"
                 >
                     Me gusta
                 </Button>
                 <Button
                     variant="danger"
-                    onClick={() => deleteRecommendationsById(id)}
+                    onClick={() => deleteRecommendationsById(recommendation.id)} // Pasa el ID de la recomendación
                     className="delete-button"
                 >
                     Eliminar
@@ -74,8 +73,6 @@ RecommendationListItemForm.propTypes = {
         likedByMe: PropTypes.bool.isRequired,
         created_at: PropTypes.string.isRequired,
     }).isRequired,
-    upvoteRecommendation: PropTypes.func.isRequired,
-    deleteRecommendationsById: PropTypes.func.isRequired,
 };
 
 export default RecommendationListItemForm;

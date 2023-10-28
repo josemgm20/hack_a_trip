@@ -45,7 +45,7 @@ router.get('/recomendaciones', listRecomendacionController);
 
 // Eliminar una recomendacion
 router.delete(
-    '/recomendaciones/:recomendacionId',
+    '/recomendacion/:recomendacionId',
     authUserController,
     recomendacionExistController,
     deleteRecomendacionController
