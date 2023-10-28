@@ -78,7 +78,7 @@ export const signInService = async (username, password) => { // Modificar datos 
 export const getPrivateProfileService = async () => {
     const token = getToken();
 
-    const res = await fetch(`${baseURL}/users`, {
+    const res = await fetch(`${baseURL}/user`, {
         headers: {
             Authorization: token,
         },

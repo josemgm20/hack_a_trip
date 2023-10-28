@@ -1,0 +1,5 @@
+.order-bar {
+    display: flex;
+    width: 15vw;
+    justify-content: center;
+}

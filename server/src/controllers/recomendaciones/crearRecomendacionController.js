@@ -1,21 +1,29 @@
 const crearRecomendacionModel = require('../../models/recomendaciones/crearRecomendacionModel');
 const savePhotoUtil = require('../../utils/savePhotoUtil');
+const validateSchema = require('../../utils/validateSchema');
+
+const newRecomendacionSchema = require('../../schemas/recomendaciones/newRecomendacionSchema')
 
 //Importamos errores
-const { missingFieldsError } = require('../../services/errorService');
+
 
 const crearRecomendacionController = async (req, res, next) => {
     // Almacenamos haciendo destructuring de los campos
     try {
 <<<<<<< HEAD
+<<<<<<< HEAD
         const { titulo, tipo, foto, descripcion } = req.body;
 =======
         const { titulo, tipo, foto, descripcion, usuarioId } = req.body;
 >>>>>>> origin/javi
+=======
+        const { titulo, tipo, descripcion } = req.body;
+>>>>>>> d0f8c7e62695313d92eea84f8f6222fce1ce684f
 
-        if (!titulo || !tipo) {
-            missingFieldsError();
-        }
+        await validateSchema(newRecomendacionSchema, {
+            ...req.body,
+            ...req.files,
+        });
 
 <<<<<<< HEAD
         // Variable que almacena imagen
@@ -25,8 +33,8 @@ const crearRecomendacionController = async (req, res, next) => {
         let imgName;
 
         // Si existe imagen, la guardamos en disco y obtenemos nombre.
-        if (req.files?.image) {
-            imgName = await savePhotoUtil(req.files.image, 500);
+        if (req.files?.foto) {
+            imgName = await savePhotoUtil(req.files.foto, 500);
         }
 
 <<<<<<< HEAD
@@ -55,7 +63,8 @@ const crearRecomendacionController = async (req, res, next) => {
                     usuarioId: req.user.id,
                     titulo,
                     tipo,
-                    foto,
+                    foto: imgName || null,
+                    descripcion,
                     createAt: new Date(),
                 },
             },

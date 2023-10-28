@@ -22,7 +22,7 @@ const selectUserByIdModel = async (id) => {
 
         // Consulta la base de datos para seleccionar un usuario por su ID
         const usuarios = await connection.query(
-            `SELECT id, username, email FROM usuarios WHERE id = ?`,
+            `SELECT id, username, email, avatar FROM usuarios WHERE id = ?`,
             [id]
         );
 
