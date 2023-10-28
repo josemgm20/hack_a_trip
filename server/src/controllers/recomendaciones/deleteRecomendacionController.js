@@ -10,8 +10,12 @@ const deleteRecomendacionController = async (req, res, next) => {
         // obtenemos el ide de la recomendacion.
         const { recomendacion } = req.params;
 
+<<<<<<< HEAD
         await deleteRecomendacionModel(recomendacion, req.user.id);
 
+=======
+        await deleteRecomendacionModel(recomendacionId, req.user.id);
+>>>>>>> origin/javi
 
         res.sent({
             status: 'ok',

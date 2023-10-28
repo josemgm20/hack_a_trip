@@ -10,7 +10,11 @@ const insertUserController = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
 
+<<<<<<< HEAD
         // Validar los datos utilizando Joi u otro método de validación
+=======
+        // Validamos los datos con Joi
+>>>>>>> origin/javi
         if (!username || !email || !password) {
             missingFieldsError();
         }

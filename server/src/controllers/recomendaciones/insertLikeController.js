@@ -10,8 +10,12 @@ const insertLikeController = async (req, res, next) => {
         // obtenemos el ide de la recomendacion.
         const { recomendacion } = req.params;
 
+<<<<<<< HEAD
         await insertLikeModel(recomendacion, req.user.id);
 
+=======
+        await insertLikeModel(recomendacionId, req.user.id);
+>>>>>>> origin/javi
 
         res.sent({
             status: 'ok',

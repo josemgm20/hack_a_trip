@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Importar las bibliotecas necesarias desde React y otros módulos
 import React from 'react';
 import { createRoot } from 'react-dom';
@@ -26,4 +27,15 @@ root.render(
             </BrowserRouter>
         </ErrorProvider>
     </React.StrictMode>
+=======
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+        <App />
+  </React.StrictMode>,
+>>>>>>> origin/javi
 );

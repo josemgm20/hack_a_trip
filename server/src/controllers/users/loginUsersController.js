@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+<<<<<<< HEAD
 // Importar funciones de manejo de errores
 const { missingFieldsError, invalidCredentialsError } = require('../../services/errorService');
 
@@ -7,6 +8,18 @@ const { missingFieldsError, invalidCredentialsError } = require('../../services/
 const bcrypt = require('bcrypt');
 
 // Importar el modelo de usuario para la recuperación de datos de usuario
+=======
+//Importamos los errores.
+const {
+    missingFieldsError,
+    invalidCredentialsError,
+} = require('../../services/errorService');
+
+// Importamos encriptacion
+const bcrypt = require('bcrypt');
+
+// Importamos modelos
+>>>>>>> origin/javi
 const { selectUserByEmailModel } = require('../../models/users');
 
 const loginUsersController = async (req, res, next) => {
@@ -18,8 +31,13 @@ const loginUsersController = async (req, res, next) => {
             missingFieldsError();
         }
 
+<<<<<<< HEAD
         // Obtener los datos del usuario por correo electrónico
         const user = await selectUserByEmailModel(email);
+=======
+        //Obtenemos datos del usuario
+        const usuario = await selectUserByEmailModel(email);
+>>>>>>> origin/javi
 
         // Comparar la contraseña proporcionada con la contraseña almacenada cifrada
         const validPassword = await bcrypt.compare(password, user.password);

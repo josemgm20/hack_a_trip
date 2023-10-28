@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 /* index.css */
 /* Estilo global del cuerpo de la página */
+=======
+/* Desde aqui aplicamos el color al footer y al header, además desde aquí modificamos los márgenes de la página */
+:root {
+    --blue-color: #0041B2
+}
+
+>>>>>>> origin/javi
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+<<<<<<< HEAD
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -29,4 +38,16 @@
     align-items: center;
     /* La página de bienvenida ocupa toda la altura disponible, establece un color de fondo
      y centra su contenido tanto horizontal como verticalmente. */
+=======
+}
+
+div.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+>>>>>>> origin/javi
 }

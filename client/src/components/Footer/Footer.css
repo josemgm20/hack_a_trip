@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* CSS para el pie de página dentro de la clase 'app' */
 div.app > footer {
     text-align: center; /* Centrar el texto */
@@ -5,4 +6,12 @@ div.app > footer {
     padding: 2rem; /* Aplicar relleno al pie de página */
     background-color: aqua; /* Establecer el color de fondo como aqua */
     color: white; /* Establecer el color del texto como blanco */
+=======
+div.app > footer {
+    text-align: center;
+    letter-spacing: 1px;
+    padding: 2rem;
+    background-color: var(--blue-color);
+    color: rgb(253, 253, 253);
+>>>>>>> origin/javi
 }
