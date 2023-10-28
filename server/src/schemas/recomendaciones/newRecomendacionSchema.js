@@ -9,8 +9,10 @@ const imgSchema = require('../imgSchema');
 
 // Creamos el esquema de validación.
 const newRecomendacionSchema = joi.object({
-    text: joi.string().required().messages(joiErrorMessages),
-    image: imgSchema.optional().messages(joiErrorMessages),
+    titulo: joi.string().required().messages(joiErrorMessages),
+    tipo: joi.string().required().messages(joiErrorMessages),
+    descripcion: joi.string().optional().messages(joiErrorMessages),
+    foto: imgSchema.optional().messages(joiErrorMessages),
 });
 
 module.exports = newRecomendacionSchema;

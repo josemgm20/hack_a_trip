@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../utls/customPropTypes';
+const baseURL = import.meta.env.VITE_API_URL;
 
 import "./RecommendationListItemForm.css"
 
@@ -26,8 +27,10 @@ function RecommendationListItemForm({
         <Card className="recommendation-card card-custom mx-auto" style={{ maxWidth: "40vw" }}>
             <Card.Img
                 variant="top"
-                src={foto || '/view.jpg'} // Use 'foto' if available, otherwise use the default image path
+                src={recommendation.foto ? `${baseURL}/${recommendation.foto}` : 'view.jpg'}
                 className="recommendation-image"
+                alt="View"
+
             />
             <Card.Body className="recommendation-card-body card-custom-body">
                 <Card.Title className="recommendation-title ">{titulo}</Card.Title>

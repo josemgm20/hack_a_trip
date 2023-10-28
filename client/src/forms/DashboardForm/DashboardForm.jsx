@@ -1,33 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-//TEST
-
 import { getToken } from '../../utls/getToken';
-// URL base del API.
+
 const baseURL = import.meta.env.VITE_API_URL;
 
 const DashboardForm = ({ userData, loading }) => {
     const [avatarFile, setAvatarFile] = useState(null);
 
     const handleAvatarChange = (e) => {
-        // Handle the user's avatar file selection
         const file = e.target.files[0];
         if (file) {
-            setAvatarFile(URL.createObjectURL(file));
+            setAvatarFile(file); // Store the actual file, not a URL
         }
     };
 
     const handleUpdateAvatar = () => {
         const token = getToken();
-        // Perform an API request to update the user's avatar
         if (avatarFile) {
             const formData = new FormData();
-            formData.append('avatar', avatarFile);
+            formData.append('avatar', avatarFile, avatarFile.name); // Append the file and its name
 
-            // You can use the fetch API or your preferred HTTP client library here
-            fetch(`${baseURL}/user/avatar`, {
-                method: 'PATCH',
+            fetch(`${baseURL}/user`, {
+                method: 'PUT',
                 headers: {
                     Authorization: token,
                 },
@@ -35,15 +30,12 @@ const DashboardForm = ({ userData, loading }) => {
             })
                 .then((response) => {
                     if (response.ok) {
-                        // Handle success
                         console.log('Avatar updated successfully');
                     } else {
-                        // Handle errors
                         console.error('Failed to update avatar');
                     }
                 })
                 .catch((error) => {
-                    // Handle network errors
                     console.error('Network error:', error);
                 });
         }
@@ -52,7 +44,6 @@ const DashboardForm = ({ userData, loading }) => {
     return (
         <div>
             <h1>Dashboard</h1>
-
             <h2>Bienvenido {userData.username || 'Usuario'}!</h2>
 
             {userData ? (
@@ -60,7 +51,7 @@ const DashboardForm = ({ userData, loading }) => {
                     <div className="row g-0">
                         <div className="col-md-4">
                             <img
-                                src={avatarFile || userData.avatar_url || '/public/image.jpeg'}
+                                src={avatarFile ? URL.createObjectURL(avatarFile) : `${baseURL}/${userData.avatar || 'image.jpeg'}`}
                                 className="img-fluid rounded-start"
                                 alt="User Avatar"
                             />
@@ -99,7 +90,7 @@ DashboardForm.propTypes = {
         id: PropTypes.number,
         username: PropTypes.string,
         email: PropTypes.string,
-        avatar_url: PropTypes.string,
+        avatar: PropTypes.string,
     }),
     loading: PropTypes.bool.isRequired,
 };

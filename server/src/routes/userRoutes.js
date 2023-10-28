@@ -17,7 +17,7 @@ const {
 router.post('/users/register', insertUserController);
 
 // Editar avatar
-router.put('/user/avatar', authUserController, editAvatarController)
+router.put('/user', authUserController, editAvatarController)
 
 //Login de usuario
 router.post('/users/login', loginUsersController);
@@ -26,6 +26,8 @@ router.get('/users', getAllUserController);
 
 //Informacion del propio usuario.
 router.get('/user', authUserController, getUserController);
+
+
 
 
 module.exports = router;

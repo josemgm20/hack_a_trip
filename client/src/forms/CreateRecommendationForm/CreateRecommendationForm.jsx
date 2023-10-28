@@ -11,118 +11,106 @@ const RecommendationCreateForm = () => {
     const fileInputRef = useRef(null);
     const { setErrMsg } = useError();
 
-    const [formData, setFormData] = useState({
-        foto: null,
-        titulo: '',
-        tipo: 1,
-        description: '',
-    });
+    const [titulo, setTitulo] = useState('');
+    const [tipo, setTipo] = useState('1'); // Default to gastronomico
+    const [descripcion, setDescripcion] = useState('');
+    const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
     const [loading, setLoading] = useState(false);
-
-    const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        if (name === 'foto' && files.length) {
-            console.log('File selected:', files[0]);
-            handleAddFilePreview(e, setFormData, setPreviewUrl);
-        } else {
-            console.log('Form data updated:', name, value);
-            setFormData({
-                ...formData,
-                [name]: name === 'tipo' ? parseInt(value) : value,
-            });
-        }
-    };
 
     const handleRecommendationCreate = async () => {
         try {
             setLoading(true);
-            console.log('Creating recommendation...');
+            const formData = new FormData();
 
-            // Validate if a file is selected before submission
-            if (!formData.foto) {
-                throw new Error('Please select an image (foto) for the recommendation.');
+            if (titulo.trim() === '' || tipo.trim() === '') {
+                throw new Error('Título and Tipo are required fields.');
             }
 
-            const formDataToSend = new FormData();
-            formDataToSend.append('foto', formData.foto);
-            formDataToSend.append('titulo', formData.titulo);
-            formDataToSend.append('tipo', formData.tipo);
-            formDataToSend.append('description', formData.description);
+            formData.append('titulo', titulo);
+            formData.append('tipo', tipo);
 
-            console.log('Submitting form data:', formDataToSend);
-            const response = await createRecommendationService(formDataToSend);
-
-            if (response.status === 'error') {
-                console.error('API error:', response.message);
-                throw new Error(response.message);
+            if (descripcion.trim() !== '') {
+                // Only append descripcion if it's not empty
+                formData.append('descripcion', descripcion);
             }
 
-            console.log('Recommendation created successfully.');
+            if (file) formData.append('foto', file);
+
+            const body = await createRecommendationService(formData);
+
+            if (body.status === 'error') {
+                throw new Error(body.message);
+            }
+
             navigate('/explore');
         } catch (err) {
-            console.error('Error:', err.message);
             setErrMsg(err.message);
         } finally {
-            console.log('Finishing recommendation creation...');
             setLoading(false);
         }
     };
 
     return (
         <form
-            className="recommendation-create-form"
+            className="Recommendation-create-form"
             onSubmit={(e) => {
                 e.preventDefault();
                 handleRecommendationCreate();
             }}
         >
             <input
-                type="file"
-                id="foto-input"
-                name="foto"
-                accept=".jpg, .png"
-                ref={fileInputRef}
-                onChange={handleChange}
-            />
-
-            {previewUrl && (
-                <img
-                    src={previewUrl}
-                    onClick={() => {
-                        handleRemoveFilePreview(fileInputRef, setFormData, setPreviewUrl);
-                    }}
-                    alt="Previsualización"
-                    title="Eliminar imagen"
-                />
-            )}
-
-            <input
                 type="text"
-                name="titulo"
-                placeholder="Title"
-                value={formData.titulo}
-                onChange={handleChange}
+                placeholder="Título"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
                 required
             />
-
             <select
-                name="tipo"
-                value={formData.tipo}
-                onChange={handleChange}
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                required
             >
-                <option value={1}>Gastronomico</option>
-                <option value={2}>Museos</option>
+                <option value="1">Gastronómico</option>
+                <option value="2">Museos</option>
             </select>
-
             <textarea
-                name="description"
-                placeholder="Description"
-                value={formData.description}
-                onChange={handleChange}
+                placeholder="Descripción"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+                maxLength="280"
             />
 
-            <button disabled={loading}>Create Recommendation</button>
+            <div className="img-prev-container">
+                <button disabled={loading}>Enviar</button>
+                <label htmlFor="file-input" className="custom-file-label">
+                    <span>Seleccionar archivo</span>
+                </label>
+                <input
+                    type="file"
+                    id="file-input"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={(e) =>
+                        handleAddFilePreview(e, setFile, setPreviewUrl)
+                    }
+                />
+
+                {previewUrl && (
+                    <img
+                        src={previewUrl}
+                        alt="Previsualización"
+                        title="Eliminar imagen"
+                        onClick={() => {
+                            handleRemoveFilePreview(
+                                fileInputRef,
+                                setFile,
+                                setPreviewUrl
+                            );
+                        }}
+                    />
+                )}
+            </div>
         </form>
     );
 };

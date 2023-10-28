@@ -1,24 +1,28 @@
 const crearRecomendacionModel = require('../../models/recomendaciones/crearRecomendacionModel');
 const savePhotoUtil = require('../../utils/savePhotoUtil');
+const validateSchema = require('../../utils/validateSchema');
+
+const newRecomendacionSchema = require('../../schemas/recomendaciones/newRecomendacionSchema')
 
 //Importamos errores
-const { missingFieldsError } = require('../../services/errorService');
+
 
 const crearRecomendacionController = async (req, res, next) => {
     // Almacenamos haciendo destructuring de los campos
     try {
-        const { titulo, tipo, foto, descripcion } = req.body;
+        const { titulo, tipo, descripcion } = req.body;
 
-        if (!titulo || !tipo) {
-            missingFieldsError();
-        }
+        await validateSchema(newRecomendacionSchema, {
+            ...req.body,
+            ...req.files,
+        });
 
         // Variable que almacena imagen
         let imgName;
 
         // Si existe imagen, la guardamos en disco y obtenemos nombre.
-        if (req.files?.image) {
-            imgName = await savePhotoUtil(req.files.image, 500);
+        if (req.files?.foto) {
+            imgName = await savePhotoUtil(req.files.foto, 500);
         }
 
         // Creamos la recomendación en BBDD and obtain its ID
@@ -38,7 +42,8 @@ const crearRecomendacionController = async (req, res, next) => {
                     usuarioId: req.user.id,
                     titulo,
                     tipo,
-                    foto,
+                    foto: imgName || null,
+                    descripcion,
                     createAt: new Date(),
                 },
             },

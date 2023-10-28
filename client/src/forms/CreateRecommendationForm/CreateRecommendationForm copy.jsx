@@ -1,130 +1,114 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useError } from '../../Hooks/useError';
+import { createRecommendationService } from '../../services/recommendatonService';
+import { handleAddFilePreview } from '../../utls/handleAddFilePreview';
+import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview';
 
-function CreateRecommendationForm() {
-    const [formData, setFormData] = useState({
-        foto: '',
-        titulo: '',
-        tipo: 'gastronomico',
-        description: '',
-    });
+const RecommendationCreateForm = () => {
+    const navigate = useNavigate();
+    const fileInputRef = useRef(null);
+    const { setErrMsg } = useError();
 
-    const [formErrors, setFormErrors] = useState({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [titulo, setTitulo] = useState('');
+    const [tipo, setTipo] = useState('1'); // Default to gastronomico
+    const [descripcion, setDescripcion] = useState('');
+    const [file, setFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+    const handleRecommendationCreate = async () => {
+        try {
+            setLoading(true);
+            const formData = new FormData();
 
-    const validateForm = () => {
-        const errors = {};
-
-        if (!formData.titulo) {
-            errors.titulo = 'Title is required';
-        }
-
-        setFormErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-            setIsSubmitting(true);
-
-            try {
-                // Here, you can submit the form data to your backend or perform any other actions.
-                console.log(formData);
-                // Clear the form after submission
-                setFormData({
-                    foto: '',
-                    titulo: '',
-                    tipo: 'gastronomico',
-                    description: '',
-                });
-                setIsSubmitting(false);
-            } catch (error) {
-                console.error('An error occurred', error);
-                setIsSubmitting(false);
+            if (titulo.trim() === '' || tipo.trim() === '') {
+                throw new Error('Título and Tipo are required fields.');
             }
+
+            formData.append('titulo', titulo);
+            formData.append('tipo', tipo);
+            formData.append('descripcion', descripcion);
+
+
+            if (file) formData.append('foto', file);
+
+            const body = await createRecommendationService(formData);
+
+            if (body.status === 'error') {
+                throw new Error(body.message);
+            }
+
+            navigate('/explore');
+        } catch (err) {
+            setErrMsg(err.message);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div>
-            <h2>Create Recommendation</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="foto" className="form-label">
-                        Foto
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="foto"
-                        name="foto"
-                        value={formData.foto}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="titulo" className="form-label">
-                        Titulo
-                    </label>
-                    <input
-                        type="text"
-                        className={`form-control ${formErrors.titulo ? 'is-invalid' : ''}`}
-                        id="titulo"
-                        name="titulo"
-                        value={formData.titulo}
-                        onChange={handleChange}
-                        required
-                    />
-                    {formErrors.titulo && (
-                        <div className="invalid-feedback">{formErrors.titulo}</div>
-                    )}
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="tipo" className="form-label">
-                        Tipo
-                    </label>
-                    <select
-                        className="form-select"
-                        id="tipo"
-                        name="tipo"
-                        value={formData.tipo}
-                        onChange={handleChange}
-                    >
-                        <option value="gastronomico">Gastronomico</option>
-                        <option value="museos">Museos</option>
-                    </select>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                        Description
-                    </label>
-                    <textarea
-                        className="form-control"
-                        id="description"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? 'Creating...' : 'Create Recommendation'}
-                </button>
-            </form>
-        </div>
-    );
-}
+        <form
+            className="Recommendation-create-form"
+            onSubmit={(e) => {
+                e.preventDefault();
+                handleRecommendationCreate();
+            }}
+        >
+            <input
+                type="text"
+                placeholder="Título"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+                required
+            />
+            <select
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                required
+            >
+                <option value="1">Gastronómico</option>
+                <option value="2">Museos</option>
+            </select>
+            <textarea
+                placeholder="Descripción"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+                maxLength="280"
+            />
 
-export default CreateRecommendationForm;
+            <div className="img-prev-container">
+                <button disabled={loading}>Enviar</button>
+                <label htmlFor="file-input" className="custom-file-label">
+                    <span>Seleccionar archivo</span>
+                </label>
+                <input
+                    type="file"
+                    id="file-input"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={(e) =>
+                        handleAddFilePreview(e, setFile, setPreviewUrl)
+                    }
+                />
+
+                {previewUrl && (
+                    <img
+                        src={previewUrl}
+                        alt="Previsualización"
+                        title="Eliminar imagen"
+                        onClick={() => {
+                            handleRemoveFilePreview(
+                                fileInputRef,
+                                setFile,
+                                setPreviewUrl
+                            );
+                        }}
+                    />
+                )}
+            </div>
+        </form>
+    );
+};
+
+export default RecommendationCreateForm;
