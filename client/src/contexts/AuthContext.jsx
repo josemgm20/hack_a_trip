@@ -89,6 +89,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     // Función que logea a un usuario retornando un token.
+    // Modify the authLogin function to handle errors and set the error state.
     const authLogin = async (email, password) => {
         try {
             setLoading(true);
@@ -106,11 +107,13 @@ export const AuthProvider = ({ children }) => {
             // Indicamos que el usuario se ha logeado.
             setIsAuthenticated(true);
         } catch (err) {
-            setErrMsg(err.message);
+            // Set the error state to the error message.
+            // useError(err.message);
         } finally {
             setLoading(false);
         }
     };
+
 
     // Función de logout.
     const authLogout = () => {

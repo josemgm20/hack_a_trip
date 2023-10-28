@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
 import { useAuth } from '../../Hooks/useAuth';
@@ -13,7 +12,7 @@ const headerStyles = {
 
 const Header = () => {
     const { authUser, authLogout } = useAuth();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     return (
         <header>
@@ -65,7 +64,7 @@ const Header = () => {
                                             <Dropdown.Item as={Link} to="/dashboard">
                                                 Tu Perfil
                                             </Dropdown.Item>
-                                            <Dropdown.Item as={Link} to="/explore" >
+                                            <Dropdown.Item as={Link} to="/new-recommendation">
                                                 Crear una Recomendación
                                             </Dropdown.Item>
                                             <Dropdown.Item as={Link} to="/" onClick={authLogout}>

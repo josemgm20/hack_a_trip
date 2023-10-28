@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRecommendation } from '../../Hooks/useRecommendation';
 
 function SearchBarForm() {
-    const { setSearchParams, loading } = useRecommendation();
+    const { setSearchParams} = useRecommendation();
 
     const [keyword, setKeyword] = useState('');
 

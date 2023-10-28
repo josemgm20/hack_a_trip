@@ -1,12 +1,12 @@
 // SignOnForm.jsx
 
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const SignOnForm = ({ authLogin, loading }) => {
+const SignOnForm = ({ authLogin}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error] = useState(null);
 
     return (
         <div style={{ width: '20vw', marginBottom: '1vw' }}>
@@ -40,6 +40,7 @@ const SignOnForm = ({ authLogin, loading }) => {
                         Iniciar Sesión
                     </button>
                     {error && <p className="text-danger mt-2">{error}</p>}
+
                     <p className="mt-3">¿No tienes una cuenta? <a href="/register">Regístrate aquí</a></p>
                 </form>
             </div>

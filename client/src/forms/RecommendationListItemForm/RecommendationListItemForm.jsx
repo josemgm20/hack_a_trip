@@ -1,7 +1,10 @@
-import React from 'react';
+
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../utls/customPropTypes';
+const baseURL = import.meta.env.VITE_API_URL;
+
+import "./RecommendationListItemForm.css"
 
 
 function RecommendationListItemForm({
@@ -11,7 +14,7 @@ function RecommendationListItemForm({
 }) {
     const {
         id,
-        foto,
+        // foto, comentado hasta que se corrija la base de datos
         titulo,
         tipo,
         descripcion,
@@ -21,10 +24,16 @@ function RecommendationListItemForm({
     } = recommendation;
 
     return (
-        <Card className="recommendation-card">
-            <Card.Img variant="top" src={foto} className="recommendation-image" />
-            <Card.Body>
-                <Card.Title className="recommendation-title">{titulo}</Card.Title>
+        <Card className="recommendation-card card-custom mx-auto" style={{ maxWidth: "40vw" }}>
+            <Card.Img
+                variant="top"
+                src={recommendation.foto ? `${baseURL}/${recommendation.foto}` : 'view.jpg'}
+                className="recommendation-image"
+                alt="View"
+
+            />
+            <Card.Body className="recommendation-card-body card-custom-body">
+                <Card.Title className="recommendation-title ">{titulo}</Card.Title>
                 <Card.Text className="recommendation-description">{descripcion}</Card.Text>
                 <p className="recommendation-id">Recommendation ID: {id}</p>
                 <p className="recommendation-type">Type: {tipo}</p>

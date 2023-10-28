@@ -7,7 +7,6 @@ import { useAuth } from '../../Hooks/useAuth';
 // Importa los componentes.
 import SignOnForm from '../../forms/SignOnForm/SignOnForm';
 
-import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const SignOnPage = () => {

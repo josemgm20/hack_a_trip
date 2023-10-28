@@ -10,11 +10,11 @@ export const useRecommendation = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [orderBy, setOrderBy] = useState('created_at');
+    const [orderBy, setOrderBy] = useState('created_at'); // Error no identificado para revisión
     const [ascOrder, setAscOrder] = useState(false);
-    const [keyword, setKeyword] = useState('')
+    const [keyword, setKeyword] = useState('') // Error no identificado para revisión
 
-    const navigate = useNavigate();
+    const navigate = useNavigate();  // Error no identificado para revisión
 
 
     const handleSearchOrKeyPress = (e) => {
@@ -47,11 +47,8 @@ export const useRecommendation = () => {
 
     useEffect(() => {
         const fetchRecommendationsData = async () => {
-           
             try {
                 setLoading(true);
-
-                console.log(searchParams)
                 const body = await fetchRecommendationService(searchParams);
                 console.log('API Response:', body);
 

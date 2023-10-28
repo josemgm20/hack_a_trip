@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react'; // Comentado hasta que se implemente
 
 import DashboardForm from '../../forms/DashboardForm/DashboardForm';
 
