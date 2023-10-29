@@ -1,0 +1,27 @@
+.form-container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+
+.recommendation-create-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-prev-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.img-preview {
+  width: 100px;
+  height: 100px;
+}

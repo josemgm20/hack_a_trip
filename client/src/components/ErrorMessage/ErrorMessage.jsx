@@ -18,7 +18,7 @@ const ErrorMessage = ({ errMsg, setErrMsg }) => {
 
     return () => {
       // limpiamos el temorizador cuando el componente se desmonte
-      clearTimeout(timer);
+      // clearTimeout(timer);
 
       // Limpiamos el mensaje de error
       setErrMsg("");

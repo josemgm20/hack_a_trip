@@ -25,8 +25,8 @@ const insertLikeModel = async (recomendacionId, usuarioId) => {
         }
 
         await connection.query(
-            `INSERT INTO likes(recomendacionId, usuarioId) VALUES(?, ?)`,
-            [recomendacionId, usuarioId]
+            `INSERT INTO likes(puntuacion, recomendacionId, usuarioId) VALUES(?, ?, ?)`,
+            [puntuacion, recomendacionId, usuarioId]
         );
     } finally {
         if (connection) connection.release();
