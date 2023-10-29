@@ -4,9 +4,9 @@ import { useError } from '../../Hooks/useError';
 import { useRecommendation } from '../../Hooks/useRecommendation';
 import { handleAddFilePreview } from '../../utls/handleAddFilePreview';
 import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview';
-import { Form, Button, InputGroup, Modal } from 'react-bootstrap'; // Import necessary components
+import { Form, Button, InputGroup } from 'react-bootstrap';
 
-import './CreateRecommendationForm.css';
+import './CreateRecommendationForm.css'
 
 const RecommendationCreateForm = () => {
     const navigate = useNavigate();
@@ -21,16 +21,8 @@ const RecommendationCreateForm = () => {
     const [previewUrl, setPreviewUrl] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const [showConfirmation, setShowConfirmation] = useState(false); // Add showConfirmation state
-    const [confirmed, setConfirmed] = useState(false); // Add confirmed state
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowConfirmation(true); // Show confirmation modal
-    };
-
-    const handleConfirm = async () => {
-        setConfirmed(true);
         try {
             await handleRecommendationCreate(titulo, tipo, descripcion, file);
         } catch (err) {
@@ -39,7 +31,7 @@ const RecommendationCreateForm = () => {
     };
 
     return (
-        <Form className="recommendation-create-form">
+        <Form className="recommendation-create-form" onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
                 <Form.Control
                     type="text"
@@ -73,7 +65,6 @@ const RecommendationCreateForm = () => {
                 <Button
                     variant="primary"
                     type="submit"
-                    onClick={handleSubmit}
                     disabled={loading}
                 >
                     Enviar
@@ -91,7 +82,7 @@ const RecommendationCreateForm = () => {
                     <InputGroup.Text>Seleccionar archivo</InputGroup.Text>
                 </InputGroup>
                 {previewUrl && (
-                    <div className="image-preview">
+                    <div className="image-preview" >
                         <img
                             src={previewUrl}
                             alt="Previsualización"
@@ -107,21 +98,6 @@ const RecommendationCreateForm = () => {
                     </div>
                 )}
             </div>
-
-            <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Recommendation Creation</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to create this recommendation?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowConfirmation(false)}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={() => { setShowConfirmation(false); handleConfirm(); }}>
-                        Confirm
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </Form>
     );
 };

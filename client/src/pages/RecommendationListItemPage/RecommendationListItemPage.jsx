@@ -4,19 +4,21 @@ import { useRecommendation } from '../../Hooks/useRecommendation';
 import RecommendationListItemForm from '../../forms/RecommendationListItemForm/RecommendationListItemForm';
 
 function RecommendationListItemPage() {
-    // Importaciones y declaraciones de estado
     const {
-        recommendations, // Lista de recomendaciones
-        loading, // Estado de carga
-        error, // Posible error
-        handleOrderByLikes, // Función para cambiar el orden
-        sortRecommendations, // Función para ordenar las recomendaciones
+        recommendations,
+        loading,
+        error,
+        handleOrderByLikes,
+        sortRecommendations,
         handleOrderByDate,
-        sortingBy, // Add sortingBy from useRecommendation
-        setSortingBy, // Add setSortingBy from useRecommendation
+        sortingBy,
+        setSortingBy,
         setAscOrder,
-        ascOrder, // Orden ascendente o descendente
-    } = useRecommendation(); // Utiliza el hook 'useRecommendation'
+        ascOrder,
+        upvoteRecommendation,
+        deleteRecommendationsById,
+        recommendationId,
+    } = useRecommendation();
 
     return (
         <div className="container">
@@ -67,8 +69,13 @@ function RecommendationListItemPage() {
                 <div className="recommendation-list">
                     {sortRecommendations(recommendations).map((recommendation) => (
                         <RecommendationListItemForm
-                            key={recommendation.id}
+                            key={recommendation.id} // Add a unique key prop
                             recommendation={recommendation}
+                            username={recommendation.username}
+                            created_at={recommendation.created_at}
+                            upvoteRecommendation={() => upvoteRecommendation(recommendation.id)}
+                            deleteRecommendationsById={deleteRecommendationsById}
+                            recommendationId={recommendation.id}
                         />
                     ))}
                 </div>

@@ -10,7 +10,7 @@ import RecommendationFooterCard from './RecommendationFooterCard/RecommendationF
 import "./RecommendationListItemForm.css";
 
 function RecommendationListItemForm({ recommendation }) {
-    const { deleteRecommendationsById, upvoteRecommendation } = useRecommendation();
+    const { deleteRecommendationsById, upvoteRecommendation, loading, setLoading } = useRecommendation();
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     const toggleFullScreen = () => {
@@ -26,10 +26,7 @@ function RecommendationListItemForm({ recommendation }) {
             ) : (
                 <>
                     <div onClick={toggleFullScreen}>
-                        <RecommendationHeaderCard
-                            foto={recommendation.foto}
-                            id={recommendation.id}
-                        />
+                        <RecommendationHeaderCard id={recommendation.id} foto={recommendation.foto} />
                     </div>
                     <div onClick={toggleFullScreen}>
                         <RecommendationBodyCard
@@ -41,12 +38,11 @@ function RecommendationListItemForm({ recommendation }) {
                     </div>
                     <div onClick={toggleFullScreen}>
                         <RecommendationFooterCard
-                            id={recommendation.id}
-                            username={recommendation.username}
-                            likes={recommendation.likes}
-                            created_at={recommendation.created_at}
-                            upvoteRecommendation={upvoteRecommendation}
-                            deleteRecommendationsById={deleteRecommendationsById}
+                            recommendation={recommendation} // Make sure to pass the recommendation object
+                            username={recommendation.username} // Add other necessary props
+                            created_at={recommendation.created_at} // Add other necessary props
+                            upvoteRecommendation={upvoteRecommendation} // Add other necessary props
+                            deleteRecommendationsById={deleteRecommendationsById} // Add other necessary props
                         />
                     </div>
                 </>
@@ -55,19 +51,16 @@ function RecommendationListItemForm({ recommendation }) {
     );
 }
 
-RecommendationListItemForm.propTypes = {
-    authUser: userPropTypes,
+RecommendationFooterCard.propTypes = {
     recommendation: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        foto: PropTypes.string.isRequired,
-        titulo: PropTypes.string.isRequired,
-        tipo: PropTypes.string.isRequired,
-        descripcion: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired,
-        likes: PropTypes.number.isRequired,
         created_at: PropTypes.string.isRequired,
-        loading: PropTypes.bool.isRequired,
-    }).isRequired,
+        // Add any other properties here with their PropTypes definitions
+    }),
+    username: PropTypes.string.isRequired,
+    upvoteRecommendation: PropTypes.func.isRequired,
+    deleteRecommendationsById: PropTypes.func.isRequired,
 };
+
 
 export default RecommendationListItemForm;

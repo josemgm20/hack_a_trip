@@ -20,7 +20,7 @@ function RecommendationHeaderCard({ id, foto }) {
 
 RecommendationHeaderCard.propTypes = {
     id: PropTypes.number.isRequired,
-    foto: PropTypes.string.isRequired,
+    foto: PropTypes.string,
 };
 
 export default RecommendationHeaderCard;

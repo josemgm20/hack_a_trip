@@ -40,11 +40,11 @@ export const fetchRecommendationService = async (searchParams) => {
 };
 
 // Función para manejar un voto positivo (upvote)
-export const handleUpvoteService = async (recommendationId, method) => {
+export const handleUpvoteService = async (recommendationId) => {
     const token = getToken();
 
     const res = await fetch(`${baseURL}/recomendaciones/${recommendationId}/likes`, { // Fixed the URL path
-        method, // Usa el método proporcionado
+        method: 'PUT',
         headers: {
             Authorization: token,
         },
@@ -54,7 +54,6 @@ export const handleUpvoteService = async (recommendationId, method) => {
 
     return body;
 };
-
 
 // Función para manejar un voto negativo (downvote)
 export const handleDownvoteService = async (recommendationId) => {

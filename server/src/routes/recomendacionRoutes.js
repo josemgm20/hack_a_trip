@@ -24,7 +24,7 @@ router.post(
 );
 
 //Insertar un like
-router.post(
+router.put(
     '/recomendaciones/:recomendacionId/likes',
     authUserController,
     recomendacionExistController,
