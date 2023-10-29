@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Importar las bibliotecas necesarias desde React y otros módulos
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -7,9 +6,7 @@ import { BrowserRouter } from 'react-router-dom'; // Proporciona la navegación 
 import { AuthProvider } from './contexts/AuthContext'; // Proporciona el contexto de autenticación
 import { ErrorProvider } from './contexts/ErrorContext'; // Proporciona el contexto de manejo de errores (actualiza la ruta de importación)
 
-import './index.css'
-
-
+import './index.css';
 
 // Se crea un nodo de raíz de React en el elemento con el ID 'root' en el DOM
 const root = createRoot(document.getElementById('root'));
@@ -29,15 +26,4 @@ root.render(
             </BrowserRouter>
         </ErrorProvider>
     </React.StrictMode>
-=======
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-        <App />
-  </React.StrictMode>,
->>>>>>> origin/javi
 );
