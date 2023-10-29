@@ -1,9 +1,11 @@
 import React from 'react';
 import { Spinner, Alert, Button, Row, Col } from 'react-bootstrap';
 import { useRecommendation } from '../../Hooks/useRecommendation';
+import { useAuth } from '../../Hooks/useAuth';
 import RecommendationListItemForm from '../../forms/RecommendationListItemForm/RecommendationListItemForm';
 
 function RecommendationListItemPage() {
+    const { authUser } = useAuth(); // Utiliza el hook 'useAuth' para obtener el usuario autenticado y el estado de carga
     const {
         recommendations,
         loading,
@@ -19,6 +21,7 @@ function RecommendationListItemPage() {
         deleteRecommendationsById,
         recommendationId,
     } = useRecommendation();
+    const userData = authUser || {};
 
     return (
         <div className="container">
@@ -69,6 +72,8 @@ function RecommendationListItemPage() {
                 <div className="recommendation-list">
                     {sortRecommendations(recommendations).map((recommendation) => (
                         <RecommendationListItemForm
+                            userData={userData}
+                            loading={loading}
                             key={recommendation.id} // Add a unique key prop
                             recommendation={recommendation}
                             username={recommendation.username}

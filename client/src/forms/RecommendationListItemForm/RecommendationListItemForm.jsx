@@ -38,6 +38,7 @@ function RecommendationListItemForm({ recommendation }) {
                     </div>
                     <div onClick={toggleFullScreen}>
                         <RecommendationFooterCard
+                            id={recommendation.id}
                             recommendation={recommendation} // Make sure to pass the recommendation object
                             username={recommendation.username} // Add other necessary props
                             created_at={recommendation.created_at} // Add other necessary props

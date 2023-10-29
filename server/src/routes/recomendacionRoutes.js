@@ -5,6 +5,7 @@ const router = express.Router();
 const authUserController = require('../middlewares/authUserController');
 const recomendacionExistController = require('../middlewares/recomendacionExistsController');
 
+const authUserOptionalController = require('../middlewares/authUserOptionalController')
 // Importamos las funciones controladoras finales.
 const {
     crearRecomendacionController,
@@ -40,7 +41,7 @@ router.delete(
 );
 
 // Seleccionar todas las recomendaciones
-router.get('/recomendaciones', listRecomendacionController);
+router.get('/recomendaciones', authUserOptionalController, listRecomendacionController);
 //router.get('/recomendaciones/:recomendacionId', selectRecomendacionByIdController);
 
 // Eliminar una recomendacion

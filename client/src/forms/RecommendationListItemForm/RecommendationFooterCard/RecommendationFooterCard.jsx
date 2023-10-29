@@ -1,11 +1,11 @@
-import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Card, Button, Toast } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-function RecommendationFooterCard({ username, created_at, upvoteRecommendation, deleteRecommendationsById, id }) {
-    const handleUpvote = () => {
-        upvoteRecommendation(id);
-    };
+function RecommendationFooterCard({ username, created_at, upvoteRecommendation, deleteRecommendationsById, id, authUser }) {
+    const [hasUpvoted, setHasUpvoted] = useState(false);
+
 
     return (
         <Card.Footer className="recommendation-buttons">
@@ -13,23 +13,20 @@ function RecommendationFooterCard({ username, created_at, upvoteRecommendation, 
             <p className="recommendation-created">Created At: {created_at}</p>
             <Button
                 variant="success"
-                onClick={handleUpvote} // Pass the function directly
+                onClick={() => upvoteRecommendation(id)}
                 className="upvote-button"
+                disabled={hasUpvoted}
             >
                 Me gusta
             </Button>
-            <Button
-                variant="danger"
-                onClick={() => deleteRecommendationsById(id)}
-                className="delete-button"
-            >
-                Eliminar
-            </Button>
+
+
         </Card.Footer>
     );
 }
 
 RecommendationFooterCard.propTypes = {
+    authUser: PropTypes.bool.isRequired,
     username: PropTypes.string.isRequired,
     upvoteRecommendation: PropTypes.func.isRequired,
     deleteRecommendationsById: PropTypes.func.isRequired,
