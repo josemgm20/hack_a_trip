@@ -1,10 +1,13 @@
 import { useState, useRef } from 'react'; // Import useRef
 import { useNavigate } from 'react-router-dom';
 import { useError } from '../../Hooks/useError'; // Check your import path, should it be '../../hooks/useError'?
-import { createRecommendationService } from '../../services/recommendatonService'; // Correct the import path
+import { createRecommendationService } from '../../services/recommendationService'; // Correct the import path
+import "./CreateRecommendationForm.css"
 
-import { handleAddFilePreview } from '../../utls/handleAddFilePreview'; // Check your import path
-import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview'; // Check your import path
+
+
+import { handleAddFilePreview } from '../../utils/handleAddFilePreview'; // Check your import path
+import { handleRemoveFilePreview } from '../../utils/handleRemoveFilePreview'; // Check your import path
 
 const RecommendationCreateForm = () => {
     const navigate = useNavigate();
@@ -36,6 +39,7 @@ const RecommendationCreateForm = () => {
             }
 
             if (file) formData.append('foto', file);
+            console.log('aaaa', formData)
 
             const body = await createRecommendationService(formData);
 
@@ -53,7 +57,7 @@ const RecommendationCreateForm = () => {
 
     return (
         <form
-            className="Recommendation-create-form"
+            className="recommendation-create-form"
             onSubmit={(e) => {
                 e.preventDefault();
                 handleRecommendationCreate();

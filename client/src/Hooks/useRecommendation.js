@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom'; // Import useSearchParams and useNavigate
-import { fetchRecommendationService } from '../services/recommendatonService';
+import { fetchRecommendationService } from '../services/recommendationService';
 import { useError } from './useError'
 
 export const useRecommendation = () => {

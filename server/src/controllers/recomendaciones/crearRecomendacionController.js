@@ -5,6 +5,7 @@ const savePhotoUtil = require('../../utils/savePhotoUtil');
 const { missingFieldsError } = require('../../services/errorService');
 
 const crearRecomendacionController = async (req, res, next) => {
+    console.log('que cojones entra aquí', req.body)
     // Almacenamos haciendo destructuring de los campos
     try {
         const { titulo, tipo, foto, descripcion } = req.body;

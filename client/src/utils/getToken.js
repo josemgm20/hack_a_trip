@@ -1,5 +1,3 @@
-// getToken.js
-
 // Aqui importamos las constantes.
 import { TOKEN_LOCAL_STORAGE_KEY } from './constants';
 

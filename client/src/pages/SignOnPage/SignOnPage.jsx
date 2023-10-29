@@ -17,6 +17,7 @@ const SignOnPage = () => {
     // Función para manejar el inicio de sesión.
     const handleSignIn = async (email, password) => {
         try {
+          
             await authLogin(email, password);
             // Si el inicio de sesión es exitoso, navegar a la ruta /Dashboard.
             navigate('/Dashboard');

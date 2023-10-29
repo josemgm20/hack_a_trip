@@ -14,10 +14,10 @@ import {
 } from '../services/userService';
 
 // Importamos las constantes.
-import { TOKEN_LOCAL_STORAGE_KEY } from '../utls/constants';
+import { TOKEN_LOCAL_STORAGE_KEY } from '../utils/constants';
 
 // Importamos la función que retorna el token.
-import { getToken } from '../utls/getToken';
+import { getToken } from '../utils/getToken';
 
 // Creamos el contexto de autenticación.
 // Creamos el contexto de autenticación.
@@ -92,6 +92,7 @@ export const AuthProvider = ({ children }) => {
     // Modify the authLogin function to handle errors and set the error state.
     const authLogin = async (email, password) => {
         try {
+            
             setLoading(true);
 
             const body = await signInService(email, password);

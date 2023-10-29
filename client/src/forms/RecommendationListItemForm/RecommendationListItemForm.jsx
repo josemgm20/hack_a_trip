@@ -1,8 +1,8 @@
 
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { userPropTypes } from '../../utls/customPropTypes';
-const baseURL = import.meta.env.VITE_API_URL;
+import { userPropTypes } from '../../utils/customPropTypes';
+const baseURL = 'http://localhost:8081';
 
 import "./RecommendationListItemForm.css"
 

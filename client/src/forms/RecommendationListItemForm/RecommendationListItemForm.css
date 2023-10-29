@@ -3,3 +3,22 @@
     width: 15vw;
     justify-content: center;
 }
+
+/* Estilo base del botón añadido*/
+.like {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Animación y color del botón cuando se hace click en el icono */
+.like.liked {
+    background-color: #e74c3c;
+}
+
+/* Animación y color del botón cuando el ratón pasa por encima */
+.like:hover {
+    background-color: #da9515;
+}

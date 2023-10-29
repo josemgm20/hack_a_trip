@@ -1,8 +1,8 @@
 // Importamos la función que retorna el token.
-import { getToken } from '../utls/getToken';
+import { getToken } from '../utils/getToken';
 
 // URL base del API.
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = 'http://localhost:8081';
 
 // Registro de usuario.
 export const signUpService = async (username, email, password) => {

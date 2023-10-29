@@ -11,6 +11,7 @@ const { selectUserByEmailModel } = require('../../models/users');
 
 const loginUsersController = async (req, res, next) => {
     try {
+        
         const { email, password } = req.body;
 
         // Comprobar campos faltantes

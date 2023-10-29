@@ -9,6 +9,7 @@ const selectUserByEmailModel = async (email) => {
     let connection;
 
     try {
+        
         // Establece una conexión a la base de datos
         connection = await getConnection();
 

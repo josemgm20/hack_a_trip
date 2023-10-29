@@ -2,14 +2,15 @@
 
 // Import the server configuration from 'config'
 // Importa la configuración del servidor desde 'config'
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = 'http://localhost:8081';
 
-import { getToken } from '../utls/getToken'; // Fixed the import path
+import { getToken } from '../utils/getToken'; // Fixed the import path
 // Importa la función para obtener el token desde 'getToken' (Ruta fija)
 
 // Register a recommendation
 // Registra una recomendación
 export const createRecommendationService = async (formData) => {
+    console.log(formData)
     const token = getToken();
 
     const res = await fetch(`${baseURL}/recomendaciones`, { // Fixed the URL path

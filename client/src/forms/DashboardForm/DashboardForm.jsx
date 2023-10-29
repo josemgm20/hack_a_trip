@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getToken } from '../../utls/getToken';
+import { getToken } from '../../utils/getToken.js';
 
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = 'http://localhost:8081';
 
 const DashboardForm = ({ userData }) => {
     const [avatarFile, setAvatarFile] = useState(null);
