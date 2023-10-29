@@ -1,17 +1,15 @@
 // Importar las bibliotecas necesarias desde React y otros módulos
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App'; // Importar el componente principal de la aplicación
-import { BrowserRouter } from 'react-router-dom'; // Proporciona la navegación de la aplicación
-import { AuthProvider } from './contexts/AuthContext'; // Proporciona el contexto de autenticación
-import { ErrorProvider } from './contexts/ErrorContext'; // Proporciona el contexto de manejo de errores (actualiza la ruta de importación)
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App"; // Importar el componente principal de la aplicación
+import { BrowserRouter } from "react-router-dom"; // Proporciona la navegación de la aplicación
+import { AuthProvider } from "./contexts/AuthContext"; // Proporciona el contexto de autenticación
+import { ErrorProvider } from "./contexts/ErrorContext"; // Proporciona el contexto de manejo de errores (actualiza la ruta de importación)
 
-import './index.css'
-
-
+import "./index.css";
 
 // Se crea un nodo de raíz de React en el elemento con el ID 'root' en el DOM
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById("root"));
 
 // Se renderiza la aplicación React en el nodo raíz del DOM
 root.render(
