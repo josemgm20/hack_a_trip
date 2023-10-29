@@ -15,17 +15,26 @@ function SearchBarForm() {
             }
         }
     };
-
     return (
-        <div className="search-bar">
-            <input
-                type="text"
-                placeholder="Buscar recomendación"
-                onChange={(e) => setKeyword(e.target.value)}
-                onKeyPress={handleSearchOrKeyPress} // Activa la búsqueda al presionar la tecla ENTER
-                value={keyword}
-            />
-            <button onClick={handleSearchOrKeyPress}>Buscar</button>
+        <div className="search-bar-container bg-light p-3">
+            <div className="input-group mb-3">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search for recommendations"
+                    onChange={(e) => setKeyword(e.target.value)}
+                    onKeyPress={handleSearchOrKeyPress}
+                    value={keyword}
+                    style={{ width: '60%' }} // Apply a custom width style
+                />
+                <button
+                    className="btn btn-primary"
+                    onClick={handleSearchOrKeyPress}
+
+                >
+                    Search
+                </button>
+            </div>
         </div>
     );
 }

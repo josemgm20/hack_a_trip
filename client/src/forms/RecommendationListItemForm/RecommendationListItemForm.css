@@ -3,3 +3,7 @@
     width: 15vw;
     justify-content: center;
 }
+
+.recommendation-card {
+    margin-bottom: 2vw;
+}

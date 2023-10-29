@@ -37,7 +37,7 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ml-auto">
                             <li>
-                                {/* Render the SearchBarForm component */}
+
                                 <SearchBarForm />
                             </li>
                         </ul>
@@ -59,8 +59,8 @@ const Header = () => {
                             {authUser ? (
                                 <li>
                                     <Dropdown>
-                                        <Dropdown.Toggle as="a" className="nav-link">
-                                            <Link>@{authUser.username}</Link>
+                                        <Dropdown.Toggle as={Link} className="nav-link">
+                                            @{authUser.username}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item as={Link} to="/dashboard">

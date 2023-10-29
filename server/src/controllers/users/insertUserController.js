@@ -2,7 +2,7 @@
 const insertUserModel = require('../../models/users/insertUserModel');
 
 // Importar funciones de manejo de errores
-const { missingFieldsError } = require('../../services/errorService');
+const { errorController } = require('../../services/errorService');
 
 // Crear la función del controlador para manejar la lógica principal
 const insertUserController = async (req, res, next) => {
@@ -16,7 +16,7 @@ const insertUserController = async (req, res, next) => {
         // Validamos los datos con Joi
 >>>>>>> origin/javi
         if (!username || !email || !password) {
-            missingFieldsError();
+            errorController();
         }
 
         // Insertar al usuario

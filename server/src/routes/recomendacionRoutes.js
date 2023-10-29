@@ -5,6 +5,7 @@ const router = express.Router();
 const authUserController = require('../middlewares/authUserController');
 const recomendacionExistController = require('../middlewares/recomendacionExistsController');
 
+const authUserOptionalController = require('../middlewares/authUserOptionalController')
 // Importamos las funciones controladoras finales.
 const {
     crearRecomendacionController,
@@ -38,7 +39,7 @@ router.post(
 );
 
 //Insertar un like
-router.post(
+router.put(
     '/recomendaciones/:recomendacionId/likes',
     authUserController,
     recomendacionExistController,
@@ -54,14 +55,7 @@ router.delete(
 );
 
 // Seleccionar todas las recomendaciones
-<<<<<<< HEAD
-<<<<<<< HEAD
-router.get('/recomendaciones?', listRecomendacionController);
-=======
-router.get('/recomendaciones', listRecomendacionController);
->>>>>>> origin/javi
-=======
-router.get('/recomendaciones', listRecomendacionController);
+router.get('/recomendaciones', authUserOptionalController, listRecomendacionController);
 //router.get('/recomendaciones/:recomendacionId', selectRecomendacionByIdController);
 >>>>>>> d0f8c7e62695313d92eea84f8f6222fce1ce684f
 
