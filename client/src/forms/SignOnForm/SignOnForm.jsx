@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Toast } from 'react-bootstrap'; // Import the Toast component from react-bootstrap
 
 const SignOnForm = ({ authLogin, loading }) => {
     const [email, setEmail] = useState('');
@@ -14,6 +15,8 @@ const SignOnForm = ({ authLogin, loading }) => {
                     onSubmit={(e) => {
                         e.preventDefault();
                         authLogin(email, password);
+                        // Assume authLogin sets the error state if authentication fails
+                        // Example: authLogin(email, password).catch((error) => setError(error.message));
                     }}
                 >
                     <div className="form-group">
@@ -37,7 +40,21 @@ const SignOnForm = ({ authLogin, loading }) => {
                     <button type="submit" className="btn btn-primary">
                         Iniciar Sesión
                     </button>
-                    {error && <p className="text-danger mt-2">{error}</p>}
+
+                    <Toast
+                        show={error ? true : false} // Show the Toast only if there is an error
+                        onClose={() => setError(null)} // Close the Toast when onClose is called
+                        style={{
+                            position: 'absolute',
+                            bottom: '10px',
+                            right: '10px',
+                        }}
+                    >
+                        <Toast.Header closeButton={false}>
+                            <strong className="mr-auto">Error</strong>
+                        </Toast.Header>
+                        <Toast.Body>{error}</Toast.Body>
+                    </Toast>
 
                     <p className="mt-3">¿No tienes una cuenta? <a href="/register">Regístrate aquí</a></p>
                 </form>
@@ -47,8 +64,8 @@ const SignOnForm = ({ authLogin, loading }) => {
 };
 
 SignOnForm.propTypes = {
-    authLogin: PropTypes.func.isRequired, // Función de autenticación
-    loading: PropTypes.bool.isRequired, // Estado de carga
+    authLogin: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
 };
 
 export default SignOnForm;

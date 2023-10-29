@@ -42,11 +42,9 @@ const DashboardForm = ({ userData, loading }) => {
 
     return (
         <div>
-            <h1>Dashboard</h1>
-            <h2>Bienvenido {userData.username || 'Usuario'}!</h2>
-
+            <h1 className="text-center mb-4">Dashboard</h1>
             {userData ? (
-                <div className="card mb-3" style={{ maxWidth: '540px' }}>
+                <div className="card mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
                             <img
@@ -58,12 +56,18 @@ const DashboardForm = ({ userData, loading }) => {
                                 type="file"
                                 accept="image/*"
                                 onChange={handleAvatarChange}
+                                className="form-control mt-2"
                             />
-                            <button onClick={handleUpdateAvatar}>Actualizar Avatar</button>
+                            <button
+                                onClick={handleUpdateAvatar}
+                                className="btn btn-primary mt-2"
+                            >
+                                Update Avatar
+                            </button>
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className="card-title">Información del Usuario</h5>
+                                <h5 className="card-title">User Information</h5>
                                 <p className="card-text">
                                     <strong>ID:</strong> {userData.id || 'N/A'}
                                 </p>
@@ -78,7 +82,7 @@ const DashboardForm = ({ userData, loading }) => {
                     </div>
                 </div>
             ) : (
-                <p>Cargando datos de usuario...</p>
+                <p className="text-center">Loading user data...</p>
             )}
         </div>
     );

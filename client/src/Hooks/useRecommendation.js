@@ -14,9 +14,11 @@ export const useRecommendation = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [orderBy, setOrderBy] = useState('created_at');  // Establece el campo por el cual se ordenan las recomendaciones
-    const [ascOrder, setAscOrder] = useState(false); // Establece si el orden es ascendente o descendente
+    const [sortingBy, setSortingBy] = useState('likes'); // Default sorting by 'likes'
+    const [ascOrder, setAscOrder] = useState(false); // Initialize ascOrder
     const [keyword, setKeyword] = useState('');
+
+
 
     const navigate = useNavigate(); // Obtiene la función de navegación de React Router
 
@@ -31,17 +33,18 @@ export const useRecommendation = () => {
         }
     };
 
-    // Función para cambiar el orden de las recomendaciones
-
-    const handleOrderByChange = () => {
-        setAscOrder(!ascOrder);
+    const handleOrderByLikes = () => {
+        setSortingBy('likes');
     };
 
+    const handleOrderByDate = () => {
+        setSortingBy('created_at');
+    };
     const sortRecommendations = (recommendationsToSort) => {
         return recommendationsToSort.slice().sort((a, b) => {
-            if (orderBy === 'likes') {
+            if (sortingBy === 'likes') {
                 return ascOrder ? a.likes - b.likes : b.likes - a.likes;
-            } else if (orderBy === 'created_at') {
+            } else if (sortingBy === 'created_at') {
                 return ascOrder
                     ? new Date(a.created_at) - new Date(b.created_at)
                     : new Date(b.created_at) - new Date(a.created_at);
@@ -73,7 +76,6 @@ export const useRecommendation = () => {
         fetchRecommendationsData();
     }, [searchParams, setErrMsg]);
 
-
     // Función para dar like a una recomendación
     const upvoteRecommendation = async (recommendationId) => {
         try {
@@ -81,7 +83,7 @@ export const useRecommendation = () => {
             // Actualiza el estado 'recommendations' después de una respuesta API exitosa
             const response = await fetchRecommendationService.upvote(recommendationId);
             if (response.success) {
-                // Actualiza la lista de recomendaciones con el nuevo estado de like
+                // Actualiza la lista de recomendaciones con the nuevo estado de like
                 const updatedRecommendations = recommendations.map((currentRecommendation) => {
                     if (currentRecommendation.id === recommendationId) {
                         const likedByMe = !currentRecommendation.likedByMe;
@@ -142,17 +144,20 @@ export const useRecommendation = () => {
     };
 
     return {
-        recommendations, // Recomendaciones
-        loading, // Estado de carga
-        setSearchParams, // Establecer parámetros de búsqueda
-        upvoteRecommendation, // Dar like a una recomendación
-        deleteRecommendationsById, // Eliminar recomendaciones por ID
-        error, // Posible error
-        handleOrderByChange, // Cambiar el orden
-        sortRecommendations, // Ordenar las recomendaciones
-        orderBy, // Campo por el cual se ordena
-        ascOrder, // Orden ascendente o descendente
-        handleSearchOrKeyPress, // Manejar búsqueda o pulsación de tecla
-        handleRecommendationCreate, // Incluir la nueva función aquí
+        recommendations,
+        loading,
+        setSearchParams,
+        upvoteRecommendation,
+        deleteRecommendationsById,
+        error,
+        handleOrderByLikes,
+        sortRecommendations,
+        ascOrder, // Return ascOrder as part of the object
+        handleSearchOrKeyPress,
+        handleRecommendationCreate,
+        handleOrderByDate,
+        sortingBy,
+        setSortingBy,
+        setAscOrder, // Return setAscOrder as part of the object
     };
 };

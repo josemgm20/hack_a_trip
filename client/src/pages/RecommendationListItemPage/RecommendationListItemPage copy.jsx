@@ -11,10 +11,10 @@ function RecommendationListItemPage() {
         error, // Posible error
         handleOrderByLikes, // Función para cambiar el orden
         sortRecommendations, // Función para ordenar las recomendaciones
+        orderBy, // Campo por el cual se ordena
         handleOrderByDate,
         sortingBy, // Add sortingBy from useRecommendation
         setSortingBy, // Add setSortingBy from useRecommendation
-        setAscOrder,
         ascOrder, // Orden ascendente o descendente
     } = useRecommendation(); // Utiliza el hook 'useRecommendation'
 
@@ -40,14 +40,7 @@ function RecommendationListItemPage() {
                             variant="info"
                             size="sm"
                             className="btn-rectangular"
-                            onClick={() => {
-                                if (sortingBy === 'likes') {
-                                    handleOrderByLikes();
-                                } else if (sortingBy === 'created_at') {
-                                    handleOrderByDate();
-                                }
-                                setAscOrder(!ascOrder);
-                            }}
+                            onClick={sortingBy === 'likes' ? handleOrderByLikes : handleOrderByDate}
                         >
                             {ascOrder ? 'primero' : 'ultimo'}
                         </Button>
