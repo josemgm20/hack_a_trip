@@ -1,86 +1,129 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useError } from "../../Hooks/useError";
-import { useRecommendation } from "../../Hooks/useRecommendation"; // Import the useRecommendation hook
-import { handleAddFilePreview } from "../../utls/handleAddFilePreview";
-import { handleRemoveFilePreview } from "../../utls/handleRemoveFilePreview";
-import "./CreateRecommendationForm.css";
-import { Button } from "react-bootstrap";
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useError } from '../../Hooks/useError';
+import { useRecommendation } from '../../Hooks/useRecommendation';
+import { handleAddFilePreview } from '../../utls/handleAddFilePreview';
+import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview';
+import { Form, Button, InputGroup, Modal } from 'react-bootstrap'; // Import necessary components
+
+import './CreateRecommendationForm.css';
 
 const RecommendationCreateForm = () => {
-  const navigate = useNavigate();
-  const fileInputRef = useRef(null);
-  const { setErrMsg } = useError();
+    const navigate = useNavigate();
+    const fileInputRef = useRef(null);
+    const { setErrMsg } = useError();
+    const { handleRecommendationCreate } = useRecommendation();
 
-  // Importa la función handleRecommendationCreate del gancho useRecommendation
-  const { handleRecommendationCreate } = useRecommendation();
+    const [titulo, setTitulo] = useState('');
+    const [tipo, setTipo] = useState('1');
+    const [descripcion, setDescripcion] = useState('');
+    const [file, setFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState('');
+    const [loading, setLoading] = useState(false);
 
-  const [titulo, setTitulo] = useState("");
-  const [tipo, setTipo] = useState("1"); // Por defecto, gastronómico
-  const [descripcion, setDescripcion] = useState("");
-  const [file, setFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState("");
-  const [loading, setLoading] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false); // Add showConfirmation state
+    const [confirmed, setConfirmed] = useState(false); // Add confirmed state
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await handleRecommendationCreate(titulo, tipo, descripcion, file);
-    } catch (err) {
-      setErrMsg(err.message);
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setShowConfirmation(true); // Show confirmation modal
+    };
 
-  return (
-    <div className="form-container">
-      <form className="recommendation-create-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Título"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-          required
-        />
-        <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
-          <option value="1">Gastronómico</option>
-          <option value="2">Museos</option>
-        </select>
-        <textarea
-          placeholder="Descripción"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-          maxLength="280"
-        />
+    const handleConfirm = async () => {
+        setConfirmed(true);
+        try {
+            await handleRecommendationCreate(titulo, tipo, descripcion, file);
+        } catch (err) {
+            setErrMsg(err.message);
+        }
+    };
 
-        <div className="img-prev-container">
-          <label htmlFor="file-input" className="custom-file-label">
-            <span>Seleccionar archivo</span>
-          </label>
-          <input
-            type="file"
-            id="file-input"
-            accept="image/*"
-            ref={fileInputRef}
-            onChange={(e) => handleAddFilePreview(e, setFile, setPreviewUrl)}
-          />
-          {/* <button disabled={loading}>Enviar</button> */}
+    return (
+        <Form className="recommendation-create-form">
+            <Form.Group className="mb-3">
+                <Form.Control
+                    type="text"
+                    placeholder="Título"
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Select
+                    value={tipo}
+                    onChange={(e) => setTipo(e.target.value)}
+                    required
+                >
+                    <option value="1">Gastronómico</option>
+                    <option value="2">Museos</option>
+                </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Control
+                    as="textarea"
+                    rows={4}
+                    placeholder="Descripción"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                    maxLength="280"
+                />
+            </Form.Group>
+            <div className="img-prev-container">
+                <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                >
+                    Enviar
+                </Button>
+                <InputGroup>
+                    <Form.Control
+                        type="file"
+                        id="file-input"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={(e) =>
+                            handleAddFilePreview(e, setFile, setPreviewUrl)
+                        }
+                    />
+                    <InputGroup.Text>Seleccionar archivo</InputGroup.Text>
+                </InputGroup>
+                {previewUrl && (
+                    <div className="image-preview">
+                        <img
+                            src={previewUrl}
+                            alt="Previsualización"
+                            title="Eliminar imagen"
+                            onClick={() => {
+                                handleRemoveFilePreview(
+                                    fileInputRef,
+                                    setFile,
+                                    setPreviewUrl
+                                );
+                            }}
+                        />
+                    </div>
+                )}
+            </div>
 
-          {previewUrl && (
-            <img
-              src={previewUrl}
-              alt="Previsualización"
-              title="Eliminar imagen"
-              className="img-preview"
-              onClick={() => {
-                handleRemoveFilePreview(fileInputRef, setFile, setPreviewUrl);
-              }}
-            />
-          )}
-          <Button type="submit"> Enviar </Button>
-        </div>
-      </form>
-    </div>
-  );
+            <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Recommendation Creation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to create this recommendation?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowConfirmation(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={() => { setShowConfirmation(false); handleConfirm(); }}>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </Form>
+    );
 };
 
 export default RecommendationCreateForm;

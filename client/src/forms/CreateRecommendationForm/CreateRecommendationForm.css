@@ -1,27 +1,8 @@
-.form-container {
-  display: flex;
-  width: 100vw;
-  justify-content: center;
-}
-
 .recommendation-create-form {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-}
+    width: 30vw;
+    margin-bottom: 1vw;
+} 
 
-.img-prev-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.img-preview {
-  width: 100px;
-  height: 100px;
+.image-preview {
+    max-width: 20vw;
 }

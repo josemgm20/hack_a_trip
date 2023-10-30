@@ -1,23 +1,23 @@
 // Importamos los prop-types.
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // Importamos la función que crea un contexto y los hooks.
-import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useError } from "../Hooks/useError";
+import { createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useError } from '../Hooks/useError';
 
 // Importamos los servicios.
 import {
-  getPrivateProfileService,
-  signInService,
-  signUpService,
-} from "../services/userService";
+    getPrivateProfileService,
+    signInService,
+    signUpService,
+} from '../services/userService';
 
 // Importamos las constantes.
-import { TOKEN_LOCAL_STORAGE_KEY } from "../utls/constants";
+import { TOKEN_LOCAL_STORAGE_KEY } from '../utls/constants';
 
 // Importamos la función que retorna el token.
-import { getToken } from "../utls/getToken";
+import { getToken } from '../utls/getToken';
 
 // Creamos el contexto de autenticación.
 // Creamos el contexto de autenticación.
@@ -25,116 +25,123 @@ export const AuthContext = createContext(null);
 
 // Creamos el componente provider del contexto.
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
-  const { setErrMsg } = useError();
+    const navigate = useNavigate();
+    const { setErrMsg } = useError();
 
-  const [authUser, setAuthUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
+    const [authUser, setAuthUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // Función que retorna los datos del usuario.
-    const fetchUser = async () => {
-      try {
-        setLoading(true);
+    useEffect(() => {
+        // Función que retorna los datos del usuario.
+        const fetchUser = async () => {
+            try {
+                setLoading(true);
 
-        const body = await getPrivateProfileService();
+                const body = await getPrivateProfileService();
 
-        if (body.status === "error") {
-          throw new Error(body.message);
+                if (body.status === 'error') {
+                    throw new Error(body.message);
+                }
+
+                setAuthUser(body.data);
+            } catch (err) {
+                setErrMsg(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        // Obtenemos el token.
+        const token = getToken();
+
+        // Si existe token solicitamos los datos del usuario.
+        if (token) fetchUser();
+    }, [isAuthenticated, setErrMsg]);
+
+    // Función que registra a un usuario en la base de datos.
+    const authRegister = async (
+        username,
+        email,
+        password,
+        repeatedPassword
+    ) => {
+        try {
+            setLoading(true);
+
+            if (password !== repeatedPassword) {
+                throw new Error('Las contraseñas no coinciden');
+            }
+
+            const body = await signUpService(username, email, password);
+
+            if (body.status === 'error') {
+                throw new Error(body.message);
+            }
+
+            // Una vez registrados redirigimos a la página de login.
+            navigate('/registration-success');
+        } catch (err) {
+            setErrMsg(err.message);
+        } finally {
+            setLoading(false);
         }
-
-        setAuthUser(body.data);
-      } catch (err) {
-        setErrMsg(err.message);
-      } finally {
-        setLoading(false);
-      }
     };
 
-    // Obtenemos el token.
-    const token = getToken();
+    // Función que logea a un usuario retornando un token.
+    // Modify the authLogin function to handle errors and set the error state.
+    const authLogin = async (email, password) => {
+        try {
+            setLoading(true);
 
-    // Si existe token solicitamos los datos del usuario.
-    if (token) fetchUser();
-  }, [isAuthenticated, setErrMsg]);
+            const body = await signInService(email, password);
 
-  // Función que registra a un usuario en la base de datos.
-  const authRegister = async (username, email, password, repeatedPassword) => {
-    try {
-      setLoading(true);
+            if (body.status === 'error') {
+                throw new Error(body.message);
+            }
 
-      if (password !== repeatedPassword) {
-        throw new Error("Las contraseñas no coinciden");
-      }
+            // Almacenamos el token en el localStorage. Dado que la variable "token" es un string no es
+            // necesario aplicar el JSON.stringify.
+            localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, body.data.token);
 
-      const body = await signUpService(username, email, password);
+            // Indicamos que el usuario se ha logeado.
+            setIsAuthenticated(true);
+        } catch (err) {
+            // Set the error state to the error message.
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      if (body.status === "error") {
-        throw new Error(body.message);
-      }
 
-      // Una vez registrados redirigimos a la página de login.
-      navigate("/registration-success");
-    } catch (err) {
-      setErrMsg(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Función de logout.
+    const authLogout = () => {
+        // Eliminamos el token del localStorage.
+        localStorage.removeItem(TOKEN_LOCAL_STORAGE_KEY);
 
-  // Función que logea a un usuario retornando un token.
-  // Modify the authLogin function to handle errors and set the error state.
-  const authLogin = async (email, password) => {
-    try {
-      setLoading(true);
+        // Eliminamos los datos del usuario y establecemos isAuthenticated a false.
+        setAuthUser(null);
 
-      const body = await signInService(email, password);
+        setIsAuthenticated(false);
 
-      if (body.status === "error") {
-        throw new Error(body.message);
-      }
+    };
 
-      // Almacenamos el token en el localStorage. Dado que la variable "token" es un string no es
-      // necesario aplicar el JSON.stringify.
-      localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, body.data.token);
-
-      // Indicamos que el usuario se ha logeado.
-      setIsAuthenticated(true);
-    } catch (err) {
-      // Set the error state to the error message.
-      setErrMsg(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Función de logout.
-  const authLogout = () => {
-    // Eliminamos el token del localStorage.
-    localStorage.removeItem(TOKEN_LOCAL_STORAGE_KEY);
-
-    // Eliminamos los datos del usuario y establecemos isAuthenticated a false.
-    setAuthUser(null);
-
-    setIsAuthenticated(false);
-  };
-
-  return (
-    <AuthContext.Provider
-      value={{
-        authUser,
-        authRegister,
-        authLogin,
-        authLogout,
-        loading,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider
+            value={{
+                authUser,
+                authRegister,
+                authLogin,
+                authLogout,
+                loading,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };

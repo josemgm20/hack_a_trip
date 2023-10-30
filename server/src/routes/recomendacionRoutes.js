@@ -3,15 +3,17 @@ const router = express.Router();
 
 //Importamos las funciones controladoras intermedias
 const authUserController = require('../middlewares/authUserController');
-const recomendacionExistController = require('../middlewares/recomendacionExistsController');
+const recomendacionExistsController = require('../middlewares/recomendacionExistsController');
+
+// const authUserOptionalController = require('../middlewares/authUserOptionalController')
 
 // Importamos las funciones controladoras finales.
 const {
     crearRecomendacionController,
     insertLikeController,
-    deleteLikeController,
+    // deleteLikeController,
     listRecomendacionController,
-    deleteRecomendacionController,
+    // deleteRecomendacionController,
     //selectRecomendacionByIdController,
 
 } = require('../controllers/recomendaciones');
@@ -23,32 +25,28 @@ router.post(
     crearRecomendacionController
 );
 
-//Insertar un like
-router.post(
-    '/recomendaciones/:recomendacionId/likes',
+router.post('/recomendaciones/:recomendacionId/likes',
+    recomendacionExistsController,
     authUserController,
-    recomendacionExistController,
     insertLikeController
 );
 
-//Eliminar un like
-router.delete(
-    '/recomendaciones/:recomendacionId/likes',
-    authUserController,
-    recomendacionExistController,
-    deleteLikeController
-);
+// //Eliminar un like
+// router.delete(
+//     '/recomendaciones/:recomendacionId/likes',
+//     authUserController,
+//     deleteLikeController
+// );
 
 // Seleccionar todas las recomendaciones
 router.get('/recomendaciones', listRecomendacionController);
 //router.get('/recomendaciones/:recomendacionId', selectRecomendacionByIdController);
 
-// Eliminar una recomendacion
-router.delete(
-    '/recomendacion/:recomendacionId',
-    authUserController,
-    recomendacionExistController,
-    deleteRecomendacionController
-);
+// // Eliminar una recomendacion
+// router.delete(
+//     '/recomendacion/:recomendacionId',
+//     authUserController,
+//     deleteRecomendacionController
+// );
 
 module.exports = router;

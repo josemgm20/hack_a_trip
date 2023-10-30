@@ -12,6 +12,7 @@ const insertLikeController = async (req, res, next) => {
 
         await insertLikeModel(recomendacionId, req.user.id);
 
+
         res.send({
             status: 'ok',
             message: 'Like agregado',

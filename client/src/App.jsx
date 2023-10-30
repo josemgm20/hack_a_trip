@@ -44,7 +44,7 @@ const App = () => {
         {/* Ruta para la página de éxito de registro */}
         <Route path="/dashboard" element={<DashboardPage />} />
         {/* Ruta para la página del panel de control */}
-        <Route path="/explore" element={<RecommendationListItemPage />} />
+        <Route path="/explore" element={<RecommendationListItemPage authUser />} />
         {/* Ruta para explorar contenido recomendado */}
         <Route path="/new-recommendation" element={<CreateRecommendationPage />} />
 
