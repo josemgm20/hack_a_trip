@@ -1,4 +1,4 @@
-import { useError } from './Hooks/useError';
+import { useError } from './hooks/useError';
 
 
 import { Routes, Route } from 'react-router-dom';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Importamos la función que crea un contexto y los hooks.
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useError } from '../Hooks/useError';
+import { useError } from '../hooks/useError';
 
 // Importamos los servicios.
 import {
@@ -18,6 +18,8 @@ import { TOKEN_LOCAL_STORAGE_KEY } from '../utls/constants';
 
 // Importamos la función que retorna el token.
 import { getToken } from '../utls/getToken';
+
+
 
 // Creamos el contexto de autenticación.
 // Creamos el contexto de autenticación.
@@ -106,9 +108,10 @@ export const AuthProvider = ({ children }) => {
 
             // Indicamos que el usuario se ha logeado.
             setIsAuthenticated(true);
+            navigate('/Dashboard');
         } catch (err) {
             // Set the error state to the error message.
-            setError(err.message);
+            setErrMsg(err.message);
         } finally {
             setLoading(false);
         }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, InputGroup, Alert } from 'react-bootstrap'; // Import Alert from react-bootstrap
+import { Button, Form, InputGroup, Alert, Toast } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import './RegisterForm.css';
@@ -9,14 +9,17 @@ const RegisterForm = ({ authRegister, loading }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatedPassword, setRepeatedPassword] = useState('');
-    const [showAlert, setShowAlert] = useState(false); // Define showAlert state
+    const [toastMessage, setToastMessage] = useState(''); // Toast message state
+    const [showToast, setShowToast] = useState(false); // Toast visibility state
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (username && email && password === repeatedPassword) {
             authRegister(username, email, password, repeatedPassword);
         } else {
-            setShowAlert(true);
+            setToastMessage('Por favor, complete todos los campos obligatorios o asegúrese de que las contraseñas coincidan.');
+            setShowToast(true);
         }
     };
 
@@ -75,13 +78,12 @@ const RegisterForm = ({ authRegister, loading }) => {
                     Registrarse
                 </Button>
             </Form>
-
-            {showAlert && (
-                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-                    <Alert.Heading>¡Error!</Alert.Heading>
-                    <p>Por favor, complete todos los campos obligatorios o asegúrese de que las contraseñas coincidan.</p>
-                </Alert>
-            )}
+            <Toast show={showToast} onClose={() => setShowToast(false)}>
+                <Toast.Header>
+                    <strong className="mr-auto">Error</strong>
+                </Toast.Header>
+                <Toast.Body>{toastMessage}</Toast.Body>
+            </Toast>
         </div>
     );
 };

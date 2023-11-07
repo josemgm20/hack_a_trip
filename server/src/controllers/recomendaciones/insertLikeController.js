@@ -7,11 +7,10 @@ const { insertLikeModel } = require('../../models/recomendaciones/index');
 //Funcion controladora que inserta un like
 const insertLikeController = async (req, res, next) => {
     try {
-        // obtenemos el ide de la recomendacion.
+        // Obtenemos el id del recomendacion sobre el que queremos dar like.
         const { recomendacionId } = req.params;
 
         await insertLikeModel(recomendacionId, req.user.id);
-
 
         res.send({
             status: 'ok',

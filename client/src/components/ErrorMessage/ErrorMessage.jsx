@@ -1,26 +1,21 @@
-// Importamos los prop-types.
 import PropTypes from 'prop-types';
-
-// Importamos los hooks.
 import { useEffect } from 'react';
-
-// Importamos los estilos.
-import './ErrorMessage.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ErrorMessage = ({ errMsg, setErrMsg }) => {
     useEffect(() => {
-        setTimeout(() => {
+        if (errMsg) {
+            // Show an error notification using react-toastify
+            toast.error(errMsg, { autoClose: 5000 });
+
+            // Clear the error message
             setErrMsg('');
-        }, 5000);
+        }
     }, [errMsg, setErrMsg]);
 
     return (
-        errMsg && (
-            <div className="error-message">
-                {console.warn(errMsg)}
-                <p>⚠️ {errMsg}</p>
-            </div>
-        )
+        <ToastContainer position="top-right" />
     );
 };
 

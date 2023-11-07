@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
-import { useAuth } from '../../Hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import SearchBarForm from '../../forms/SearchBarForm/SearchBarForm'; // Import the SearchBarForm component
 import './Header.css'
 

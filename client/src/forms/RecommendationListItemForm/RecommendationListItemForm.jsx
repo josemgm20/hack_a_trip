@@ -1,50 +1,69 @@
 import React, { useState } from 'react';
 import { Card, Spinner } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import { userPropTypes } from '../../utls/customPropTypes';
-import { useRecommendation } from '../../Hooks/useRecommendation';
+import { ToastContainer, toast } from 'react-toastify';
+import { useRecommendation } from '../../hooks/useRecommendation';
+
 import RecommendationHeaderCard from './RecommendationHeaderCard/RecommendationHeaderCard';
 import RecommendationBodyCard from './RecommendationBodyCard/RecommendationBodyCard';
 import RecommendationFooterCard from './RecommendationFooterCard/RecommendationFooterCard';
-import { useAuth } from '../../Hooks/useAuth';
 
-import "./RecommendationListItemForm.css";
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
-function RecommendationListItemForm({ recommendation }) {
-    const { upvoteRecommendation, loading, setLoading } = useRecommendation();
+import PropTypes from 'prop-types';
+import { userPropTypes, recomendacionPropTypes } from '../../utls/customPropTypes';
+
+
+
+import './RecommendationListItemForm.css';
+
+function RecommendationListItemForm(recomendacion) {
+    const { upvoteRecommendation, loading } = useRecommendation();
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const { authUser } = useAuth();
+    const authUser = true;
+
     const toggleFullScreen = () => {
         setIsFullScreen(!isFullScreen);
     };
 
+
+
+
     return (
-        <Card className={`recommendation-card card-custom mx-auto ${isFullScreen ? 'full-screen' : ''}`} style={{ maxWidth: "40vw" }}>
-            {recommendation.loading ? (
+        <Card className={`recommendation-card card-custom mx-auto ${isFullScreen ? 'full-screen' : ''}`} style={{ maxWidth: '40vw' }}>
+            {/* Display the toast container */}
+            <ToastContainer />
+
+            {loading ? (
                 <Spinner animation="border" role="status">
                     <span className="sr-only">Hack a Trip...</span>
                 </Spinner>
             ) : (
                 <>
                     <div onClick={toggleFullScreen}>
-                        <RecommendationHeaderCard id={recommendation.id} foto={recommendation.foto} />
+                        <RecommendationHeaderCard
+
+                            id={recomendacion.id}
+                            foto={recomendacion.foto}
+                        />
                     </div>
                     <div onClick={toggleFullScreen}>
                         <RecommendationBodyCard
-                            titulo={recommendation.titulo}
-                            tipo={recommendation.tipo}
-                            descripcion={recommendation.descripcion}
-                            likes={recommendation.likes}
+                            id={recomendacion.id}
+                            authUser={authUser}
+                            titulo={recomendacion.titulo}
+                            tipo={recomendacion.tipo}
+                            descripcion={recomendacion.descripcion}
+                            likes={recomendacion.likes}
+                            likedByMe={recomendacion.likedByMe}
+                            upvoteRecommendation={upvoteRecommendation}
+
                         />
                     </div>
                     <div onClick={toggleFullScreen}>
                         <RecommendationFooterCard
-                            authUser={authUser}
-                            id={recommendation.id}
-                            recommendation={recommendation}
-                            username={recommendation.username} // Pass the username prop
-                            created_at={recommendation.created_at}
-                            upvoteRecommendation={upvoteRecommendation}
+                            username={recomendacion.username} // Pass the username prop
+                            created_at={recomendacion.created_at}
+
                         />
                     </div>
                 </>
@@ -53,15 +72,14 @@ function RecommendationListItemForm({ recommendation }) {
     );
 }
 
-RecommendationFooterCard.propTypes = {
-    recommendation: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        created_at: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired, // Add the missing username
-    }),
-    authUser: PropTypes.bool.isRequired,
-    upvoteRecommendation: PropTypes.func.isRequired,
-};
+RecommendationListItemForm.propTypes = {
+    authUser: userPropTypes,
 
+    recomendacion: recomendacionPropTypes,
+
+    upvoteRecommendation: PropTypes.func.isRequired,
+
+
+};
 
 export default RecommendationListItemForm;

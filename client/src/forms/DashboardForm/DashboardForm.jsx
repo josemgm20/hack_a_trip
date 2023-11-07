@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Toast, Modal, Button } from 'react-bootstrap'; // Import necessary components
-
+import { Modal, Button } from 'react-bootstrap';
 import { getToken } from '../../utls/getToken';
+import { useError } from '../../hooks/useError';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
 const DashboardForm = ({ userData, loading }) => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [updatingAvatar, setUpdatingAvatar] = useState(false);
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState('');
-    const [showConfirmation, setShowConfirmation] = useState(false); // Add showConfirmation state
-    const [confirmed, setConfirmed] = useState(false); // Add confirmed state
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [confirmed, setConfirmed] = useState(false);
+
+    const { setError } = useError();
 
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
@@ -23,7 +25,10 @@ const DashboardForm = ({ userData, loading }) => {
 
     const handleUpdateAvatar = () => {
         if (avatarFile) {
-            setShowConfirmation(true); // Show confirmation modal
+            setShowConfirmation(true);
+        } else {
+            // Show a toast notification if no avatar is selected
+            toast.error('Por favor, seleccione un archivo de avatar.');
         }
     };
 
@@ -43,27 +48,26 @@ const DashboardForm = ({ userData, loading }) => {
                 .then((response) => {
                     if (response.ok) {
                         console.log('Avatar actualizado exitosamente');
-                        setToastMessage('Avatar updated successfully');
+                        // Show a success toast notification
+                        toast.success('Avatar actualizado exitosamente');
                     } else {
-                        console.error('Fallo al actualizar el avatar');
-                        setToastMessage('Failed to update avatar');
+                        setError('Fallo al actualizar el avatar');
                     }
                 })
                 .catch((error) => {
                     console.error('Error de red:', error);
-                    setToastMessage('Network error');
+                    setError('Error de red');
                 })
                 .finally(() => {
                     setUpdatingAvatar(false);
-                    setShowToast(true);
-                    setShowConfirmation(false); // Hide confirmation modal
+                    setShowConfirmation(false);
                 });
         }
     };
 
     return (
         <div>
-            <h1 className="text-center mb-4">Dashboard</h1>
+            <h1 className="text-center mb-4">Bienvenido {userData.username}</h1>
             {userData ? (
                 <div className="card mb-3">
                     <div className="row g-0">
@@ -87,12 +91,12 @@ const DashboardForm = ({ userData, loading }) => {
                                 className="btn btn-primary mt-2"
                                 disabled={updatingAvatar}
                             >
-                                {updatingAvatar ? 'Updating Avatar...' : 'Update Avatar'}
+                                {updatingAvatar ? 'Updating Avatar...' : 'Actualiza tu Avatar'}
                             </button>
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className="card-title">User Information</h5>
+                                <h5 className="card-title">Information de Usuario</h5>
                                 <p className="card-text">
                                     <strong>ID:</strong> {userData.id || 'N/A'}
                                 </p>
@@ -112,33 +116,21 @@ const DashboardForm = ({ userData, loading }) => {
 
             <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm Avatar Update</Modal.Title>
+                    <Modal.Title>Confirmacion de actualizacion de Avatar</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to update your avatar?</Modal.Body>
+                <Modal.Body>Estas seguro que deseas actualizar tu Avatar?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowConfirmation(false)}>
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button variant="primary" onClick={() => { setShowConfirmation(false); handleConfirm(); }}>
-                        Confirm
+                        Confirmar
                     </Button>
                 </Modal.Footer>
             </Modal>
 
-            <Toast
-                show={showToast}
-                onClose={() => setShowToast(false)}
-                style={{
-                    position: 'absolute',
-                    top: '10px',
-                    right: '10px',
-                }}
-            >
-                <Toast.Header closeButton={false}>
-                    <strong className="mr-auto">Notification</strong>
-                </Toast.Header>
-                <Toast.Body>{toastMessage}</Toast.Body>
-            </Toast>
+            {/* Add ToastContainer here to show toast notifications */}
+            <ToastContainer position="top-right" autoClose={5000} />
         </div>
     );
 };

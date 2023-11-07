@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Spinner, Alert, Button, Row, Col } from 'react-bootstrap';
-import { useRecommendation } from '../../Hooks/useRecommendation';
-import { useAuth } from '../../Hooks/useAuth';
+
+import { useRecommendation } from '../../hooks/useRecommendation';
+import { handleUpvoteService } from '../../services/recommendationService'; // Corrected the import statement
+import { useAuth } from '../../hooks/useAuth';
+
 import RecommendationListItemForm from '../../forms/RecommendationListItemForm/RecommendationListItemForm';
 
-function RecommendationListItemPage() {
+
+const RecommendationListItemPage = () => {
+    const { authUser } = useAuth();
     const {
-        recommendations,
+        recomendaciones,
         loading,
         error,
         handleOrderByLikes,
@@ -17,6 +22,7 @@ function RecommendationListItemPage() {
         setAscOrder,
         ascOrder,
         upvoteRecommendation,
+
     } = useRecommendation();
 
     return (
@@ -25,7 +31,9 @@ function RecommendationListItemPage() {
             <Row className="d-flex align-items-center justify-content-center">
                 <Col xs={12} sm={6} md={6} lg={6} className="my-5">
                     <div className="order-bar">
-                        <label htmlFor="orderBySelect" className="me-2">Ordenar por:</label>
+                        <label htmlFor="orderBySelect" className="me-2">
+                            Ordenar por:
+                        </label>
                         <select
                             id="orderBySelect"
                             className="form-select col-6"
@@ -50,7 +58,7 @@ function RecommendationListItemPage() {
                                 setAscOrder(!ascOrder);
                             }}
                         >
-                            {ascOrder ? 'primero' : 'ultimo'}
+                            {ascOrder ? 'Ordenar Ascendente' : 'Ordenar Descendente'}
                         </Button>
                     </div>
                 </Col>
@@ -58,22 +66,31 @@ function RecommendationListItemPage() {
 
             {loading ? (
                 <Spinner animation="border" role="status" className="d-block m-auto my-3">
-                    <span className="sr-only">Hack a Trip!...</span>
+                    <span className="sr-only">Cargando...</span>
                 </Spinner>
             ) : error ? (
                 <Alert variant="danger" className="text-center my-3">
                     {error.message}
                 </Alert>
-            ) : recommendations.length > 0 ? (
+            ) : recomendaciones?.length > 0 ? (
                 <div className="recommendation-list">
-                    {sortRecommendations(recommendations).map((recommendation) => (
+                    {sortRecommendations(recomendaciones).map((recomendacion) => (
                         <RecommendationListItemForm
-                            key={recommendation.id}
-                            recommendation={recommendation}
-                            username={recommendation.username}
-                            created_at={recommendation.created_at}
-                            upvoteRecommendation={() => upvoteRecommendation(recommendation.id)}
-                            loading={loading}
+                            key={recomendacion.id}
+                            authUser={authUser}
+                            recommendation={recomendacion}
+                            upvoteRecommendation={() => upvoteRecommendation(recomendacion.id)}
+
+                            id={recomendacion.id}
+                            foto={recomendacion.foto}
+                            titulo={recomendacion.titulo}
+                            descripcion={recomendacion.descripcion}
+                            tipo={recomendacion.tipo}
+                            likes={recomendacion.likes}
+                            likedByMe={recomendacion.likedByMe}
+                            recommendationId={recomendacion.id}
+                            username={recomendacion.username}
+                            created_at={recomendacion.created_at}
                         />
                     ))}
                 </div>

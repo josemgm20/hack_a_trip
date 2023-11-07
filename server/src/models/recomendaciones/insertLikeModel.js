@@ -11,17 +11,13 @@ const insertLikeModel = async (recomendacionId, usuarioId) => {
         connection = await getConnection();
 
         // Comprobamos si el usuario ya ha dado Like
-        const [likes] = await connection.query(
+        const likes = await connection.query(
             `SELECT id FROM likes WHERE recomendacionId = ? AND usuarioId = ?`,
             [recomendacionId, usuarioId]
         );
 
-        if (!likes || likes.length === 0) {
-            // Handle the case where no records are found
-            // Insert the like here
-        } else {
-            // Handle the case where the like already exists
-            likeAlreadyExistsError;
+        if (likes.length > 0) {
+            likeAlreadyExistsError();
         }
 
         await connection.query(
@@ -32,5 +28,6 @@ const insertLikeModel = async (recomendacionId, usuarioId) => {
         if (connection) connection.release();
     }
 };
+
 
 module.exports = insertLikeModel;

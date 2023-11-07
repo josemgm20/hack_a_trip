@@ -1,6 +1,6 @@
 // Importamos modelos
 
-const deleteLikeModel = require('../../models/recomendaciones/deleteLikeModel');
+const { deleteLikeModel } = require('../../models/recomendaciones/index');
 
 // Importamos errores
 
@@ -8,9 +8,9 @@ const deleteLikeModel = require('../../models/recomendaciones/deleteLikeModel');
 const deleteLikeController = async (req, res, next) => {
     try {
         // obtenemos el ide de la recomendacion.
-        const { recomendacion } = req.params;
+        const { recomendacionId } = req.params;
 
-        await deleteLikeModel(recomendacion, req.user.id);
+        await deleteLikeModel(recomendacionId, req.user.id);
 
 
         res.send({

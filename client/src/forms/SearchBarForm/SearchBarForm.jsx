@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRecommendation } from '../../Hooks/useRecommendation';
+import { useRecommendation } from '../../hooks/useRecommendation';
 
 function SearchBarForm() {
     const { setSearchParams, loading } = useRecommendation();
@@ -21,7 +21,7 @@ function SearchBarForm() {
                 <input
                     type="text"
                     className="form-control"
-                    placeholder="Search for recommendations"
+                    placeholder="Busca tu recomendacion"
                     onChange={(e) => setKeyword(e.target.value)}
                     onKeyPress={handleSearchOrKeyPress}
                     value={keyword}
@@ -32,7 +32,7 @@ function SearchBarForm() {
                     onClick={handleSearchOrKeyPress}
 
                 >
-                    Search
+                    Buscar
                 </button>
             </div>
         </div>

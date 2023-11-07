@@ -1,4 +1,4 @@
-const getConnection = require('../../db/getConnection');
+const { getConnection } = require('../../db/getConnection');
 
 //Importamos error
 
@@ -11,7 +11,7 @@ const deleteLikeModel = async (recomendacionId, usuarioId) => {
         connection = await getConnection();
 
         // Comprobamos si el usuario ya ha dado Like
-        const [likes] = await connection.query(
+        const likes = await connection.query(
             `SELECT id FROM likes WHERE recomendacionId = ? AND usuarioId = ?`,
             [recomendacionId, usuarioId]
         );
@@ -21,7 +21,7 @@ const deleteLikeModel = async (recomendacionId, usuarioId) => {
         }
 
         await connection.query(
-            `DELETE FROM likes WHERE id_recomendacion = ? AND id_usuario = ?`,
+            `DELETE FROM likes WHERE recomendacionId = ? AND usuarioId = ?`,
             [recomendacionId, usuarioId]
         );
     } finally {

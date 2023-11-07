@@ -11,7 +11,7 @@ const recomendacionExistsController = require('../middlewares/recomendacionExist
 const {
     crearRecomendacionController,
     insertLikeController,
-    // deleteLikeController,
+    deleteLikeController,
     listRecomendacionController,
     // deleteRecomendacionController,
     //selectRecomendacionByIdController,
@@ -31,12 +31,12 @@ router.post('/recomendaciones/:recomendacionId/likes',
     insertLikeController
 );
 
-// //Eliminar un like
-// router.delete(
-//     '/recomendaciones/:recomendacionId/likes',
-//     authUserController,
-//     deleteLikeController
-// );
+//Eliminar un like
+router.delete(
+    '/recomendaciones/:recomendacionId/likes',
+    authUserController,
+    deleteLikeController
+);
 
 // Seleccionar todas las recomendaciones
 router.get('/recomendaciones', listRecomendacionController);

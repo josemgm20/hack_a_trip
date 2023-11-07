@@ -7,7 +7,7 @@ const baseURL = import.meta.env.VITE_API_URL;
 function RecommendationHeaderCard({ id, foto }) {
     return (
         <Card.Header>
-            <p className="recommendation-id">Recommendation ID: {id}</p>
+            <p className="recommendation-id">Recomendacion ID: {id}</p>
             <Card.Img
                 variant="top"
                 src={foto ? `${baseURL}/${foto}` : 'view.jpg'}
