@@ -51,7 +51,7 @@ Sigue estos pasos para poner en marcha tu proyecto:
 Aquí tienes una descripción general básica de la estructura del proyecto:
 
 - `src/`: Aquí es donde reside el código fuente de tu aplicación.
-- `public/`: Archivos de acceso público (por ejemplo, la plantilla HTML).
+- `public/`: Archivos de acceso público (imagenes predeterminadas).
 - `package.json`: Dependencias y scripts del proyecto.
 
 ## Personalizando el Proyecto

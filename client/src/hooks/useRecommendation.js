@@ -22,19 +22,11 @@ export const useRecommendation = () => {
     const [sortByLikes, setSortByLikes] = useState(false);
 
     const [error, setError] = useState(null);
-    const [keyword, setKeyword] = useState('');
+
 
     const navigate = useNavigate();
 
-    const handleSearchOrKeyPress = (e) => {
-        if (e.key === 'Enter' || e.type === 'click') {
-            if (keyword) {
-                setSearchParams({ keyword });
-            } else {
-                setSearchParams({});
-            }
-        }
-    };
+
 
     const handleOrderByLikes = () => {
         setSortingBy('likes');
@@ -157,7 +149,7 @@ export const useRecommendation = () => {
         handleOrderByLikes,
         sortRecommendations,
         ascOrder,
-        handleSearchOrKeyPress,
+
         handleRecommendationCreate,
         handleOrderByDate,
         sortingBy,

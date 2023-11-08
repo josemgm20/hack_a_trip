@@ -10,8 +10,14 @@ const RecommendationFooterCard = ({
 
     return (
         <Card.Footer className="recommendation-buttons">
-            <p className="recommendation-username">Username: {username}</p>
-            <p className="recommendation-created">Created At: {created_at}</p>
+            <p className="recommendation-username">Usuario: {username}</p>
+            <p className="recommendation-created">{new Date(created_at).toLocaleDateString('es-ES', {
+                hour: '2-digit',
+                minute: '2-digit',
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit',
+            })}</p>
         </Card.Footer>
     );
 }

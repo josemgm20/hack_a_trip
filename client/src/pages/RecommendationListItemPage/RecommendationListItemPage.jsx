@@ -29,14 +29,14 @@ const RecommendationListItemPage = () => {
         <div className="container">
             <h2 className="text-center mt-3">Recomendaciones</h2>
             <Row className="d-flex align-items-center justify-content-center">
-                <Col xs={12} sm={6} md={6} lg={6} className="my-5">
+                <Col xs={5} sm={6} md={6} lg={6} className="my-5">
                     <div className="order-bar">
                         <label htmlFor="orderBySelect" className="me-2">
                             Ordenar por:
                         </label>
                         <select
                             id="orderBySelect"
-                            className="form-select col-6"
+                            className="form-select col-0"
                             value={sortingBy}
                             onChange={(e) => {
                                 setSortingBy(e.target.value);

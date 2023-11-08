@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Card, Row, Col, Toast, Button } from 'react-bootstrap'; // Import Row, Col, and Button
-import { ToastContainer } from 'react-bootstrap'; // Import ToastContainer
+import { Card, Row, Col, Toast, Button } from 'react-bootstrap';
+import { ToastContainer } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../../utls/customPropTypes';
 import { handleUpvoteService } from '../../../services/recommendationService';
@@ -22,7 +22,7 @@ const RecommendationBodyCard = ({
     const [loading, setLoading] = useState(false);
     const [showSuccessToast, setShowSuccessToast] = useState(false);
     const [successToastMessage, setSuccessToastMessage] = useState('');
-    const [localLikes, setLocalLikes] = useState(likes); // Local state for likes
+    const [localLikes, setLocalLikes] = useState(likes);
 
     const handleLikeClick = async () => {
         try {
@@ -33,13 +33,8 @@ const RecommendationBodyCard = ({
                 throw new Error(body.message);
             }
 
-            // Update the local likes count based on user's action
             setLocalLikes(likedByMe ? localLikes - 1 : localLikes + 1);
-
-            // Toggle the likedByMe state
             upvoteRecommendation(id);
-
-            // Set the success message and show the success notification
             setSuccessToastMessage('He añadido tu Me Gusta');
             setShowSuccessToast(true);
         } catch (err) {
@@ -53,9 +48,9 @@ const RecommendationBodyCard = ({
         <Card.Body className="recommendation-card-body card-custom-body">
             <Card.Title className="recommendation-title">{titulo}</Card.Title>
             <Card.Text className="recommendation-descripcion">{descripcion}</Card.Text>
-            <p className="recommendation-type">Type: {tipo}</p>
+            <p className="recommendation-type">Tipo: {tipo}</p>
             <Row>
-                <Col xs={3}>
+                <Col xs={12} sm={4}>
                     <Button
                         variant={likedByMe ? 'success' : 'primary'}
                         onClick={() => {
@@ -65,18 +60,16 @@ const RecommendationBodyCard = ({
                         Me Gusta
                     </Button>
                 </Col>
-                <Col xs={1} className="text-start">
-                    <div>
-                        <span className="likes-text">{localLikes}</span>
-                    </div>
+                <Col xs={6} sm={4}>
+                    <div className="likes-text">{localLikes}</div>
                 </Col>
-                <Col xs={4}>
+                <Col xs={6} sm={4}>
                     <ToastContainer position="top-end">
                         <Toast
                             show={showSuccessToast}
                             onClose={() => setShowSuccessToast(false)}
                             autohide
-                            delay={3000} // Duration to show the notification
+                            delay={3000}
                             bg="success"
                             text="white"
                         >
@@ -90,7 +83,7 @@ const RecommendationBodyCard = ({
 };
 
 RecommendationBodyCard.propTypes = {
-    authUser: userPropTypes,
+    authUser: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
     titulo: PropTypes.string.isRequired,
     tipo: PropTypes.string.isRequired,

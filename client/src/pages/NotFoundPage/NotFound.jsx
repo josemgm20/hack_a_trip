@@ -1,13 +1,13 @@
-import React from 'react';
+
 
 
 function NotFound() {
     return (
 
         <div className="container my-5">
-            <h1 className="display-4">404 - Not Found</h1> {/* Encabezado para página no encontrada */}
+            <h1 className="display-4">404 - No Encontrado</h1> {/* Encabezado para página no encontrada */}
             <p className="lead">
-                Sorry, the page you are looking for does not exist.
+                Lo sentimos, pero esta pagina que buscas no existe.
             </p> {/* Mensaje de página no encontrada */}
         </div>
 
