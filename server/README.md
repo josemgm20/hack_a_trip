@@ -25,6 +25,14 @@ La aplicación utiliza variables de entorno para configurar la conexión a la ba
 
 Reemplaza your_database_host, your_database_user, your_database_password, y your_database_name con los valores de tu propia base de datos.
 
+## Create tu base de datos:
+
+Tu base de datos sera creada con el nombre dependiendo del que proporciones en tu **dotenv**, en ~/Server$ ejecuta el siguiente comando:
+
+    node ./src/db/initdb.js
+
+Tus base de datos se crearan automaticamente en tu base de datos:
+
 ## Instalación de dependencias
 Ejecuta el siguiente comando para instalar las dependencias del proyecto:
 
