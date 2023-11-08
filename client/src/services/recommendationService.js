@@ -1,7 +1,7 @@
 // recommendationService.js
 
 // Import the server configuration from 'config'
-// Importa la configuración del servidor desde 'config'
+// Importa la configuración del id desde 'config'
 const baseURL = import.meta.env.VITE_API_URL;
 
 import { getToken } from '../utls/getToken'; // Fixed the import path
@@ -40,11 +40,11 @@ export const fetchRecommendationService = async (searchParams) => {
 };
 
 // Función para manejar un voto positivo (upvote)
-export const handleUpvoteService = async (recommendationId) => {
+export const handleUpvoteService = async (recomendacionId, method) => {
     const token = getToken();
 
-    const res = await fetch(`${baseURL}/recomendaciones/${recommendationId}/likes`, { // Fixed the URL path
-        method: 'PUT',
+    const res = await fetch(`${baseURL}/recomendaciones/${recomendacionId}/likes`, { // Fixed the URL path
+        method,
         headers: {
             Authorization: token,
         },
@@ -56,10 +56,10 @@ export const handleUpvoteService = async (recommendationId) => {
 };
 
 // Función para manejar un voto negativo (downvote)
-export const handleDownvoteService = async (recommendationId) => {
+export const handleDownvoteService = async (recomendacionId) => {
     const token = getToken();
 
-    const res = await fetch(`${baseURL}/recomendaciones/${recommendationId}`, { // Fixed the URL path and 'delete' method
+    const res = await fetch(`${baseURL}/recomendaciones/${recomendacionId}/likes`, { // Fixed the URL path and 'delete' method
         method: 'DELETE', // Usa 'DELETE' para eliminar una recomendación
         headers: {
             Authorization: token,
@@ -73,10 +73,10 @@ export const handleDownvoteService = async (recommendationId) => {
 
 
 // Elimina una recomendación.
-export const deleteRecommendationService = async (recommendationId) => {
+export const deleteRecommendationService = async (recomendacionId) => {
     const token = getToken();
 
-    const res = await fetch(`${baseURL}/recomendaciones/${recommendationId}`, { // Fixed the URL path and 'DELETE' method
+    const res = await fetch(`${baseURL}/recomendaciones/${recomendacionId}`, { // Fixed the URL path and 'DELETE' method
         method: 'DELETE',
         headers: {
             Authorization: token,

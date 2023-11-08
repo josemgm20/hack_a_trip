@@ -1,20 +1,4 @@
-<<<<<<< HEAD
-// Importamos los componentes.
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
-import PostSearch from './components/PostSearch/PostSearch';
-
-const App = () => {
-    return (
-        <div className="app">
-            <Header />
-            <PostSearch />
-            <Footer />
-        </div>
-    );
-};
-=======
-import { useError } from './Hooks/useError';
+import { useError } from './hooks/useError';
 
 
 import { Routes, Route } from 'react-router-dom';
@@ -30,7 +14,9 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import SignOnPage from './pages/SignOnPage/SignOnPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import RegistrationSuccess from './pages/RegisterPage/RegistrationSuccess';
+
 import CreateRecommendationPage from './pages/CreateRecommendationPage/CreateRecommendationPage'
+import CreatedRecommendationSuccessfullyForm from './forms/CreateRecommendationForm/CreatedRecommendationSuccessfullyForm'
 // import para recomendaciones
 import RecommendationListItemPage from './pages/RecommendationListItemPage/RecommendationListItemPage';
 
@@ -60,9 +46,12 @@ const App = () => {
         {/* Ruta para la página de éxito de registro */}
         <Route path="/dashboard" element={<DashboardPage />} />
         {/* Ruta para la página del panel de control */}
-        <Route path="/explore" element={<RecommendationListItemPage />} />
+        <Route path="/explore" element={<RecommendationListItemPage authUser />} />
         {/* Ruta para explorar contenido recomendado */}
         <Route path="/new-recommendation" element={<CreateRecommendationPage />} />
+
+        <Route path="/new-recommendation-successfully-created" element={<CreatedRecommendationSuccessfullyForm />} />
+
 
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -71,6 +60,5 @@ const App = () => {
     </div>
   );
 }
->>>>>>> d0f8c7e62695313d92eea84f8f6222fce1ce684f
 
 export default App;

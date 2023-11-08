@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* Header.css */
-=======
->>>>>>> d0f8c7e62695313d92eea84f8f6222fce1ce684f
 
 
 
@@ -10,12 +5,3 @@
     width: 15vw; 
     height: auto; 
 }
-=======
-div.app > header {
-    text-align: center;
-    letter-spacing: 1px;
-    padding: 2rem;
-    background-color: var(--blue-color);
-    color: rgb(253, 253, 253);
-}
->>>>>>> origin/javi

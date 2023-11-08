@@ -6,17 +6,21 @@ import {
     handleUpvoteService,
     deleteRecommendationService,
 
-} from '../services/recommendatonService'; // Corrected the import path
+} from '../services/recommendationService'; // Corrected the import path
 import { useError } from './useError';
 
 export const useRecommendation = () => {
+    const { setErrMsg } = useError();
+
+    const [recomendaciones, setRecomendaciones] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [loading, setLoading] = useState(false);
+
+
     const [sortingBy, setSortingBy] = useState('created_at');
     const [ascOrder, setAscOrder] = useState(false); // Initialize to descending order
     const [sortByLikes, setSortByLikes] = useState(false);
-    const { setErrMsg } = useError();
-    const [recommendations, setRecommendations] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [loading, setLoading] = useState(false);
+
     const [error, setError] = useState(null);
     const [keyword, setKeyword] = useState('');
 
@@ -44,8 +48,8 @@ export const useRecommendation = () => {
         setAscOrder(true);
     };
 
-    const sortRecommendations = (recommendationsToSort) => {
-        return recommendationsToSort.slice().sort((a, b) => {
+    const sortRecommendations = (recomendacionesToSort) => {
+        return recomendacionesToSort.slice().sort((a, b) => {
             if (sortingBy === 'likes') {
                 return ascOrder ? a.likes - b.likes : b.likes - a.likes;
             } else if (sortingBy === 'created_at') {
@@ -64,13 +68,9 @@ export const useRecommendation = () => {
                 const body = await fetchRecommendationService(searchParams);
                 console.log('API Response:', body);
 
-                if (body.data && Array.isArray(body.data.recomendaciones)) {
-                    setRecommendations(body.data.recomendaciones);
-                } else {
-                    setError(new Error('Formato de datos no válido'));
-                }
+                setRecomendaciones(body.data.recomendaciones);
             } catch (err) {
-                setError(err);
+                setErrMsg(err.message);
             } finally {
                 setLoading(false);
             }
@@ -79,19 +79,25 @@ export const useRecommendation = () => {
         fetchRecommendationsData();
     }, [searchParams, setErrMsg]);
 
-    const upvoteRecommendation = async (recommendationId) => {
+    const upvoteRecommendation = async (recomendacionId) => {
         try {
-            const response = await handleUpvoteService(recommendationId);
+            const response = await handleUpvoteService(recomendacionId);
             if (response.success) {
-                const updatedRecommendations = recommendations.map((currentRecommendation) => {
-                    if (currentRecommendation.id === recommendationId) {
-                        const likedByMe = !currentRecommendation.likedByMe;
-                        const likes = likedByMe ? currentRecommendation.likes + 1 : currentRecommendation.likes - 1;
-                        return { ...currentRecommendation, likedByMe, likes };
+                const updatedRecomendaciones = recomendaciones.map((recomendacion) => {
+                    if (recomendacion.id === recomendacionId) {
+                        const likedByMe = !recomendacion.likedByMe;
+                        const likes = likedByMe ? recomendacion.likes + 1 : recomendacion.likes - 1;
+
+                        return {
+                            ...recomendacion,
+                            likedByMe,
+                            likes
+                        };
                     }
-                    return currentRecommendation;
+
+                    return recomendacion;
                 });
-                setRecommendations(updatedRecommendations);
+                setRecomendaciones(updatedRecomendaciones);
             } else {
                 setError(new Error(response.message));
             }
@@ -100,11 +106,13 @@ export const useRecommendation = () => {
         }
     };
 
-    const deleteRecommendationsById = (recommendationId) => {
-        const newRecommendations = recommendations.filter(
-            (currentRecommendation) => currentRecommendation.id !== recommendationId
+
+    const deleteRecommendationsById = (recomendacionId) => {
+
+        const newRecomendaciones = recomendaciones.filter(
+            (recomendacion) => recomendacion.id !== recomendacionId
         );
-        setRecommendations(newRecommendations);
+        setRecomendaciones(newRecomendaciones);
     };
 
     const handleRecommendationCreate = async (titulo, tipo, descripcion, file) => {
@@ -131,7 +139,7 @@ export const useRecommendation = () => {
                 throw new Error(body.message);
             }
 
-            navigate('/explore');
+            navigate('/new-recommendation-successfully-created');
         } catch (err) {
             setErrMsg(err.message);
         } finally {
@@ -140,7 +148,7 @@ export const useRecommendation = () => {
     };
 
     return {
-        recommendations,
+        recomendaciones,
         loading,
         setSearchParams,
         upvoteRecommendation,

@@ -10,18 +10,7 @@ const deleteRecomendacionController = async (req, res, next) => {
         const { recomendacionId } = req.params;
         await deleteRecomendacionModel(recomendacionId, req.user.id);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        await deleteRecomendacionModel(recomendacion, req.user.id);
-
-=======
-        await deleteRecomendacionModel(recomendacionId, req.user.id);
->>>>>>> origin/javi
-
-        res.sent({
-=======
         res.send({
->>>>>>> d0f8c7e62695313d92eea84f8f6222fce1ce684f
             status: 'ok',
             message: 'Recomendacion eliminada',
         });

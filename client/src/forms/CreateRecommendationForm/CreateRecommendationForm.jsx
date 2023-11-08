@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
+import { Form, Button, InputGroup, Modal, Toast, ToastContainer } from 'react-bootstrap'; // Import Toast
+
+
 import { useNavigate } from 'react-router-dom';
-import { useError } from '../../Hooks/useError';
-import { useRecommendation } from '../../Hooks/useRecommendation';
+import { useError } from '../../hooks/useError';
+import { useRecommendation } from '../../hooks/useRecommendation';
 import { handleAddFilePreview } from '../../utls/handleAddFilePreview';
 import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview';
-import { Form, Button, InputGroup, Modal } from 'react-bootstrap'; // Import necessary components
+
 
 import './CreateRecommendationForm.css';
 
@@ -21,18 +24,31 @@ const RecommendationCreateForm = () => {
     const [previewUrl, setPreviewUrl] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const [showConfirmation, setShowConfirmation] = useState(false); // Add showConfirmation state
-    const [confirmed, setConfirmed] = useState(false); // Add confirmed state
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [confirmed, setConfirmed] = useState(false);
+
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [successToastMessage, setSuccessToastMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowConfirmation(true); // Show confirmation modal
+
+        // Check if any required field is missing
+        if (!titulo || !tipo || !descripcion) {
+            setErrMsg('Por favor, complete todos los campos obligatorios.');
+        } else {
+            setShowConfirmation(true);
+        }
     };
 
     const handleConfirm = async () => {
         setConfirmed(true);
         try {
             await handleRecommendationCreate(titulo, tipo, descripcion, file);
+
+            // Set the success message and show the success notification
+            setSuccessToastMessage('Recomendación creada con éxito');
+            setShowSuccessToast(true);
         } catch (err) {
             setErrMsg(err.message);
         }
@@ -40,6 +56,7 @@ const RecommendationCreateForm = () => {
 
     return (
         <Form className="recommendation-create-form">
+
             <Form.Group className="mb-3">
                 <Form.Control
                     type="text"
@@ -67,6 +84,7 @@ const RecommendationCreateForm = () => {
                     value={descripcion}
                     onChange={(e) => setDescripcion(e.target.value)}
                     maxLength="280"
+                    required
                 />
             </Form.Group>
             <div className="img-prev-container">
@@ -110,19 +128,32 @@ const RecommendationCreateForm = () => {
 
             <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm Recommendation Creation</Modal.Title>
+                    <Modal.Title>Confirmación de Creación de Recomendación</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to create this recommendation?</Modal.Body>
+                <Modal.Body>¿Estás seguro de que deseas crear esta recomendación?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowConfirmation(false)}>
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button variant="primary" onClick={() => { setShowConfirmation(false); handleConfirm(); }}>
-                        Confirm
+                        Confirmar
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <ToastContainer position="top-end">
+                <Toast
+                    show={showSuccessToast}
+                    onClose={() => setShowSuccessToast(false)}
+                    autohide
+                    delay={3000} // Duration to show the notification
+                    bg="success"
+                    text="white"
+                >
+                    <Toast.Body>{successToastMessage}</Toast.Body>
+                </Toast>
+            </ToastContainer>
         </Form>
+
     );
 };
 

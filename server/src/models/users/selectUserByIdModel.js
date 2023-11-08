@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Importa el módulo de conexión a la base de datos
 const { getConnection } = require('../../db/getConnection');
 
@@ -6,17 +5,10 @@ const { getConnection } = require('../../db/getConnection');
 const { notFoundError } = require('../../services/errorService.js');
 
 // Función para seleccionar un usuario por su ID en la base de datos
-=======
-const { getConnection } = require('../../db/getConnection');
-
-const { notFoundError } = require('../../services/errorService.js');
-
->>>>>>> origin/javi
 const selectUserByIdModel = async (id) => {
     let connection;
 
     try {
-<<<<<<< HEAD
         // Establece una conexión a la base de datos
         connection = await getConnection();
 
@@ -27,22 +19,10 @@ const selectUserByIdModel = async (id) => {
         );
 
         // Si no se encuentra ningún usuario con el ID proporcionado, genera un error de "no encontrado"
-=======
-        const connection = await getConnection();
-
-        // Localizamos por id
-        const usuarios = await connection.query(
-            `SELECT id FROM usuarios WHERE id = ?`,
-            [id]
-        );
-
-        // Si no hay usuario lanzamos error
->>>>>>> origin/javi
         if (usuarios.length < 1) {
             notFoundError('usuario');
         }
 
-<<<<<<< HEAD
         // Devuelve el ID del usuario
         return usuarios[0];
     } finally {
@@ -51,12 +31,4 @@ const selectUserByIdModel = async (id) => {
     }
 };
 
-=======
-        // No existe mas de un usuario con el mismo email.
-        return usuarios[0];
-    } finally {
-        if (connection) connection.release();
-    }
-};
->>>>>>> origin/javi
 module.exports = selectUserByIdModel;

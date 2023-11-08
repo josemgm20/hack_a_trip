@@ -8,10 +8,7 @@ const authUserController = require('../middlewares/authUserController');
 const {
     insertUserController,
     loginUsersController,
-<<<<<<< HEAD
     getAllUserController,
-=======
->>>>>>> origin/javi
     getUserController,
     editAvatarController,
 } = require('../controllers/users');
@@ -25,15 +22,10 @@ router.put('/user', authUserController, editAvatarController)
 //Login de usuario
 router.post('/users/login', loginUsersController);
 
-<<<<<<< HEAD
 router.get('/users', getAllUserController);
 
 //Informacion del propio usuario.
 router.get('/user', authUserController, getUserController);
-=======
-//Informacion del propio usuario.
-router.get('/users', authUserController, getUserController);
->>>>>>> origin/javi
 
 
 

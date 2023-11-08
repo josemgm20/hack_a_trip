@@ -1,8 +1,8 @@
 const { getConnection } = require('../../db/getConnection');
 
-//Importamos error
+// Importamos error
 
-const { likeAlreadyExistsError } = require('../../services/errorService');
+const { likeAlreadyExistsError, likeAddedSuccessfully } = require('../../services/errorService');
 
 const insertLikeModel = async (recomendacionId, usuarioId) => {
     let connection;
@@ -17,17 +17,21 @@ const insertLikeModel = async (recomendacionId, usuarioId) => {
         );
 
         if (likes.length > 0) {
-            likeAlreadyExistsError();
+            // If a like already exists, throw an error
+            throw likeAlreadyExistsError();
         }
 
+        // If the user hasn't liked this recommendation, insert a new like
         await connection.query(
             `INSERT INTO likes(recomendacionId, usuarioId) VALUES(?, ?)`,
             [recomendacionId, usuarioId]
         );
+
+        // Notify that the like was added successfully
+        likeAddedSuccessfully();
     } finally {
         if (connection) connection.release();
     }
 };
-
 
 module.exports = insertLikeModel;

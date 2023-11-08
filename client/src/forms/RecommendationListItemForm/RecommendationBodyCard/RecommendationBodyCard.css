@@ -1,0 +1,25 @@
+/* RecommendationBodyCard.css */
+.megusta-button {
+  background-color: #00a680;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.megusta-button.like {
+  background-color: #ff6d01;
+}
+
+.megusta-button:hover {
+  background-color: #00906c;
+}
+
+.likes-text {
+  font-size: 1.5vw; /* Set the font size for likes to 2vw */
+  width: 0vw;
+}

@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-import React from 'react';
-import './Footer.css'
+
+
 
 function Footer() {
     return (
@@ -40,16 +39,3 @@ function Footer() {
 }
 
 export default Footer;
-=======
-import './Footer.css';
-
-const Footer = () => {
-    return (
-    <footer>
-        <p>&copy; PACO PALOTES 2023</p>
-    </footer>
-    );
-};
-
-export default Footer;
->>>>>>> origin/javi

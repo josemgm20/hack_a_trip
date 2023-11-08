@@ -15,11 +15,7 @@ const crearRecomendacionModel = async (
         connection = await getConnection();
 
         //Creamos la recomendacion en Base de Datos
-<<<<<<< HEAD
         const recomendacion = await connection.query(
-=======
-        const [recomendacion] = await connection.query(
->>>>>>> origin/javi
             `INSERT INTO recomendaciones(titulo, tipo, foto, descripcion, usuarioId) VALUES (?, ?, ?, ?, ?)`,
             [titulo, tipo, foto, descripcion, usuarioId]
         );

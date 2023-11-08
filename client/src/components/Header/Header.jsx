@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-import React from 'react';
+
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
-import { useAuth } from '../../Hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import SearchBarForm from '../../forms/SearchBarForm/SearchBarForm'; // Import the SearchBarForm component
 import './Header.css'
 
@@ -92,16 +91,3 @@ const Header = () => {
 };
 
 export default Header;
-=======
-import './Header.css';
-
-const Header = () => {
-    return (
-    <header>
-        <h1>Hack A Trip</h1>
-    </header>
-    );
-};
-
-export default Header;
->>>>>>> origin/javi
