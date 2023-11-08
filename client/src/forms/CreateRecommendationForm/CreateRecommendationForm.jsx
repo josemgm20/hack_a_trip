@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
+import { Form, Button, InputGroup, Modal, Toast, ToastContainer } from 'react-bootstrap'; // Import Toast
+
+
 import { useNavigate } from 'react-router-dom';
 import { useError } from '../../hooks/useError';
 import { useRecommendation } from '../../hooks/useRecommendation';
 import { handleAddFilePreview } from '../../utls/handleAddFilePreview';
 import { handleRemoveFilePreview } from '../../utls/handleRemoveFilePreview';
-import { Form, Button, InputGroup, Modal } from 'react-bootstrap';
+
 
 import './CreateRecommendationForm.css';
 
@@ -24,6 +27,9 @@ const RecommendationCreateForm = () => {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [confirmed, setConfirmed] = useState(false);
 
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [successToastMessage, setSuccessToastMessage] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -39,6 +45,10 @@ const RecommendationCreateForm = () => {
         setConfirmed(true);
         try {
             await handleRecommendationCreate(titulo, tipo, descripcion, file);
+
+            // Set the success message and show the success notification
+            setSuccessToastMessage('Recomendación creada con éxito');
+            setShowSuccessToast(true);
         } catch (err) {
             setErrMsg(err.message);
         }
@@ -46,6 +56,7 @@ const RecommendationCreateForm = () => {
 
     return (
         <Form className="recommendation-create-form">
+
             <Form.Group className="mb-3">
                 <Form.Control
                     type="text"
@@ -129,7 +140,20 @@ const RecommendationCreateForm = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <ToastContainer position="top-end">
+                <Toast
+                    show={showSuccessToast}
+                    onClose={() => setShowSuccessToast(false)}
+                    autohide
+                    delay={3000} // Duration to show the notification
+                    bg="success"
+                    text="white"
+                >
+                    <Toast.Body>{successToastMessage}</Toast.Body>
+                </Toast>
+            </ToastContainer>
         </Form>
+
     );
 };
 

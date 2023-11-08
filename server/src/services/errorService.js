@@ -24,7 +24,7 @@ module.exports = {
         throw {
             httpStatus: 401, // Unauthorized
             code: 'INVALID_TOKEN',
-            message: 'Token inválido',
+            message: 'Primero incia sesion',
         };
     },
     likeAlreadyExistsError() {
@@ -70,3 +70,6 @@ module.exports = {
         };
     },
 };
+
+
+

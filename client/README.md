@@ -40,7 +40,7 @@ Sigue estos pasos para poner en marcha tu proyecto:
 
     Este comando iniciará el servidor de desarrollo, y deberías ver un mensaje indicando que el servidor está en funcionamiento. La aplicación estará disponible en `http://localhost:5173`.
 
-    NOTA: Asegurate que el servidor de NODE este en funcionamiento en `http://localhost:3000`.
+    NOTA: Asegurate que el servidor de NODE este en funcionamiento en `http://localhost:8080`.
 
 5. **Abre la Aplicación:**
 

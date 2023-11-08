@@ -139,7 +139,7 @@ export const useRecommendation = () => {
                 throw new Error(body.message);
             }
 
-            navigate('/explore');
+            navigate('/new-recommendation-successfully-created');
         } catch (err) {
             setErrMsg(err.message);
         } finally {

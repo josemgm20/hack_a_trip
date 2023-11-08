@@ -14,7 +14,9 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import SignOnPage from './pages/SignOnPage/SignOnPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import RegistrationSuccess from './pages/RegisterPage/RegistrationSuccess';
+
 import CreateRecommendationPage from './pages/CreateRecommendationPage/CreateRecommendationPage'
+import CreatedRecommendationSuccessfullyForm from './forms/CreateRecommendationForm/CreatedRecommendationSuccessfullyForm'
 // import para recomendaciones
 import RecommendationListItemPage from './pages/RecommendationListItemPage/RecommendationListItemPage';
 
@@ -47,6 +49,9 @@ const App = () => {
         <Route path="/explore" element={<RecommendationListItemPage authUser />} />
         {/* Ruta para explorar contenido recomendado */}
         <Route path="/new-recommendation" element={<CreateRecommendationPage />} />
+
+        <Route path="/new-recommendation-successfully-created" element={<CreatedRecommendationSuccessfullyForm />} />
+
 
         <Route path="*" element={<NotFound />} />
       </Routes>
